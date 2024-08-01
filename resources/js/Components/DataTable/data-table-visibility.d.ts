@@ -1,0 +1,1 @@
+interface DataTableVisibilityProps extends DropdownMenuProps {}

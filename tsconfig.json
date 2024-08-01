@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"jsx": "preserve",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"module": "esnext",
+		"moduleResolution": "node",
+		"noEmit": false,
+		"paths": {
+			"@narsil-table/*": ["./resources/js/*"],
+			"@narsil-ui/*": ["./vendor/narsil/ui/resources/js/*"]
+		},
+		"resolveJsonModule": true,
+		"skipLibCheck": false,
+		"strict": true,
+		"target": "esnext"
+	},
+	"include": ["resources/js/**/*.d.ts", "resources/js/**/*.ts", "resources/js/**/*.tsx", "vendor/narsil/**/*.d.ts"],
+	"exclude": ["node_modules"]
+}
