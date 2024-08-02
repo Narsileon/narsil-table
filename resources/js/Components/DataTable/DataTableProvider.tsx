@@ -151,7 +151,7 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 		state: {
 			columnFilters: tableStore.columnFilters,
 			columnOperators: tableStore.columnOperators,
-			columnOrder: tableStore.columnOperators,
+			columnOrder: tableStore.columnOrder,
 			columnSizing: tableStore.columnSizing,
 			columnVisibility: tableStore.columnVisibility,
 			expanded: tableStore.expanded,

@@ -20,17 +20,19 @@ const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow key={headerGroup.id}>
-								{headerGroup.headers.map((header, index) => {
-									return (
-										<SortableContext
-											items={table.getState().columnOrder}
-											strategy={horizontalListSortingStrategy}
-											key={index}
-										>
-											<DataTableHead header={header} />
-										</SortableContext>
-									);
-								})}
+								<SortableContext
+									items={table.getState().columnOrder}
+									strategy={horizontalListSortingStrategy}
+								>
+									{headerGroup.headers.map((header) => {
+										return (
+											<DataTableHead
+												header={header}
+												key={header.id}
+											/>
+										);
+									})}
+								</SortableContext>
 							</TableRow>
 						))}
 					</TableHeader>
