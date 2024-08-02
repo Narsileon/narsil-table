@@ -121,7 +121,7 @@ class TableCollection extends ResourceCollection
     {
         $pageSize = 10;
 
-        if ($size = request(Tables::PAGINATION . '.' . Tables::PAGE_SIZE))
+        if ($size = request(Tables::PAGE_SIZE))
         {
             $pageSize = $size;
         }

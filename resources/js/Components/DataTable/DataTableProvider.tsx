@@ -130,7 +130,7 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 		tableStore.setPagination(
 			typeof pagination === "function"
 				? pagination({
-						pageIndex: currentPage,
+						pageIndex: tableStore.pageIndex,
 						pageSize: tableStore.pageSize,
 				  })
 				: pagination
@@ -158,7 +158,7 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 			globalFilter: tableStore.globalFilter,
 			grouping: tableStore.grouping,
 			pagination: {
-				pageIndex: currentPage,
+				pageIndex: 0,
 				pageSize: tableStore.pageSize,
 			},
 			sorting: tableStore.sorting,
