@@ -11,12 +11,9 @@ type State = {
 	expanded: Record<string, boolean>;
 	globalFilter: string;
 	grouping: any[];
+	pageSize: number;
 	sorting: any[];
 	specialFilters: any[];
-	pagination: {
-		pageIndex: number;
-		pageSize: number;
-	};
 };
 
 type Actions = {
@@ -43,10 +40,7 @@ const defaultState: State = {
 	expanded: {},
 	globalFilter: "",
 	grouping: [],
-	pagination: {
-		pageIndex: 0,
-		pageSize: 10,
-	},
+	pageSize: 10,
 	sorting: [],
 	specialFilters: [],
 };
@@ -64,7 +58,7 @@ const createTableStore = ({ id, initialState }: CreateTableStoreProps) =>
 				...initialState,
 				getParams: () => {
 					const params = {
-						pagination: get().pagination,
+						pageSize: get().pageSize,
 						sorting: get().sorting,
 					};
 					const filteredParams = omitBy(
@@ -73,17 +67,17 @@ const createTableStore = ({ id, initialState }: CreateTableStoreProps) =>
 					);
 					return filteredParams;
 				},
-				setColumnFilters: (columnFilters) => set({ columnFilters }),
-				setColumnOperators: (columnOperators) => set({ columnOperators }),
-				setColumnOrder: (columnOrder) => set({ columnOrder }),
-				setColumnSizing: (columnSizing) => set({ columnSizing }),
-				setColumnVisibility: (columnVisibility) => set({ columnVisibility }),
-				setExpanded: (expanded) => set({ expanded }),
-				setGlobalFilter: (globalFilter) => set({ globalFilter }),
-				setGrouping: (grouping) => set({ grouping }),
-				setSorting: (sorting) => set({ sorting }),
-				setSpecialFilters: (specialFilters) => set({ specialFilters }),
-				setPagination: (pagination) => set({ pagination }),
+				setColumnFilters: (columnFilters) => set({ columnFilters: columnFilters }),
+				setColumnOperators: (columnOperators) => set({ columnOperators: columnOperators }),
+				setColumnOrder: (columnOrder) => set({ columnOrder: columnOrder }),
+				setColumnSizing: (columnSizing) => set({ columnSizing: columnSizing }),
+				setColumnVisibility: (columnVisibility) => set({ columnVisibility: columnVisibility }),
+				setExpanded: (expanded) => set({ expanded: expanded }),
+				setGlobalFilter: (globalFilter) => set({ globalFilter: globalFilter }),
+				setGrouping: (grouping) => set({ grouping: grouping }),
+				setSorting: (sorting) => set({ sorting: sorting }),
+				setSpecialFilters: (specialFilters) => set({ specialFilters: specialFilters }),
+				setPagination: (pagination) => set({ pageSize: pagination.pageSize }),
 			}),
 			{
 				name: `app:tables:${id}`,

@@ -75,13 +75,14 @@ type TableContextType = {
 interface DataTableProviderProps {
 	children: React.ReactNode;
 	columns: ColumnDef<any, any>[];
+	currentPage: number;
 	data: any[];
 	id: string;
 }
 
 const DataTableContext = createContext<TableContextType | null>(null);
 
-const DataTableProvider = ({ children, columns, data, id }: DataTableProviderProps) => {
+const DataTableProvider = ({ children, columns, currentPage, data, id }: DataTableProviderProps) => {
 	function getColumnOrder() {
 		const columnOrder = columns.reduce((array: string[], column) => {
 			if (!isString(column.id) || array.includes(column.id)) {
@@ -100,10 +101,7 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 				id: id,
 				initialState: {
 					columnOrder: getColumnOrder(),
-					pagination: {
-						pageIndex: 0,
-						pageSize: 10,
-					},
+					pageSize: 10,
 				},
 			}),
 		[id]
@@ -150,7 +148,14 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 	};
 
 	const handlePaginationChange = (pagination: PaginationState | ((old: PaginationState) => PaginationState)) => {
-		tableStore.setPagination(typeof pagination === "function" ? pagination(tableStore.pagination) : pagination);
+		tableStore.setPagination(
+			typeof pagination === "function"
+				? pagination({
+						pageIndex: currentPage,
+						pageSize: tableStore.pageSize,
+				  })
+				: pagination
+		);
 	};
 
 	const handleSortingChange = (updaterOrValue: Updater<SortingState> | SortingState) => {
@@ -177,7 +182,10 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 			expanded: tableStore.expanded,
 			globalFilter: tableStore.globalFilter,
 			grouping: tableStore.grouping,
-			pagination: tableStore.pagination,
+			pagination: {
+				pageIndex: currentPage,
+				pageSize: tableStore.pageSize,
+			},
 			sorting: tableStore.sorting,
 			specialFilters: tableStore.specialFilters,
 		},

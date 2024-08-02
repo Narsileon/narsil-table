@@ -26,6 +26,18 @@ abstract class Tables
     /**
      * @var string
      */
+    final public const PAGE = 'page';
+    /**
+     * @var string
+     */
+    final public const PAGE_SIZE = 'pageSize';
+    /**
+     * @var string
+     */
+    final public const PAGINATION = 'pagination';
+    /**
+     * @var string
+     */
     final public const RELATIONSHIP = 'relationship';
     /**
      * @var string
