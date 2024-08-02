@@ -6,6 +6,10 @@ const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePagination
 	({ collection, ...props }, ref) => {
 		const { tableStore } = useDataTable();
 
+		React.useEffect(() => {
+			tableStore.setPageIndex(collection.meta.currentPage);
+		}, [collection.meta.currentPage]);
+
 		return (
 			<Pagination
 				ref={ref}

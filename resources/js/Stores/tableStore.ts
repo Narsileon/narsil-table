@@ -67,6 +67,14 @@ const createTableStore = ({ id, initialState }: CreateTableStoreProps) =>
 					set({
 						grouping: grouping,
 					}),
+				setPageIndex: (pageIndex) =>
+					set({
+						pageIndex: pageIndex,
+					}),
+				setPageSize: (pageSize) =>
+					set({
+						pageSize: pageSize,
+					}),
 				setPagination: (pagination) =>
 					set({
 						pageIndex: pagination.pageIndex,
