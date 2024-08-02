@@ -65,14 +65,13 @@ type TableContextType = {
 interface DataTableProviderProps {
 	children: React.ReactNode;
 	columns: ColumnDef<any, any>[];
-	currentPage: number;
 	data: any[];
 	id: string;
 }
 
 const DataTableContext = createContext<TableContextType | null>(null);
 
-const DataTableProvider = ({ children, columns, currentPage, data, id }: DataTableProviderProps) => {
+const DataTableProvider = ({ children, columns, data, id }: DataTableProviderProps) => {
 	function getColumnOrder() {
 		const columnOrder = columns.reduce((array: string[], column) => {
 			if (!isString(column.id) || array.includes(column.id)) {

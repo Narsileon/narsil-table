@@ -5,7 +5,7 @@ type Collection = {
 };
 
 type Meta = {
-	currentPage: number;
+	current_page: number;
 	from: number;
 	grouping_from: number | null;
 	grouping_to: number | null;
