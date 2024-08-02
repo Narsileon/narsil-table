@@ -27,11 +27,7 @@ const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }
 											strategy={horizontalListSortingStrategy}
 											key={index}
 										>
-											<DataTableHead
-												columnOrder={table.getState().columnOrder}
-												header={header}
-												setColumnOrder={table.setColumnOrder}
-											/>
+											<DataTableHead header={header} />
 										</SortableContext>
 									);
 								})}

@@ -6,7 +6,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
 
-const DataTableHead = ({ columnOrder, header, setColumnOrder, ...props }: DataTableHeadProps) => {
+const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 	const { attributes, isDragging, listeners, setNodeRef, transform } = useSortable({
 		id: header.column.id,
 	});
@@ -22,16 +22,6 @@ const DataTableHead = ({ columnOrder, header, setColumnOrder, ...props }: DataTa
 	};
 
 	const { trans } = useTranslationsStore();
-
-	const reorderColumn = (draggedColumnId: string, targetColumnId: string) => {
-		columnOrder.splice(
-			columnOrder.indexOf(targetColumnId),
-			0,
-			columnOrder.splice(columnOrder.indexOf(draggedColumnId), 1)[0]
-		);
-
-		return [...columnOrder];
-	};
 
 	return (
 		<TableHead

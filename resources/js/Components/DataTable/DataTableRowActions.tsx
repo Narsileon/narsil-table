@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 import { MoreHorizontal } from "lucide-react";
-import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
+import * as React from "react";
 
 import {
 	Button,
@@ -11,15 +11,7 @@ import {
 	DropdownMenuTrigger,
 } from "@narsil-ui/Components";
 
-const DataTableRowActions = ({
-	createHref,
-	deleteHref,
-	duplicateHref,
-	editHref,
-	viewHref,
-}: DataTableRowActionsProps) => {
-	const { trans } = useTranslationsStore();
-
+const DataTableRowActions = ({ actions }: DataTableRowActionsProps) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild={true}>
@@ -32,47 +24,22 @@ const DataTableRowActions = ({
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end'>
-				{viewHref ? (
-					<>
-						<DropdownMenuItem>
-							<Link href={viewHref}>{trans("View")}</Link>
+				{actions?.map((action, index) =>
+					action.options ? (
+						<React.Fragment key={index}>
+							{index > 0 ? <DropdownMenuSeparator /> : null}
+							{action.options.map((subAction, subIndex) => (
+								<DropdownMenuItem key={subIndex}>
+									<Link href={subAction.value as string}>{subAction.label}</Link>
+								</DropdownMenuItem>
+							))}
+						</React.Fragment>
+					) : (
+						<DropdownMenuItem key={index}>
+							<Link href={action.value as string}>{action.label}</Link>
 						</DropdownMenuItem>
-					</>
-				) : null}
-
-				<DropdownMenuSeparator />
-
-				{createHref ? (
-					<>
-						<DropdownMenuItem>
-							<Link href={createHref}>{trans("Create")}</Link>
-						</DropdownMenuItem>
-					</>
-				) : null}
-				{editHref ? (
-					<>
-						<DropdownMenuItem>
-							<Link href={editHref}>{trans("Edit")}</Link>
-						</DropdownMenuItem>
-					</>
-				) : null}
-				{duplicateHref ? (
-					<>
-						<DropdownMenuItem>
-							<Link href={duplicateHref}>{trans("Duplicate")}</Link>
-						</DropdownMenuItem>
-					</>
-				) : null}
-
-				<DropdownMenuSeparator />
-
-				{deleteHref ? (
-					<>
-						<DropdownMenuItem>
-							<Link href={deleteHref}>{trans("Delete")}</Link>
-						</DropdownMenuItem>
-					</>
-				) : null}
+					)
+				)}
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
