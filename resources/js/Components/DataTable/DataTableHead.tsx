@@ -30,17 +30,17 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 			style={style}
 			{...props}
 		>
-			<div
-				{...attributes}
-				{...listeners}
-				className='flex items-center justify-between'
-			>
+			<div className='flex items-center justify-between'>
 				<Popover>
 					<PopoverTrigger
 						className='grow'
 						asChild={true}
 					>
-						<Button variant='ghost'>
+						<Button
+							variant='ghost'
+							{...attributes}
+							{...listeners}
+						>
 							{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
 						</Button>
 					</PopoverTrigger>
