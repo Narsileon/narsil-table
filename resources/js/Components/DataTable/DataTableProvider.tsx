@@ -30,6 +30,7 @@ import {
 	TableState,
 	useReactTable,
 } from "@tanstack/react-table";
+import { useLocalStorage } from "react-use";
 
 declare module "@tanstack/table-core" {
 	interface TableMeta<TData> {
@@ -68,16 +69,17 @@ type TableContextType = {
 	table: Table<unknown>;
 };
 
-interface DataTableProviderProps<TData, TValue> {
-	columns: ColumnDef<TData, TValue>[];
-	data: TData[];
+interface DataTableProviderProps {
+	children: React.ReactNode;
+	columns: ColumnDef<any, any>[];
+	data: any[];
 	id: string;
 }
 
 const DataTableContext = createContext<TableContextType | null>(null);
 
 const DataTableProvider = ({ children, columns, data, id }: DataTableProviderProps) => {
-	const localStorageKey = getLocalStorageKey({ component: "table", id: id });
+	const localStorageKey = `app:tables:${id}`;
 
 	function getColumnOrder(columns: ColumnDef<any, any>[]) {
 		const columnOrder = columns.reduce((array: string[], column) => {
