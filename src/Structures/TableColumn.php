@@ -221,7 +221,7 @@ final class TableColumn
                 return Types::ICON;
         }
 
-        switch ($this->type)
+        switch ($this->typeName)
         {
             case DBTypes::BIGINT:
             case DBTypes::INT:
