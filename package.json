@@ -8,6 +8,7 @@
 		"build": "vite build"
 	},
 	"devDependencies": {
+		"@inertiajs/react": "^1.0",
 		"@tailwindcss/typography": "^0.5",
 		"@types/lodash": "^4.17",
 		"@types/react-dom": "^18.2",

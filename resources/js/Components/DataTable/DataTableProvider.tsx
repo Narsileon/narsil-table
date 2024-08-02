@@ -1,6 +1,6 @@
 import { arrayMove } from "@dnd-kit/sortable";
 import { createContext, useContext } from "react";
-import { isString } from "lodash";
+import { debounce, isString } from "lodash";
 import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 import React from "react";
 
@@ -31,6 +31,7 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 import { useLocalStorage } from "react-use";
+import { router } from "@inertiajs/react";
 
 declare module "@tanstack/table-core" {
 	interface TableMeta<TData> {
@@ -197,6 +198,21 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 	}
 
 	const sensors = useSensors(useSensor(MouseSensor, {}), useSensor(TouchSensor, {}), useSensor(KeyboardSensor, {}));
+
+	const filter = React.useCallback(
+		debounce((params) => {
+			router.get(window.localStorage.href, params, {
+				preserveState: true,
+			});
+		}, 300),
+		[]
+	);
+
+	React.useEffect(() => {
+		filter(tableCache);
+
+		return () => filter.cancel();
+	}, [tableCache]);
 
 	return (
 		<DataTableContext.Provider
