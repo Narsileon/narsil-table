@@ -2,7 +2,9 @@ import { arrayMove } from "@dnd-kit/sortable";
 import { createContext, useContext } from "react";
 import { debounce, isString } from "lodash";
 import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
-import React from "react";
+import { router } from "@inertiajs/react";
+import * as React from "react";
+import createTableStore from "@narsil-table/Stores/tableStore";
 
 import {
 	type DragEndEvent,
@@ -26,12 +28,12 @@ import {
 	getGroupedRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
+	PaginationState,
+	SortingState,
 	Table,
-	TableState,
+	Updater,
 	useReactTable,
 } from "@tanstack/react-table";
-import { useLocalStorage } from "react-use";
-import { router } from "@inertiajs/react";
 
 declare module "@tanstack/table-core" {
 	interface TableMeta<TData> {
@@ -80,9 +82,7 @@ interface DataTableProviderProps {
 const DataTableContext = createContext<TableContextType | null>(null);
 
 const DataTableProvider = ({ children, columns, data, id }: DataTableProviderProps) => {
-	const localStorageKey = `app:tables:${id}`;
-
-	function getColumnOrder(columns: ColumnDef<any, any>[]) {
+	function getColumnOrder() {
 		const columnOrder = columns.reduce((array: string[], column) => {
 			if (!isString(column.id) || array.includes(column.id)) {
 				return array;
@@ -94,56 +94,73 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 		return columnOrder;
 	}
 
-	const [tableCache, setTableCache] = useLocalStorage<Partial<TableState>>(localStorageKey);
-
-	const [columnFilters, setColumnFilters] = React.useState(tableCache?.columnFilters ?? []);
-	const [columnOperators, setColumnOperators] = React.useState(tableCache?.columnOperators ?? []);
-	const [columnOrder, setColumnOrder] = React.useState(getColumnOrder(columns));
-	const [columnSizing, setColumnSizing] = React.useState(tableCache?.columnSizing ?? {});
-	const [columnVisibility, setColumnVisibility] = React.useState(tableCache?.columnVisibility ?? {});
-	const [expanded, setExpanded] = React.useState(tableCache?.expanded ?? {});
-	const [globalFilter, setGlobalFilter] = React.useState(tableCache?.globalFilter ?? "");
-	const [grouping, setGrouping] = React.useState(tableCache?.grouping ?? []);
-	const [sorting, setSorting] = React.useState(tableCache?.sorting ?? []);
-	const [specialFilters, setSpecialFilters] = React.useState(tableCache?.specialFilters ?? []);
-
-	const [pagination, setPagination] = React.useState(
-		tableCache?.pagination ?? {
-			pageIndex: 0,
-			pageSize: 10,
-		}
+	const useTableStore = React.useMemo(
+		() =>
+			createTableStore({
+				id: id,
+				initialState: {
+					columnOrder: getColumnOrder(),
+					pagination: {
+						pageIndex: 0,
+						pageSize: 10,
+					},
+				},
+			}),
+		[id]
 	);
 
-	React.useEffect(() => {
-		handleTableCacheChange("columnFilters", columnFilters);
-	}, [columnFilters]);
-	React.useEffect(() => {
-		handleTableCacheChange("columnOrder", columnOrder);
-	}, [columnOrder]);
-	React.useEffect(() => {
-		handleTableCacheChange("columnSizing", columnSizing);
-	}, [columnSizing]);
-	React.useEffect(() => {
-		handleTableCacheChange("columnVisibility", columnVisibility);
-	}, [columnVisibility]);
-	React.useEffect(() => {
-		handleTableCacheChange("grouping", grouping);
-	}, [grouping]);
-	React.useEffect(() => {
-		handleTableCacheChange("sorting", sorting);
-	}, [sorting]);
-
-	const handleTableCacheChange = (key: keyof TableState, value: any) => {
-		if (value) {
-			setTableCache((previous) => ({
-				...previous,
-				[key]: value,
-			}));
-		}
-	};
+	const tableStore = useTableStore((state) => state);
 
 	const defaultColumn = {
 		minSize: 100,
+	};
+
+	const handleColumnFiltersChange = (filters: any[] | ((old: any[]) => any[])) => {
+		tableStore.setColumnFilters(typeof filters === "function" ? filters(tableStore.columnFilters) : filters);
+	};
+
+	const handleColumnOrderChange = (order: string[] | ((old: string[]) => string[])) => {
+		tableStore.setColumnOrder(typeof order === "function" ? order(tableStore.columnOrder) : order);
+	};
+
+	const handleColumnSizingChange = (
+		sizing: Record<string, number> | ((old: Record<string, number>) => Record<string, number>)
+	) => {
+		tableStore.setColumnSizing(typeof sizing === "function" ? sizing(tableStore.columnSizing) : sizing);
+	};
+
+	const handleColumnVisibilityChange = (
+		visibility: Record<string, boolean> | ((old: Record<string, boolean>) => Record<string, boolean>)
+	) => {
+		tableStore.setColumnVisibility(
+			typeof visibility === "function" ? visibility(tableStore.columnVisibility) : visibility
+		);
+	};
+
+	const handleExpandedChange = (
+		expanded: Record<string, boolean> | ((old: Record<string, boolean>) => Record<string, boolean>)
+	) => {
+		tableStore.setExpanded(typeof expanded === "function" ? expanded(tableStore.expanded) : expanded);
+	};
+
+	const handleGlobalFilterChange = (filter: string) => tableStore.setGlobalFilter(filter);
+
+	const handleGroupingChange = (grouping: any[] | ((old: any[]) => any[])) => {
+		tableStore.setGrouping(typeof grouping === "function" ? grouping(tableStore.grouping) : grouping);
+	};
+
+	const handlePaginationChange = (pagination: PaginationState | ((old: PaginationState) => PaginationState)) => {
+		tableStore.setPagination(typeof pagination === "function" ? pagination(tableStore.pagination) : pagination);
+	};
+
+	const handleSortingChange = (updaterOrValue: Updater<SortingState> | SortingState) => {
+		if (typeof updaterOrValue === "function") {
+			// If updaterOrValue is a function, call it with the current sorting state
+			tableStore.setSorting(updaterOrValue(tableStore.sorting));
+		} else {
+			// If updaterOrValue is a value, set it directly
+			tableStore.setSorting(updaterOrValue);
+		}
 	};
 
 	const table = useReactTable({
@@ -152,17 +169,17 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 		data: data,
 		defaultColumn: defaultColumn,
 		state: {
-			columnFilters: columnFilters,
-			columnOperators: columnOperators,
-			columnOrder: columnOrder,
-			columnSizing: columnSizing,
-			columnVisibility: columnVisibility,
-			expanded: expanded,
-			globalFilter: globalFilter,
-			grouping: grouping,
-			pagination: pagination,
-			sorting: sorting,
-			specialFilters: specialFilters,
+			columnFilters: tableStore.columnFilters,
+			columnOperators: tableStore.columnOperators,
+			columnOrder: tableStore.columnOperators,
+			columnSizing: tableStore.columnSizing,
+			columnVisibility: tableStore.columnVisibility,
+			expanded: tableStore.expanded,
+			globalFilter: tableStore.globalFilter,
+			grouping: tableStore.grouping,
+			pagination: tableStore.pagination,
+			sorting: tableStore.sorting,
+			specialFilters: tableStore.specialFilters,
 		},
 		getCoreRowModel: getCoreRowModel(),
 		getExpandedRowModel: getExpandedRowModel(),
@@ -173,15 +190,15 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 		getGroupedRowModel: getGroupedRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
-		onColumnFiltersChange: setColumnFilters,
-		onColumnOrderChange: setColumnOrder,
-		onColumnSizingChange: setColumnSizing,
-		onColumnVisibilityChange: setColumnVisibility,
-		onExpandedChange: setExpanded,
-		onGlobalFilterChange: setGlobalFilter,
-		onGroupingChange: setGrouping,
-		onPaginationChange: setPagination,
-		onSortingChange: setSorting,
+		onColumnFiltersChange: handleColumnFiltersChange,
+		onColumnOrderChange: handleColumnOrderChange,
+		onColumnSizingChange: handleColumnSizingChange,
+		onColumnVisibilityChange: handleColumnVisibilityChange,
+		onExpandedChange: handleExpandedChange,
+		onGlobalFilterChange: handleGlobalFilterChange,
+		onGroupingChange: handleGroupingChange,
+		onPaginationChange: handlePaginationChange,
+		onSortingChange: handleSortingChange,
 	});
 
 	function handleDragEnd(event: DragEndEvent) {
@@ -201,7 +218,7 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 
 	const filter = React.useCallback(
 		debounce((params) => {
-			router.get(window.localStorage.href, params, {
+			router.get(window.location.href, params, {
 				preserveState: true,
 			});
 		}, 300),
@@ -209,10 +226,10 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 	);
 
 	React.useEffect(() => {
-		filter(tableCache);
+		filter(tableStore.getParams());
 
 		return () => filter.cancel();
-	}, [tableCache]);
+	}, [tableStore]);
 
 	return (
 		<DataTableContext.Provider
