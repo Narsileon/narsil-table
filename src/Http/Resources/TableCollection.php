@@ -7,6 +7,7 @@ namespace Narsil\Table\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use JsonSerializable;
+use Narsil\Table\Services\TableService;
 
 #endregion
 
@@ -19,10 +20,24 @@ class TableCollection extends ResourceCollection
 {
     #region CONSTUCTORS
 
-    public function __construct($resource,)
+    /**
+     * @param mixed $resource
+     * @param string $table
+     *
+     * @return void
+     */
+    public function __construct(mixed $resource, string $table)
     {
+        $this->table = $table;
+
         parent::__construct($resource->paginate());
     }
+
+    #endregion
+
+    #region PROPERTIES
+
+    protected readonly string $table;
 
     #endregion
 
@@ -48,9 +63,11 @@ class TableCollection extends ResourceCollection
      */
     public function with($request): array
     {
+        $columns = $this->getColumns();
         $meta = $this->getMeta();
 
         return compact(
+            'columns',
             'meta',
         );
     }
@@ -58,6 +75,14 @@ class TableCollection extends ResourceCollection
     #endregion
 
     #region PROTECTED METHODS
+
+    /**
+     * @return array
+     */
+    protected function getColumns(): array
+    {
+        return TableService::getModelColumns($this->table);
+    }
 
     /**
      * @return array
