@@ -1,3 +1,1 @@
-interface DataTableProps extends ScrollAreaProps {
-	locale: string;
-}
+interface DataTableProps extends ScrollAreaProps {}

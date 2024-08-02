@@ -3,10 +3,13 @@ import { CSS } from "@dnd-kit/utilities";
 import { isBoolean } from "lodash";
 import { TableCell } from "@narsil-ui/Components";
 import { useSortable } from "@dnd-kit/sortable";
+import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
 import moment from "moment/min/moment-with-locales";
 
-const DataTableCell = ({ cell, format, locale, grouping }: DataTableCellProps) => {
+const DataTableCell = ({ cell, format, grouping }: DataTableCellProps) => {
+	const { locale } = useTranslationsStore();
+
 	const { isDragging, setNodeRef, transform } = useSortable({
 		id: cell.column.id,
 	});

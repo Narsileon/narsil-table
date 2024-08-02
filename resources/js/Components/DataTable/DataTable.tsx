@@ -5,7 +5,7 @@ import { useDataTable } from "@narsil-table/Components";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
 
-const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ locale, ...props }, ref) => {
+const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }, ref) => {
 	const { table } = useDataTable();
 	const { trans } = useTranslationsStore();
 
@@ -53,7 +53,6 @@ const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ locale, ..
 											<DataTableCell
 												cell={cell}
 												grouping={table.getState().grouping}
-												locale={locale}
 												key={cell.id}
 											/>
 										))}
