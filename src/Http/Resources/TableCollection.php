@@ -32,6 +32,13 @@ class TableCollection extends ResourceCollection
     {
         $this->table = $table;
 
+        if ($resource->count() > 0)
+        {
+            $sortings = $this->getSortings();
+
+            $resource = $resource->sortBy($sortings);
+        }
+
         parent::__construct($this->paginate($resource));
     }
 
@@ -103,15 +110,7 @@ class TableCollection extends ResourceCollection
      */
     private function getPageIndex(): int
     {
-        $pageIndex = 1;
-
-        if ($index = request(Tables::PAGE))
-        {
-
-            $pageIndex = $index;
-        }
-
-        return $pageIndex;
+        return request(Tables::PAGE, 1);
     }
 
     /**
@@ -119,14 +118,27 @@ class TableCollection extends ResourceCollection
      */
     private function getPageSize(): int
     {
-        $pageSize = 10;
+        return request(Tables::PAGE_SIZE, 10);
+    }
 
-        if ($size = request(Tables::PAGE_SIZE))
+    /**
+     * @return array
+     */
+    private function getSortings(): array
+    {
+        $sorting = request(Tables::SORTING, []);
+
+        $sortings = [];
+
+        foreach ($sorting as $key => $value)
         {
-            $pageSize = $size;
+            $sortings[] = [
+                $key,
+                $value,
+            ];
         }
 
-        return $pageSize;
+        return $sortings;
     }
 
     private function paginate($items): LengthAwarePaginator

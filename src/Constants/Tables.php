@@ -42,6 +42,10 @@ abstract class Tables
     /**
      * @var string
      */
+    final public const SORTING = 'sorting';
+    /**
+     * @var string
+     */
     final public const TYPE = 'type';
 
     #endregion

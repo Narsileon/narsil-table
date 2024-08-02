@@ -198,8 +198,8 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 	}
 
 	const filter = React.useCallback(
-		debounce((params) => {
-			router.get(window.location.href, params, {
+		debounce((href, params) => {
+			router.get(href, params, {
 				preserveState: true,
 			});
 		}, 300),
@@ -207,7 +207,9 @@ const DataTableProvider = ({ children, columns, data, id }: DataTableProviderPro
 	);
 
 	React.useEffect(() => {
-		filter(tableStore.getParams());
+		const href = window.location.href.replace(location.search, "");
+
+		filter(href, tableStore.getParams());
 
 		return () => filter.cancel();
 	}, [tableStore.pageSize, tableStore.sorting]);
