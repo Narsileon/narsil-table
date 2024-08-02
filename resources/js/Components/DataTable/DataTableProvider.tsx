@@ -211,7 +211,7 @@ const DataTableProvider = ({ children, columns, currentPage, data, id }: DataTab
 		filter(tableStore.getParams());
 
 		return () => filter.cancel();
-	}, [tableStore]);
+	}, [tableStore.pageSize, tableStore.sorting]);
 
 	const sensors = useSensors(useSensor(MouseSensor, {}), useSensor(TouchSensor, {}), useSensor(KeyboardSensor, {}));
 
