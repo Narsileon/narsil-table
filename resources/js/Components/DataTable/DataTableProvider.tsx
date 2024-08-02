@@ -19,6 +19,10 @@ import {
 
 import {
 	ColumnDef,
+	ColumnFiltersState,
+	ColumnOrderState,
+	ColumnSizingState,
+	ExpandedState,
 	getCoreRowModel,
 	getExpandedRowModel,
 	getFacetedMinMaxValues,
@@ -28,48 +32,34 @@ import {
 	getGroupedRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
+	GroupingState,
 	PaginationState,
 	SortingState,
 	Table,
 	Updater,
 	useReactTable,
+	VisibilityState,
 } from "@tanstack/react-table";
 
 declare module "@tanstack/table-core" {
-	interface TableMeta<TData> {
-		filterable: boolean;
-		manual: boolean;
-		getLayout: () => { [key: string]: any };
-		reload: () => void;
-		save: () => void;
-		setAutoUpdate: (value: boolean) => void;
-		setColumnOperators: (value: []) => void;
-		setData: (value: []) => void;
-		setSpecialFilters: (value: []) => void;
-		template: {
-			id: number;
-			name: string;
-			type: string;
-		};
-	}
-
 	interface Cell<TData, TValue> {
 		format?: string;
 	}
 
-	interface TableOptions<TData> {
-		paginated?: boolean;
+	interface TableMeta<TData> {
+		setColumnOperators: (value: []) => void;
+		setQuickFilters: (value: []) => void;
 	}
 
 	interface TableState {
-		autoUpdate?: boolean;
-		columnOperators?: [];
-		specialFilters?: [];
+		columnOperators?: any[];
+		quickFilters?: any[];
 	}
 }
 
 type TableContextType = {
 	table: Table<unknown>;
+	tableStore: TableStoreType;
 };
 
 interface DataTableProviderProps {
@@ -109,41 +99,31 @@ const DataTableProvider = ({ children, columns, currentPage, data, id }: DataTab
 
 	const tableStore = useTableStore((state) => state);
 
-	const defaultColumn = {
-		minSize: 100,
-	};
-
-	const handleColumnFiltersChange = (filters: any[] | ((old: any[]) => any[])) => {
+	const handleColumnFiltersChange = (
+		filters: ColumnFiltersState | ((old: ColumnFiltersState) => ColumnFiltersState)
+	) => {
 		tableStore.setColumnFilters(typeof filters === "function" ? filters(tableStore.columnFilters) : filters);
 	};
 
-	const handleColumnOrderChange = (order: string[] | ((old: string[]) => string[])) => {
+	const handleColumnOrderChange = (order: ColumnOrderState | ((old: ColumnOrderState) => ColumnOrderState)) => {
 		tableStore.setColumnOrder(typeof order === "function" ? order(tableStore.columnOrder) : order);
 	};
 
-	const handleColumnSizingChange = (
-		sizing: Record<string, number> | ((old: Record<string, number>) => Record<string, number>)
-	) => {
+	const handleColumnSizingChange = (sizing: ColumnSizingState | ((old: ColumnSizingState) => ColumnSizingState)) => {
 		tableStore.setColumnSizing(typeof sizing === "function" ? sizing(tableStore.columnSizing) : sizing);
 	};
 
-	const handleColumnVisibilityChange = (
-		visibility: Record<string, boolean> | ((old: Record<string, boolean>) => Record<string, boolean>)
-	) => {
+	const handleColumnVisibilityChange = (visibility: VisibilityState | ((old: VisibilityState) => VisibilityState)) => {
 		tableStore.setColumnVisibility(
 			typeof visibility === "function" ? visibility(tableStore.columnVisibility) : visibility
 		);
 	};
 
-	const handleExpandedChange = (
-		expanded: Record<string, boolean> | ((old: Record<string, boolean>) => Record<string, boolean>)
-	) => {
+	const handleExpandedChange = (expanded: ExpandedState | ((old: ExpandedState) => ExpandedState)) => {
 		tableStore.setExpanded(typeof expanded === "function" ? expanded(tableStore.expanded) : expanded);
 	};
 
-	const handleGlobalFilterChange = (filter: string) => tableStore.setGlobalFilter(filter);
-
-	const handleGroupingChange = (grouping: any[] | ((old: any[]) => any[])) => {
+	const handleGroupingChange = (grouping: GroupingState | ((old: GroupingState) => GroupingState)) => {
 		tableStore.setGrouping(typeof grouping === "function" ? grouping(tableStore.grouping) : grouping);
 	};
 
@@ -158,21 +138,17 @@ const DataTableProvider = ({ children, columns, currentPage, data, id }: DataTab
 		);
 	};
 
-	const handleSortingChange = (updaterOrValue: Updater<SortingState> | SortingState) => {
-		if (typeof updaterOrValue === "function") {
-			// If updaterOrValue is a function, call it with the current sorting state
-			tableStore.setSorting(updaterOrValue(tableStore.sorting));
-		} else {
-			// If updaterOrValue is a value, set it directly
-			tableStore.setSorting(updaterOrValue);
-		}
+	const handleSortingChange = (sorting: Updater<SortingState> | SortingState) => {
+		tableStore.setSorting(typeof sorting === "function" ? sorting(tableStore.sorting) : sorting);
 	};
 
 	const table = useReactTable({
 		columnResizeMode: "onChange",
 		columns: columns,
 		data: data,
-		defaultColumn: defaultColumn,
+		defaultColumn: {
+			minSize: 100,
+		},
 		state: {
 			columnFilters: tableStore.columnFilters,
 			columnOperators: tableStore.columnOperators,
@@ -187,7 +163,7 @@ const DataTableProvider = ({ children, columns, currentPage, data, id }: DataTab
 				pageSize: tableStore.pageSize,
 			},
 			sorting: tableStore.sorting,
-			specialFilters: tableStore.specialFilters,
+			quickFilters: tableStore.quickFilters,
 		},
 		getCoreRowModel: getCoreRowModel(),
 		getExpandedRowModel: getExpandedRowModel(),
@@ -203,7 +179,7 @@ const DataTableProvider = ({ children, columns, currentPage, data, id }: DataTab
 		onColumnSizingChange: handleColumnSizingChange,
 		onColumnVisibilityChange: handleColumnVisibilityChange,
 		onExpandedChange: handleExpandedChange,
-		onGlobalFilterChange: handleGlobalFilterChange,
+		onGlobalFilterChange: tableStore.setGlobalFilter,
 		onGroupingChange: handleGroupingChange,
 		onPaginationChange: handlePaginationChange,
 		onSortingChange: handleSortingChange,
@@ -222,8 +198,6 @@ const DataTableProvider = ({ children, columns, currentPage, data, id }: DataTab
 		}
 	}
 
-	const sensors = useSensors(useSensor(MouseSensor, {}), useSensor(TouchSensor, {}), useSensor(KeyboardSensor, {}));
-
 	const filter = React.useCallback(
 		debounce((params) => {
 			router.get(window.location.href, params, {
@@ -239,10 +213,13 @@ const DataTableProvider = ({ children, columns, currentPage, data, id }: DataTab
 		return () => filter.cancel();
 	}, [tableStore]);
 
+	const sensors = useSensors(useSensor(MouseSensor, {}), useSensor(TouchSensor, {}), useSensor(KeyboardSensor, {}));
+
 	return (
 		<DataTableContext.Provider
 			value={{
 				table: table,
+				tableStore: tableStore,
 			}}
 		>
 			<DndContext

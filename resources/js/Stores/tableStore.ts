@@ -1,37 +1,8 @@
-import { omitBy } from "lodash";
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { omitBy } from "lodash";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-type State = {
-	columnFilters: any[];
-	columnOperators: any[];
-	columnOrder: string[];
-	columnSizing: Record<string, number>;
-	columnVisibility: Record<string, boolean>;
-	expanded: Record<string, boolean>;
-	globalFilter: string;
-	grouping: any[];
-	pageSize: number;
-	sorting: any[];
-	specialFilters: any[];
-};
-
-type Actions = {
-	getParams: () => { [key: string]: any };
-	setColumnFilters: (columnFilters: any[]) => void;
-	setColumnOperators: (columnOperators: any[]) => void;
-	setColumnOrder: (columnOrder: string[]) => void;
-	setColumnSizing: (columnSizing: Record<string, number>) => void;
-	setColumnVisibility: (columnVisibility: Record<string, boolean>) => void;
-	setExpanded: (expanded: Record<string, boolean>) => void;
-	setGlobalFilter: (globalFilter: string) => void;
-	setGrouping: (grouping: any[]) => void;
-	setSorting: (sorting: any[]) => void;
-	setSpecialFilters: (specialFilters: any[]) => void;
-	setPagination: (pagination: { pageIndex: number; pageSize: number }) => void;
-};
-
-const defaultState: State = {
+const defaultState: TableStoreState = {
 	columnFilters: [],
 	columnOperators: [],
 	columnOrder: [],
@@ -40,18 +11,14 @@ const defaultState: State = {
 	expanded: {},
 	globalFilter: "",
 	grouping: [],
+	pageIndex: 0,
 	pageSize: 10,
+	quickFilters: [],
 	sorting: [],
-	specialFilters: [],
 };
 
-interface CreateTableStoreProps {
-	id: string;
-	initialState: Partial<State>;
-}
-
 const createTableStore = ({ id, initialState }: CreateTableStoreProps) =>
-	create<State & Actions>()(
+	create<TableStoreType>()(
 		persist(
 			(set, get) => ({
 				...defaultState,
@@ -67,17 +34,52 @@ const createTableStore = ({ id, initialState }: CreateTableStoreProps) =>
 					);
 					return filteredParams;
 				},
-				setColumnFilters: (columnFilters) => set({ columnFilters: columnFilters }),
-				setColumnOperators: (columnOperators) => set({ columnOperators: columnOperators }),
-				setColumnOrder: (columnOrder) => set({ columnOrder: columnOrder }),
-				setColumnSizing: (columnSizing) => set({ columnSizing: columnSizing }),
-				setColumnVisibility: (columnVisibility) => set({ columnVisibility: columnVisibility }),
-				setExpanded: (expanded) => set({ expanded: expanded }),
-				setGlobalFilter: (globalFilter) => set({ globalFilter: globalFilter }),
-				setGrouping: (grouping) => set({ grouping: grouping }),
-				setSorting: (sorting) => set({ sorting: sorting }),
-				setSpecialFilters: (specialFilters) => set({ specialFilters: specialFilters }),
-				setPagination: (pagination) => set({ pageSize: pagination.pageSize }),
+				setColumnFilters: (columnFilters) =>
+					set({
+						columnFilters: columnFilters,
+					}),
+				setColumnOperators: (columnOperators) =>
+					set({
+						columnOperators: columnOperators,
+					}),
+				setColumnOrder: (columnOrder) =>
+					set({
+						columnOrder: columnOrder,
+					}),
+				setColumnSizing: (columnSizing) =>
+					set({
+						columnSizing: columnSizing,
+					}),
+				setColumnVisibility: (columnVisibility) =>
+					set({
+						columnVisibility: columnVisibility,
+					}),
+				setExpanded: (expanded) =>
+					set({
+						expanded: expanded,
+					}),
+				setGlobalFilter: (globalFilter) =>
+					set({
+						globalFilter: globalFilter,
+					}),
+
+				setGrouping: (grouping) =>
+					set({
+						grouping: grouping,
+					}),
+				setPagination: (pagination) =>
+					set({
+						pageIndex: pagination.pageIndex,
+						pageSize: pagination.pageSize,
+					}),
+				setQuickFilters: (quickFilters) =>
+					set({
+						quickFilters: quickFilters,
+					}),
+				setSorting: (sorting) =>
+					set({
+						sorting: sorting,
+					}),
 			}),
 			{
 				name: `app:tables:${id}`,

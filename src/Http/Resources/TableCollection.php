@@ -105,7 +105,7 @@ class TableCollection extends ResourceCollection
     {
         $pageIndex = 1;
 
-        if ($index = request()->get(Tables::PAGE))
+        if ($index = request(Tables::PAGE))
         {
 
             $pageIndex = $index;
@@ -121,7 +121,7 @@ class TableCollection extends ResourceCollection
     {
         $pageSize = 10;
 
-        if ($size = request()->get(Tables::PAGINATION . '.' . Tables::PAGE_SIZE))
+        if ($size = request(Tables::PAGINATION . '.' . Tables::PAGE_SIZE))
         {
             $pageSize = $size;
         }
