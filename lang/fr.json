@@ -1,7 +1,11 @@
 {
+	"Are you sure you want to perform this action?": "Êtes-vous sûr de vouloir effectuer cette action ?",
+	"Cancel": "Annuler",
+	"Continue": "Continuer",
 	"Create": "Créer",
 	"Delete": "Supprimer",
 	"Duplicate": "Dupliquer",
 	"Edit": "Modifier",
+	"This action cannot be undone.": "Cette action ne peut pas être annulée.",
 	"View": "Voir"
 }

@@ -1,7 +1,11 @@
 {
+	"Are you sure you want to perform this action?": "Sind Sie sicher, dass Sie diese Aktion ausführen möchten?",
+	"Cancel": "Abbrechen",
+	"Continue": "Fortfahren",
 	"Create": "Erstellen",
 	"Delete": "Löschen",
 	"Duplicate": "Duplizieren",
 	"Edit": "Bearbeiten",
+	"This action cannot be undone.": "Diese Aktion kann nicht rückgängig gemacht werden.",
 	"View": "Anzeigen"
 }

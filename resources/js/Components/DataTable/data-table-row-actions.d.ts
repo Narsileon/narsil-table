@@ -1,3 +1,7 @@
+type ActionOption = SelectOption & Pick<import("@inertiajs/react").InertiaLinkProps, "method">;
+
 interface DataTableRowActionsProps {
-	actions?: SelectOption[];
+	actions?: ActionOption[];
+	children?: React.ReactNode;
+	row: import("@tanstack/react-table").Row<any>;
 }

@@ -1,7 +1,11 @@
 {
+	"Are you sure you want to perform this action?": "Are you sure you want to perform this action?",
+	"Cancel": "Cancel",
+	"Continue": "Continue",
 	"Create": "Create",
 	"Delete": "Delete",
 	"Duplicate": "Duplicate",
 	"Edit": "Edit",
+	"This action cannot be undone.": "This action cannot be undone.",
 	"View": "View"
 }

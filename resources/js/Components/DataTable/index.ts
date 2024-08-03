@@ -6,6 +6,7 @@ import DataTablePaginationResult from "./DataTablePaginationResult";
 import DataTablePaginationSelect from "./DataTablePaginationSelect";
 import DataTableProvider, { useDataTable } from "./DataTableProvider";
 import DataTableRowActions from "./DataTableRowActions";
+import DataTableRowActionsItem from "./DataTableRowActionsItem";
 import DataTableVisiblity from "./DataTableVisibility";
 
 export {
@@ -17,6 +18,7 @@ export {
 	DataTablePaginationSelect,
 	DataTableProvider,
 	DataTableRowActions,
+	DataTableRowActionsItem,
 	DataTableVisiblity,
 	useDataTable,
 };
