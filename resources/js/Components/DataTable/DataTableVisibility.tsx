@@ -22,7 +22,7 @@ const DataTableVisiblity = ({ ...props }: DataTableVisibilityProps) => {
 					variant='outline'
 					className='ml-auto'
 				>
-					{trans("common.columns")}
+					{trans("Columns")}
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end'>

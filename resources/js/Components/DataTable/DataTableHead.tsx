@@ -26,7 +26,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 	return (
 		<TableHead
 			ref={setNodeRef}
-			className='relative overflow-hidden pl-1 pr-1.5'
+			className='relative overflow-hidden px-0'
 			style={style}
 			{...props}
 		>
@@ -37,6 +37,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 						asChild={true}
 					>
 						<Button
+							className='justify-start'
 							variant='ghost'
 							{...attributes}
 							{...listeners}

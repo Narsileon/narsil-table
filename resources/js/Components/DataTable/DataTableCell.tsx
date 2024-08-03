@@ -52,7 +52,7 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 	return (
 		<TableCell
 			ref={setNodeRef}
-			className='h-12 truncate'
+			className='truncate'
 			style={style}
 		>
 			{isBoolean(value) ? (
