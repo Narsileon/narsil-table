@@ -7,7 +7,7 @@ import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
 import moment from "moment/min/moment-with-locales";
 
-const DataTableCell = ({ cell, format, grouping }: DataTableCellProps) => {
+const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 	const { locale } = useTranslationsStore();
 
 	const { isDragging, setNodeRef, transform } = useSortable({
@@ -23,17 +23,18 @@ const DataTableCell = ({ cell, format, grouping }: DataTableCellProps) => {
 		zIndex: isDragging ? 1 : 0,
 	};
 
-	const { id, type } = cell.column.columnDef;
+	const { id, meta } = cell.column.columnDef;
+
 	const value = cell.getValue();
 
 	function getCount() {
-		let values = grouping?.[id];
+		let values = grouping?.[id ?? ""];
 
 		if (!values) {
 			return 0;
 		}
 
-		if (type === "boolean") {
+		if (meta?.type === "boolean") {
 			return values[+value];
 		} else {
 			return values[value];
@@ -59,10 +60,10 @@ const DataTableCell = ({ cell, format, grouping }: DataTableCellProps) => {
 				) : (
 					<X className='w-5 h-5 text-destructive' />
 				)
-			) : ["datetime", "datetime-local", "timestamp"].includes(type) ? (
+			) : ["datetime", "datetime-local", "timestamp"].includes(meta?.type ?? "") ? (
 				moment(value)
 					.locale(locale)
-					.format(cell?.column.columnDef.format ?? format ?? "L LTS")
+					.format(cell?.column.columnDef.meta?.format ?? "L LTS")
 			) : isGrouped ? (
 				`${value} (${count})`
 			) : (

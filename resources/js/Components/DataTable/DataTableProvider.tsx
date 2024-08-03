@@ -18,7 +18,6 @@ import {
 } from "@dnd-kit/core";
 
 import {
-	ColumnDef,
 	ColumnFiltersState,
 	ColumnOrderState,
 	ColumnSizingState,
@@ -35,15 +34,15 @@ import {
 	GroupingState,
 	PaginationState,
 	SortingState,
-	Table,
 	Updater,
 	useReactTable,
 	VisibilityState,
 } from "@tanstack/react-table";
 
 declare module "@tanstack/table-core" {
-	interface Cell<TData, TValue> {
-		format?: string;
+	interface ColumnMeta<TData, TValue> {
+		format: string;
+		type: string;
 	}
 
 	interface TableMeta<TData> {
@@ -57,19 +56,7 @@ declare module "@tanstack/table-core" {
 	}
 }
 
-type TableContextType = {
-	table: Table<unknown>;
-	tableStore: TableStoreType;
-};
-
-interface DataTableProviderProps {
-	children: React.ReactNode;
-	columns: ColumnDef<any, any>[];
-	data: any[];
-	id: string;
-}
-
-const DataTableContext = createContext<TableContextType | null>(null);
+const DataTableContext = createContext<DataTableProviderType>({} as DataTableProviderType);
 
 const DataTableProvider = ({ children, columns, data, id }: DataTableProviderProps) => {
 	function getColumnOrder() {

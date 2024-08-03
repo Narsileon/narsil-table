@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { omitBy } from "lodash";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { omitBy } from "lodash";
 
 const defaultState: TableStoreState = {
 	columnFilters: [],

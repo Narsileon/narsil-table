@@ -1857,12 +1857,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:Narsileon/narsil-localization.git",
-                "reference": "02a2e229fad0d0256bd0ac6de240c372de9b38b7"
+                "reference": "85d5af3aa09b2f415f20dbf764fe448d9084bd18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-localization/zipball/02a2e229fad0d0256bd0ac6de240c372de9b38b7",
-                "reference": "02a2e229fad0d0256bd0ac6de240c372de9b38b7",
+                "url": "https://api.github.com/repos/Narsileon/narsil-localization/zipball/85d5af3aa09b2f415f20dbf764fe448d9084bd18",
+                "reference": "85d5af3aa09b2f415f20dbf764fe448d9084bd18",
                 "shasum": ""
             },
             "require": {
@@ -1902,7 +1902,7 @@
                 "react",
                 "translations"
             ],
-            "time": "2024-07-28T06:22:17+00:00"
+            "time": "2024-08-03T04:36:16+00:00"
         },
         {
             "name": "narsil/ui",
@@ -1910,16 +1910,17 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:Narsileon/narsil-ui.git",
-                "reference": "8aa9b2346b2cfeb78e64785e8a1c463cfee3b5b3"
+                "reference": "4b21601114fc62e4952d7a9a0a8651e08e5edb4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-ui/zipball/8aa9b2346b2cfeb78e64785e8a1c463cfee3b5b3",
-                "reference": "8aa9b2346b2cfeb78e64785e8a1c463cfee3b5b3",
+                "url": "https://api.github.com/repos/Narsileon/narsil-ui/zipball/4b21601114fc62e4952d7a9a0a8651e08e5edb4c",
+                "reference": "4b21601114fc62e4952d7a9a0a8651e08e5edb4c",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^11.3",
+                "narsil/localization": "dev-main",
                 "php": "^8.2"
             },
             "require-dev": {
@@ -1954,7 +1955,7 @@
                 "react",
                 "ui"
             ],
-            "time": "2024-08-02T12:02:20+00:00"
+            "time": "2024-08-03T05:24:51+00:00"
         },
         {
             "name": "nesbot/carbon",
