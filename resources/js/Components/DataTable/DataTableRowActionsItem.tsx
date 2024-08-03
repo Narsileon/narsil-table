@@ -1,4 +1,4 @@
-import { AlertDialog, AlertDialogTrigger, DropdownMenuItem } from "@narsil-ui/Components";
+import { AlertDialogTrigger, DropdownMenuItem } from "@narsil-ui/Components";
 import { Link } from "@inertiajs/react";
 import { useDataTableRowActions } from "@narsil-table/Components";
 import * as React from "react";
@@ -7,19 +7,17 @@ const DataTableRowActionsItem = ({ alert = false, children, href, method, ...pro
 	const { setHref, setMethod } = useDataTableRowActions();
 
 	return alert ? (
-		<AlertDialog>
-			<AlertDialogTrigger asChild>
-				<DropdownMenuItem
-					onClick={() => {
-						setHref(href);
-						setMethod(method);
-					}}
-					{...props}
-				>
-					{children}
-				</DropdownMenuItem>
-			</AlertDialogTrigger>
-		</AlertDialog>
+		<AlertDialogTrigger asChild>
+			<DropdownMenuItem
+				onClick={() => {
+					setHref(href);
+					setMethod(method);
+				}}
+				{...props}
+			>
+				{children}
+			</DropdownMenuItem>
+		</AlertDialogTrigger>
 	) : (
 		<DropdownMenuItem
 			asChild={true}
