@@ -1,5 +1,5 @@
 import { DataTableRowActionsItem } from "@narsil-table/Components";
-import { MoreHorizontal } from "lucide-react";
+import { Menu } from "lucide-react";
 import { RouteList } from "ziggy-js";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
@@ -53,10 +53,10 @@ const DataTableRowActions = ({ actions, children, row }: DataTableRowActionsProp
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild={true}>
 				<Button
+					size='icon'
 					variant='ghost'
-					className='h-8 w-8 p-0'
 				>
-					<MoreHorizontal className='h-4 w-4' />
+					<Menu />
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end'>

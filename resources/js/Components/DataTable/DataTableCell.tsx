@@ -1,5 +1,6 @@
 import { Check, X } from "lucide-react";
 import { CSS } from "@dnd-kit/utilities";
+import { flexRender } from "@tanstack/react-table";
 import { isBoolean } from "lodash";
 import { TableCell } from "@narsil-ui/Components";
 import { useSortable } from "@dnd-kit/sortable";
@@ -67,7 +68,7 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 			) : isGrouped ? (
 				`${value} (${count})`
 			) : (
-				value
+				flexRender(cell.column.columnDef.cell, cell.getContext())
 			)}
 		</TableCell>
 	);
