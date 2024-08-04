@@ -1,4 +1,4 @@
-import { DataTableRowActionsItem } from "@narsil-table/Components";
+import { DataTableRowMenuItem } from "@narsil-table/Components";
 import { InertiaLinkProps, Link } from "@inertiajs/react";
 import { Menu } from "lucide-react";
 import { RouteList } from "ziggy-js";
@@ -21,11 +21,9 @@ import {
 	DropdownMenuTrigger,
 } from "@narsil-ui/Components";
 
-const DataTableRowActionsContext = React.createContext<DataTableRowActionsProviderType>(
-	{} as DataTableRowActionsProviderType
-);
+const DataTableRowMenuContext = React.createContext<DataTableRowMenuProviderType>({} as DataTableRowMenuProviderType);
 
-const DataTableRowActions = ({ actions, children, row }: DataTableRowActionsProps) => {
+const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => {
 	const { trans } = useTranslationsStore();
 
 	const [href, setHref] = React.useState<InertiaLinkProps["href"]>("");
@@ -66,7 +64,7 @@ const DataTableRowActions = ({ actions, children, row }: DataTableRowActionsProp
 	}
 
 	return (
-		<DataTableRowActionsContext.Provider
+		<DataTableRowMenuContext.Provider
 			value={{
 				setHref: setHref,
 				setMethod: setMethod,
@@ -88,25 +86,25 @@ const DataTableRowActions = ({ actions, children, row }: DataTableRowActionsProp
 								<React.Fragment key={index}>
 									{index > 0 ? <DropdownMenuSeparator /> : null}
 									{action.options.map((subAction, subIndex) => (
-										<DataTableRowActionsItem
+										<DataTableRowMenuItem
 											alert={subAction.method === "delete"}
 											href={subAction.value as string}
 											method={subAction.method ?? "get"}
 											key={subIndex}
 										>
 											{subAction.label}
-										</DataTableRowActionsItem>
+										</DataTableRowMenuItem>
 									))}
 								</React.Fragment>
 							) : (
-								<DataTableRowActionsItem
+								<DataTableRowMenuItem
 									alert={action.method === "delete"}
 									href={action.value as string}
 									method={action.method ?? "get"}
 									key={index}
 								>
 									{action.label}
-								</DataTableRowActionsItem>
+								</DataTableRowMenuItem>
 							)
 						)}
 						{children}
@@ -130,12 +128,12 @@ const DataTableRowActions = ({ actions, children, row }: DataTableRowActionsProp
 					</AlertDialogFooter>
 				</AlertDialogContent>
 			</AlertDialog>
-		</DataTableRowActionsContext.Provider>
+		</DataTableRowMenuContext.Provider>
 	);
 };
 
-export function useDataTableRowActions() {
-	const context = React.useContext(DataTableRowActionsContext);
+export function useDataTableRowMenu() {
+	const context = React.useContext(DataTableRowMenuContext);
 
 	if (!context) {
 		throw new Error("useDataTable must be used within a <DataTableRowAction />");
@@ -144,4 +142,4 @@ export function useDataTableRowActions() {
 	return context;
 }
 
-export default DataTableRowActions;
+export default DataTableRowMenu;

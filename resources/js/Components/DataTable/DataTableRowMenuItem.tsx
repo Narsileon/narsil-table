@@ -1,10 +1,10 @@
 import { AlertDialogTrigger, DropdownMenuItem } from "@narsil-ui/Components";
 import { Link } from "@inertiajs/react";
-import { useDataTableRowActions } from "@narsil-table/Components";
+import { useDataTableRowMenu } from "@narsil-table/Components";
 import * as React from "react";
 
-const DataTableRowActionsItem = ({ alert = false, children, href, method, ...props }: DataTableRowActionsItemProps) => {
-	const { setHref, setMethod } = useDataTableRowActions();
+const DataTableRowMenuItem = ({ alert = false, children, href, method, ...props }: DataTableRowMenuItemProps) => {
+	const { setHref, setMethod } = useDataTableRowMenu();
 
 	return alert ? (
 		<AlertDialogTrigger asChild>
@@ -33,4 +33,4 @@ const DataTableRowActionsItem = ({ alert = false, children, href, method, ...pro
 	);
 };
 
-export default DataTableRowActionsItem;
+export default DataTableRowMenuItem;

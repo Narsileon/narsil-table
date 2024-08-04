@@ -1,15 +1,15 @@
 type ActionOption = SelectOption & Pick<import("@inertiajs/react").InertiaLinkProps, "method">;
 
-type DataTableRowActionsProviderState = {};
+type DataTableRowMenuProviderState = {};
 
-type DataTableRowActionsProviderAction = {
+type DataTableRowMenuProviderAction = {
 	setHref: (href: import("@inertiajs/react").InertiaLinkProps["href"]) => void;
 	setMethod: (href: import("@inertiajs/react").InertiaLinkProps["method"]) => void;
 };
 
-type DataTableRowActionsProviderType = DataTableRowActionsProviderAction & DataTableRowActionsProviderState;
+type DataTableRowMenuProviderType = DataTableRowMenuProviderAction & DataTableRowMenuProviderState;
 
-interface DataTableRowActionsProps {
+interface DataTableRowMenuProps {
 	actions?: ActionOption[];
 	children?: React.ReactNode;
 	row: import("@tanstack/react-table").Row<any>;

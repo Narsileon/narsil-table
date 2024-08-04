@@ -58,7 +58,20 @@ declare module "@tanstack/table-core" {
 
 const DataTableContext = createContext<DataTableProviderType>({} as DataTableProviderType);
 
-const DataTableProvider = ({ children, columns, data, id }: DataTableProviderProps) => {
+const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProviderProps) => {
+	if (menu) {
+		columns = [
+			{
+				id: "menu",
+				enableHiding: false,
+				enableResizing: false,
+				enableSorting: false,
+				cell: menu,
+			},
+			...columns,
+		];
+	}
+
 	function getColumnOrder() {
 		const columnOrder = columns.reduce((array: string[], column) => {
 			if (!isString(column.id) || array.includes(column.id)) {
