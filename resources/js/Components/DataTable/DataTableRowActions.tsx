@@ -38,7 +38,7 @@ const DataTableRowActions = ({ actions, children, row }: DataTableRowActionsProp
 			{
 				options: [
 					{
-						label: trans("view"),
+						label: trans("View"),
 						value: route(currentRoute?.replace("index", "show") as keyof RouteList, row.original.id),
 						method: "get",
 					},
@@ -47,7 +47,7 @@ const DataTableRowActions = ({ actions, children, row }: DataTableRowActionsProp
 			{
 				options: [
 					{
-						label: trans("edit"),
+						label: trans("Edit"),
 						value: route(currentRoute?.replace("index", "edit") as keyof RouteList, row.original.id),
 						method: "get",
 					},
@@ -56,7 +56,7 @@ const DataTableRowActions = ({ actions, children, row }: DataTableRowActionsProp
 			{
 				options: [
 					{
-						label: trans("delete"),
+						label: trans("Delete"),
 						value: route(currentRoute?.replace("index", "destroy") as keyof RouteList, row.original.id),
 						method: "delete",
 					},

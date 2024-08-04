@@ -7,6 +7,8 @@
 	"Delete": "Delete",
 	"Duplicate": "Duplicate",
 	"Edit": "Edit",
+	"Resize": "Resize",
+	"Sort": "Sort",
 	"This action cannot be undone.": "This action cannot be undone.",
 	"View": "View"
 }

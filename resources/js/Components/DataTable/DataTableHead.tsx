@@ -49,7 +49,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 				</Popover>
 
 				{header.column.getCanSort() ? (
-					<TooltipWrapper tooltip={trans("verbs.sort")}>
+					<TooltipWrapper tooltip={trans("Sort")}>
 						<Button
 							size='icon'
 							variant='ghost'
@@ -67,7 +67,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 				) : null}
 			</div>
 
-			<TooltipWrapper tooltip={trans("verbs.resize")}>
+			<TooltipWrapper tooltip={trans("Resize")}>
 				<div
 					className='absolute top-0 right-0 bottom-0 bg-border w-0.5 cursor-col-resize z-10'
 					onMouseDown={header.getResizeHandler()}

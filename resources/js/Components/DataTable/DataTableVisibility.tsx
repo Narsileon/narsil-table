@@ -1,4 +1,4 @@
-import { upperFirst } from "lodash";
+import { isString, upperFirst } from "lodash";
 import { useDataTable } from "@narsil-table/Components";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
@@ -36,7 +36,7 @@ const DataTableVisiblity = ({ ...props }: DataTableVisibilityProps) => {
 								onCheckedChange={(value: unknown) => column.toggleVisibility(!!value)}
 								key={column.id}
 							>
-								{upperFirst(column.id)}
+								{isString(column.columnDef.header) ? column.columnDef.header : upperFirst(column.id)}
 							</DropdownMenuCheckboxItem>
 						);
 					})}
