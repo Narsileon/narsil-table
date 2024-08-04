@@ -2,7 +2,7 @@ import { Check, X } from "lucide-react";
 import { CSS } from "@dnd-kit/utilities";
 import { flexRender } from "@tanstack/react-table";
 import { isBoolean } from "lodash";
-import { TableCell } from "@narsil-ui/Components";
+import { cn, TableCell } from "@narsil-ui/Components";
 import { useSortable } from "@dnd-kit/sortable";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
@@ -52,7 +52,7 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 	return (
 		<TableCell
 			ref={setNodeRef}
-			className='truncate'
+			className={cn("truncate", { "px-1": cell.column.columnDef.id === "menu" })}
 			style={style}
 		>
 			{isBoolean(value) ? (
