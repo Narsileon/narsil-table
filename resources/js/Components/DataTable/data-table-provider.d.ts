@@ -12,5 +12,5 @@ interface DataTableProviderProps {
 	columns: import("@tanstack/react-table").ColumnDef<any, any>[];
 	data: any[];
 	id: string;
-	menu?: (row: import("@tanstack/react-table").CellContext<any, any>) => React.ReactNode;
+	menu?: (props: import("@tanstack/react-table").CellContext<any, any>) => any;
 }
