@@ -1,5 +1,6 @@
 type Collection = {
 	data: { [key: string]: any };
+	columns: import("@tanstack/react-table").ColumnDef<any, any>[];
 	links: SimpleLinks;
 	meta: Meta;
 };
@@ -7,9 +8,9 @@ type Collection = {
 type Meta = {
 	current_page: number;
 	from: number;
-	grouping_from: number | null;
-	grouping_to: number | null;
-	grouping_total: number | null;
+	grouped_from: number | null;
+	grouped_to: number | null;
+	grouped_total: number | null;
 	lastPage: number;
 	links: PaginationLink[];
 	to: number;
