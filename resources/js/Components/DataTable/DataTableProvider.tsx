@@ -132,7 +132,7 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 				? pagination({
 						pageIndex: tableStore.pageIndex,
 						pageSize: tableStore.pageSize,
-				  })
+					})
 				: pagination
 		);
 	};

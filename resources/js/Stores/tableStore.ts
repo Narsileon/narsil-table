@@ -26,10 +26,13 @@ const createTableStore = ({ id, initialState }: CreateTableStoreProps) =>
 				getParams: () => {
 					const params = {
 						pageSize: get().pageSize,
-						sorting: get().sorting.reduce((acc, { id, desc }) => {
-							acc[id] = desc ? "desc" : "asc";
-							return acc;
-						}, {} as Record<string, "asc" | "desc">),
+						sorting: get().sorting.reduce(
+							(acc, { id, desc }) => {
+								acc[id] = desc ? "desc" : "asc";
+								return acc;
+							},
+							{} as Record<string, "asc" | "desc">
+						),
 					};
 					const filteredParams = omitBy(
 						params,

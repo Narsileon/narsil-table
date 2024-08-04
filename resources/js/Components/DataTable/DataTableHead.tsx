@@ -69,7 +69,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 
 			<TooltipWrapper tooltip={trans("Resize")}>
 				<div
-					className='absolute top-0 right-0 bottom-0 bg-border w-0.5 cursor-col-resize z-10'
+					className='absolute bottom-0 right-0 top-0 z-10 w-0.5 cursor-col-resize bg-border'
 					onMouseDown={header.getResizeHandler()}
 					onTouchStart={header.getResizeHandler()}
 				/>

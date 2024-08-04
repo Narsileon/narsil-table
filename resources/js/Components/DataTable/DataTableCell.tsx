@@ -57,9 +57,9 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 		>
 			{isBoolean(value) ? (
 				value ? (
-					<Check className='w-5 h-5 text-constructive' />
+					<Check className='h-5 w-5 text-constructive' />
 				) : (
-					<X className='w-5 h-5 text-destructive' />
+					<X className='h-5 w-5 text-destructive' />
 				)
 			) : ["datetime", "datetime-local", "timestamp"].includes(meta?.type ?? "") ? (
 				moment(value)
