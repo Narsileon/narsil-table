@@ -1,5 +1,5 @@
 const config = require("./vendor/narsil/ui/prettier.config.mjs");
 
-module.exports = {
+export default {
 	...config,
 };
