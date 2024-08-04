@@ -1,5 +1,5 @@
-type Collection = {
-	data: { [key: string]: any };
+type Collection<T = { [key: string]: any }> = {
+	data: T;
 	columns: import("@tanstack/react-table").ColumnDef<any, any>[];
 	links: SimpleLinks;
 	meta: Meta;
