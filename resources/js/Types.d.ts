@@ -1,18 +1,3 @@
-type Collection<T = { [key: string]: any }> = {
-	data: T;
+type TableCollection<T = { [key: string]: any }> = Collection<T> & {
 	columns: import("@tanstack/react-table").ColumnDef<any, any>[];
-	links: SimpleLinks;
-	meta: Meta;
-};
-
-type Meta = {
-	current_page: number;
-	from: number;
-	grouped_from: number | null;
-	grouped_to: number | null;
-	grouped_total: number | null;
-	lastPage: number;
-	links: PaginationLink[];
-	to: number;
-	total: number;
 };
