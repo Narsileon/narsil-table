@@ -62,7 +62,7 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 	if (menu) {
 		columns = [
 			{
-				id: "menu",
+				id: "_menu",
 				enableHiding: false,
 				enableResizing: false,
 				enableSorting: false,
@@ -112,7 +112,9 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 		tableStore.setColumnSizing(typeof sizing === "function" ? sizing(tableStore.columnSizing) : sizing);
 	};
 
-	const handleColumnVisibilityChange = (visibility: VisibilityState | ((old: VisibilityState) => VisibilityState)) => {
+	const handleColumnVisibilityChange = (
+		visibility: VisibilityState | ((old: VisibilityState) => VisibilityState)
+	) => {
 		tableStore.setColumnVisibility(
 			typeof visibility === "function" ? visibility(tableStore.columnVisibility) : visibility
 		);

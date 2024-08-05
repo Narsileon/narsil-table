@@ -14,13 +14,13 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 	const isMenu = header.column.id === "_menu";
 
 	const style: React.CSSProperties = {
-		maxWidth: isMenu ? header.column.getSize() : "56px",
+		maxWidth: isMenu ? "56px" : header.column.getSize(),
 		opacity: isDragging ? 0.8 : 1,
 		position: "relative",
 		transform: CSS.Translate.toString(transform),
 		transition: "width transform 0.2s ease-in-out",
 		whiteSpace: "nowrap",
-		width: isMenu ? header.column.getSize() : "56px",
+		width: isMenu ? "56px" : header.column.getSize(),
 		zIndex: isDragging ? 1 : 0,
 	};
 
