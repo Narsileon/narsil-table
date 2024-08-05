@@ -11,13 +11,16 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 		id: header.column.id,
 	});
 
+	const isMenu = header.column.id === "_menu";
+
 	const style: React.CSSProperties = {
+		maxWidth: isMenu ? header.column.getSize() : "56px",
 		opacity: isDragging ? 0.8 : 1,
 		position: "relative",
 		transform: CSS.Translate.toString(transform),
 		transition: "width transform 0.2s ease-in-out",
 		whiteSpace: "nowrap",
-		width: header.column.getSize(),
+		width: isMenu ? header.column.getSize() : "56px",
 		zIndex: isDragging ? 1 : 0,
 	};
 
@@ -42,7 +45,9 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 							{...attributes}
 							{...listeners}
 						>
-							{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+							{header.isPlaceholder
+								? null
+								: flexRender(header.column.columnDef.header, header.getContext())}
 						</Button>
 					</PopoverTrigger>
 					<PopoverContent align='start'></PopoverContent>
@@ -67,13 +72,15 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 				) : null}
 			</div>
 
-			<TooltipWrapper tooltip={trans("Resize")}>
-				<div
-					className='absolute bottom-0 right-0 top-0 z-10 w-0.5 cursor-col-resize bg-border'
-					onMouseDown={header.getResizeHandler()}
-					onTouchStart={header.getResizeHandler()}
-				/>
-			</TooltipWrapper>
+			{!isMenu ? (
+				<TooltipWrapper tooltip={trans("Resize")}>
+					<div
+						className='bg-border absolute bottom-0 right-0 top-0 z-10 w-0.5 cursor-col-resize'
+						onMouseDown={header.getResizeHandler()}
+						onTouchStart={header.getResizeHandler()}
+					/>
+				</TooltipWrapper>
+			) : null}
 		</TableHead>
 	);
 };

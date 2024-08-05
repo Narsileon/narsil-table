@@ -16,6 +16,7 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 	});
 
 	const style: React.CSSProperties = {
+		maxWidth: cell.column.getSize(),
 		opacity: isDragging ? 0.8 : 1,
 		position: "relative",
 		transform: CSS.Translate.toString(transform),
@@ -52,14 +53,14 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 	return (
 		<TableCell
 			ref={setNodeRef}
-			className={cn("truncate", { "px-1": cell.column.columnDef.id === "menu" })}
+			className={cn("truncate", { "px-1": cell.column.columnDef.id === "_menu" })}
 			style={style}
 		>
 			{isBoolean(value) ? (
 				value ? (
-					<Check className='h-5 w-5 text-constructive' />
+					<Check className='text-constructive h-5 w-5' />
 				) : (
-					<X className='h-5 w-5 text-destructive' />
+					<X className='text-destructive h-5 w-5' />
 				)
 			) : ["datetime", "datetime-local", "timestamp"].includes(meta?.type ?? "") ? (
 				moment(value)
