@@ -35,20 +35,21 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 		>
 			<div className='flex items-center justify-between px-1'>
 				<Popover>
-					<PopoverTrigger
-						className='grow'
-						asChild={true}
-					>
-						<Button
-							className='block truncate'
-							variant='ghost'
-							{...attributes}
-							{...listeners}
-						>
-							{header.isPlaceholder
-								? null
-								: flexRender(header.column.columnDef.header, header.getContext())}
-						</Button>
+					<PopoverTrigger asChild={true}>
+						{!header.isPlaceholder && header.column.id !== "_menu" ? (
+							<TooltipWrapper tooltip={flexRender(header.column.columnDef.header, header.getContext())}>
+								<Button
+									className='block grow truncate text-left'
+									variant='ghost'
+									{...attributes}
+									{...listeners}
+								>
+									{header.isPlaceholder
+										? null
+										: flexRender(header.column.columnDef.header, header.getContext())}
+								</Button>
+							</TooltipWrapper>
+						) : null}
 					</PopoverTrigger>
 					<PopoverContent align='start'></PopoverContent>
 				</Popover>
@@ -75,7 +76,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 			{!isMenu ? (
 				<TooltipWrapper tooltip={trans("Resize")}>
 					<div
-						className='absolute bottom-0 right-0 top-0 z-10 w-0.5 cursor-col-resize bg-border'
+						className='bg-border absolute bottom-0 right-0 top-0 z-10 w-0.5 cursor-col-resize'
 						onMouseDown={header.getResizeHandler()}
 						onTouchStart={header.getResizeHandler()}
 					/>
