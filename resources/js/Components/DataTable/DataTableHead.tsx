@@ -33,14 +33,14 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 			style={style}
 			{...props}
 		>
-			<div className='flex items-center justify-between'>
+			<div className='flex items-center justify-between px-1'>
 				<Popover>
 					<PopoverTrigger
 						className='grow'
 						asChild={true}
 					>
 						<Button
-							className='justify-start'
+							className='block truncate'
 							variant='ghost'
 							{...attributes}
 							{...listeners}
@@ -75,7 +75,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 			{!isMenu ? (
 				<TooltipWrapper tooltip={trans("Resize")}>
 					<div
-						className='bg-border absolute bottom-0 right-0 top-0 z-10 w-0.5 cursor-col-resize'
+						className='absolute bottom-0 right-0 top-0 z-10 w-0.5 cursor-col-resize bg-border'
 						onMouseDown={header.getResizeHandler()}
 						onTouchStart={header.getResizeHandler()}
 					/>

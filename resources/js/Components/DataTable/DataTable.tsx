@@ -15,7 +15,6 @@ const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }
 			orientation='horizontal'
 			{...props}
 		>
-			<div className='rounded-md border'>
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
@@ -69,7 +68,6 @@ const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }
 						)}
 					</TableBody>
 				</Table>
-			</div>
 		</ScrollArea>
 	);
 });
