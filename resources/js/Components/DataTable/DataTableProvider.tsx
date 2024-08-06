@@ -144,7 +144,7 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 	};
 
 	const table = useReactTable({
-		columnResizeMode: "onChange",
+		columnResizeMode: "onEnd",
 		columns: columns,
 		data: data as any[],
 		defaultColumn: {

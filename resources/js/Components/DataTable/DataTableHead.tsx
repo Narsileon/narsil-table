@@ -1,12 +1,15 @@
-import { Button, Popover, PopoverContent, PopoverTrigger, TableHead, TooltipWrapper } from "@narsil-ui/Components";
+import { Button, cn, Popover, PopoverContent, PopoverTrigger, TableHead, TooltipWrapper } from "@narsil-ui/Components";
 import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
 import { CSS } from "@dnd-kit/utilities";
 import { flexRender } from "@tanstack/react-table";
+import { useDataTable } from "@narsil-table/Components";
 import { useSortable } from "@dnd-kit/sortable";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
 
 const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
+	const { table } = useDataTable();
+
 	const { attributes, isDragging, listeners, setNodeRef, transform } = useSortable({
 		id: header.column.id,
 	});
@@ -29,11 +32,11 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 	return (
 		<TableHead
 			ref={setNodeRef}
-			className='relative overflow-hidden px-0'
+			className='group relative px-0'
 			style={style}
 			{...props}
 		>
-			<div className='flex items-center justify-between px-1'>
+			<div className='flex items-center justify-between pr-2'>
 				<Popover>
 					<PopoverTrigger asChild={true}>
 						{!header.isPlaceholder && header.column.id !== "_menu" ? (
@@ -76,9 +79,19 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 			{!isMenu ? (
 				<TooltipWrapper tooltip={trans("Resize")}>
 					<div
-						className='bg-border absolute bottom-0 right-0 top-0 z-10 w-0.5 cursor-col-resize'
+						className={cn(
+							"bg-border absolute bottom-0 right-0 top-0 z-10 hidden w-1 cursor-col-resize group-hover:block",
+							{
+								"bg-primary pointer-events-none block": header.column.getIsResizing(),
+							}
+						)}
 						onMouseDown={header.getResizeHandler()}
 						onTouchStart={header.getResizeHandler()}
+						style={{
+							transform: header.column.getIsResizing()
+								? `translateX(${1 * (table.getState().columnSizingInfo.deltaOffset ?? 0)}px)`
+								: "",
+						}}
 					/>
 				</TooltipWrapper>
 			) : null}
