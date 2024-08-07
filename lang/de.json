@@ -1,5 +1,6 @@
 {
 	"Are you sure you want to perform this action?": "Sind Sie sicher, dass Sie diese Aktion ausführen möchten?",
+	"Attribute": "Attribut",
 	"Cancel": "Abbrechen",
 	"Columns": "Spalten",
 	"Continue": "Fortfahren",
@@ -10,5 +11,6 @@
 	"Resize": "Größe ändern",
 	"Sort": "Sortieren",
 	"This action cannot be undone.": "Diese Aktion kann nicht rückgängig gemacht werden.",
+	"Value": "Wert",
 	"View": "Anzeigen"
 }

@@ -1,16 +1,10 @@
-import { Check, X } from "lucide-react";
-import { CSS } from "@dnd-kit/utilities";
-import { flexRender } from "@tanstack/react-table";
-import { isBoolean } from "lodash";
 import { cn, TableCell } from "@narsil-ui/Components";
+import { CSS } from "@dnd-kit/utilities";
+import { TableCellRenderer } from "@narsil-table/Components";
 import { useSortable } from "@dnd-kit/sortable";
-import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
-import moment from "moment/min/moment-with-locales";
 
 const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
-	const { locale } = useTranslationsStore();
-
 	const { isDragging, setNodeRef, transform } = useSortable({
 		id: cell.column.id,
 	});
@@ -58,21 +52,10 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 			className={cn("truncate", { "px-1": isMenu })}
 			style={style}
 		>
-			{isBoolean(value) ? (
-				value ? (
-					<Check className='text-constructive h-5 w-5' />
-				) : (
-					<X className='text-destructive h-5 w-5' />
-				)
-			) : ["datetime", "datetime-local", "timestamp"].includes(meta?.type ?? "") ? (
-				moment(value)
-					.locale(locale)
-					.format(cell?.column.columnDef.meta?.format ?? "L LTS")
-			) : isGrouped ? (
-				`${value} (${count})`
-			) : (
-				flexRender(cell.column.columnDef.cell, cell.getContext())
-			)}
+			<TableCellRenderer
+				type={meta?.type ?? "string"}
+				value={cell.getValue()}
+			/>
 		</TableCell>
 	);
 };

@@ -42,7 +42,7 @@ import {
 declare module "@tanstack/table-core" {
 	interface ColumnMeta<TData, TValue> {
 		format: string;
-		type: string;
+		type: TableCellType;
 	}
 
 	interface TableMeta<TData> {

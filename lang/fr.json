@@ -1,5 +1,6 @@
 {
 	"Are you sure you want to perform this action?": "Êtes-vous sûr de vouloir effectuer cette action ?",
+	"Attribute": "Attribut",
 	"Cancel": "Annuler",
 	"Columns": "Colonnes",
 	"Continue": "Continuer",
@@ -10,5 +11,6 @@
 	"Resize": "Reredimensionner",
 	"Sort": "Trier",
 	"This action cannot be undone.": "Cette action ne peut pas être annulée.",
+	"Value": "Valeur",
 	"View": "Voir"
 }
