@@ -1,9 +1,9 @@
+import { cn, Table, TableBody, TableHead, TableHeader, TableRow } from "@narsil-ui/Components";
 import { ShowRow } from "@narsil-table/Components";
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@narsil-ui/Components";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
 
-const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(({ columns, data, ...props }, ref) => {
+const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(({ className, columns, data, ...props }, ref) => {
 	const { trans } = useTranslationsStore();
 
 	const { id = null, active = null, created_at = null, updated_at = null, ...attributes } = data;
@@ -11,6 +11,7 @@ const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(({ columns,
 	return (
 		<Table
 			ref={ref}
+			className={cn("w-full", className)}
 			{...props}
 		>
 			<TableHeader>
