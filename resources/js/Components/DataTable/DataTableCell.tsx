@@ -54,6 +54,7 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 			style={style}
 		>
 			<TableCellRenderer
+				className='h-10'
 				defaultValue={flexRender(cell.column.columnDef.cell, cell.getContext())}
 				type={meta?.type ?? "string"}
 				value={cell.getValue()}

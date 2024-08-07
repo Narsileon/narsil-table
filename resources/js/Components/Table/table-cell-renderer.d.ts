@@ -13,6 +13,7 @@ type TableCellType =
 	| "time";
 
 interface TableCellRendererProps {
+	className?: string;
 	defaultValue?: array | boolean | number | object | string | React.ReactNode;
 	format?: string;
 	type: TableCellType;
