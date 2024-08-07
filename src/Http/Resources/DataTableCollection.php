@@ -18,7 +18,7 @@ use Narsil\Table\Services\TableService;
  *
  * @author Jonathan Rigaux
  */
-class TableCollection extends ResourceCollection
+class DataTableCollection extends ResourceCollection
 {
     #region CONSTUCTORS
 

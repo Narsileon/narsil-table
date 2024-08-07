@@ -9,6 +9,7 @@ type TableCellType =
 	| "number"
 	| "object"
 	| "string"
+	| "text"
 	| "time";
 
 interface TableCellRendererProps {
