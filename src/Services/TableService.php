@@ -57,7 +57,9 @@ final class TableService
 
             $rules = array_merge($rules, [
                 Tables::ID => $attribute,
-                Tables::TYPE => $column->type,
+                Tables::META => [
+                    Tables::TYPE => $column->type,
+                ],
             ]);
 
             $modelColumns[] = $rules;

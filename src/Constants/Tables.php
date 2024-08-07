@@ -26,6 +26,10 @@ abstract class Tables
     /**
      * @var string
      */
+    final public const META = 'meta';
+    /**
+     * @var string
+     */
     final public const PAGE = 'page';
     /**
      * @var string

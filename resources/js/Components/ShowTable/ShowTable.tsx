@@ -1,4 +1,3 @@
-import { get } from "lodash";
 import { ShowRow } from "@narsil-table/Components";
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@narsil-ui/Components";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
@@ -37,12 +36,13 @@ const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(({ columns,
 				) : null}
 
 				{Object.entries(attributes)?.map(([attribute, value], index) => {
-					const column = get(columns, attribute);
+					const column = columns.find((x) => x.id === attribute);
 
 					return (
 						<ShowRow
 							attribute={attribute}
-							type={column?.type}
+							format={column?.meta?.format}
+							type={column?.meta?.type ?? "string"}
 							value={value}
 							key={index}
 						/>
