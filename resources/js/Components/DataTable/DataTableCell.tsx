@@ -1,5 +1,6 @@
 import { cn, TableCell } from "@narsil-ui/Components";
 import { CSS } from "@dnd-kit/utilities";
+import { flexRender } from "@tanstack/react-table";
 import { TableCellRenderer } from "@narsil-table/Components";
 import { useSortable } from "@dnd-kit/sortable";
 import * as React from "react";
@@ -53,6 +54,7 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 			style={style}
 		>
 			<TableCellRenderer
+				defaultValue={flexRender(cell.column.columnDef.cell, cell.getContext())}
 				type={meta?.type ?? "string"}
 				value={cell.getValue()}
 			/>
