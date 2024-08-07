@@ -34,7 +34,7 @@ const TableCellRenderer = ({ defaultValue, format, type, value }: TableCellRende
 				.locale(locale)
 				.format(format ?? "L LTS");
 		case "text":
-			return <div className='prose max-w-none'>{parse(value ?? "")}</div>;
+			return <div className='prose text-foreground max-w-none'>{parse(value ?? "")}</div>;
 		case "time":
 			return moment(value, ["h:m:s"])
 				.locale(locale)
