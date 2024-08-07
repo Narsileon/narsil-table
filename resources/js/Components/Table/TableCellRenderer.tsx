@@ -3,7 +3,7 @@ import { isArray, isBoolean, isObject } from "lodash";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import moment from "moment/min/moment-with-locales";
 
-const TableCellRenderer = ({ format, type, value }: TableCellRendererProps) => {
+const TableCellRenderer = ({ defaultValue, format, type, value }: TableCellRendererProps) => {
 	const { locale } = useTranslationsStore();
 
 	if (isArray(value)) {
@@ -37,7 +37,7 @@ const TableCellRenderer = ({ format, type, value }: TableCellRendererProps) => {
 				.locale(locale)
 				.format(format ?? "LTS");
 		default:
-			return value;
+			return defaultValue ?? value;
 	}
 };
 
