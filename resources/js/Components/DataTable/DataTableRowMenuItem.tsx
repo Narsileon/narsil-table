@@ -1,7 +1,6 @@
 import { AlertDialogTrigger, DropdownMenuItem } from "@narsil-ui/Components";
 import { Link } from "@inertiajs/react";
 import { useDataTableRowMenu } from "@narsil-table/Components";
-import * as React from "react";
 
 const DataTableRowMenuItem = ({ alert = false, children, href, method, ...props }: DataTableRowMenuItemProps) => {
 	const { setHref, setMethod } = useDataTableRowMenu();

@@ -37,7 +37,7 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 				options: [
 					{
 						label: trans("View"),
-						value: route(currentRoute?.replace("index", "show") as keyof RouteList, row.original.id),
+						href: route(currentRoute?.replace("index", "show") as keyof RouteList, row.original.id),
 						method: "get",
 					},
 				],
@@ -46,7 +46,7 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 				options: [
 					{
 						label: trans("Edit"),
-						value: route(currentRoute?.replace("index", "edit") as keyof RouteList, row.original.id),
+						href: route(currentRoute?.replace("index", "edit") as keyof RouteList, row.original.id),
 						method: "get",
 					},
 				],
@@ -55,7 +55,7 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 				options: [
 					{
 						label: trans("Delete"),
-						value: route(currentRoute?.replace("index", "destroy") as keyof RouteList, row.original.id),
+						href: route(currentRoute?.replace("index", "destroy") as keyof RouteList, row.original.id),
 						method: "delete",
 					},
 				],
@@ -88,8 +88,9 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 									{action.options.map((subAction, subIndex) => (
 										<DataTableRowMenuItem
 											alert={subAction.method === "delete"}
-											href={subAction.value as string}
+											href={subAction.href as string}
 											method={subAction.method ?? "get"}
+											onClick={subAction.onClick}
 											key={subIndex}
 										>
 											{subAction.label}
@@ -99,8 +100,9 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 							) : (
 								<DataTableRowMenuItem
 									alert={action.method === "delete"}
-									href={action.value as string}
+									href={action.href as string}
 									method={action.method ?? "get"}
+									onClick={action.onClick}
 									key={index}
 								>
 									{action.label}
