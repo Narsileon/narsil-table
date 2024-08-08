@@ -7,6 +7,7 @@ import DataTablePaginationSelect from "./DataTablePaginationSelect";
 import DataTableProvider, { useDataTable } from "./DataTableProvider";
 import DataTableRowMenu, { useDataTableRowMenu } from "./DataTableRowMenu";
 import DataTableRowMenuItem from "./DataTableRowMenuItem";
+import DataTableSettings from "./DataTableSettings";
 import DataTableVisiblity from "./DataTableVisibility";
 
 export {
@@ -19,6 +20,7 @@ export {
 	DataTableProvider,
 	DataTableRowMenu,
 	DataTableRowMenuItem,
+	DataTableSettings,
 	DataTableVisiblity,
 	useDataTable,
 	useDataTableRowMenu,
