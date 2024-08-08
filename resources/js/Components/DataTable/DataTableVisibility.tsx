@@ -6,22 +6,26 @@ const DataTableVisiblity = ({}: DataTableVisibilityProps) => {
 	const { table } = useDataTable();
 
 	return (
-		<>
+		<div className='grid'>
 			{table
 				.getAllColumns()
 				.filter((column) => column.getCanHide())
 				.map((column) => {
 					return (
-						<Checkbox
-							checked={column.getIsVisible()}
-							onCheckedChange={(value: unknown) => column.toggleVisibility(!!value)}
-							key={column.id}
-						>
-							{isString(column.columnDef.header) ? column.columnDef.header : upperFirst(column.id)}
-						</Checkbox>
+						<div className='flex items-center gap-x-2'>
+							<Checkbox
+								id={column.id}
+								checked={column.getIsVisible()}
+								onCheckedChange={(value: unknown) => column.toggleVisibility(!!value)}
+								key={column.id}
+							/>
+							<label htmlFor={column.id}>
+								{isString(column.columnDef.header) ? column.columnDef.header : upperFirst(column.id)}
+							</label>
+						</div>
 					);
 				})}
-		</>
+		</div>
 	);
 };
 
