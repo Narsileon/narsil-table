@@ -9,7 +9,7 @@ const TableCellRenderer = ({ className, defaultValue, format, type, value }: Tab
 	const { locale } = useTranslationsStore();
 
 	if (isArray(value)) {
-		return value[0] ?? null;
+		return JSON.stringify(value);
 	}
 
 	if (isBoolean(value)) {
@@ -17,12 +17,7 @@ const TableCellRenderer = ({ className, defaultValue, format, type, value }: Tab
 	}
 
 	if (isObject(value)) {
-		return Object.entries(value)[0] ? (
-			<div className='flex items-center gap-x-1'>
-				<span className='font-medium'>{Object.keys(value)[0]}:</span>
-				<span>{Object.values(value)[0]}</span>
-			</div>
-		) : null;
+		return JSON.stringify(value);
 	}
 
 	switch (type) {
