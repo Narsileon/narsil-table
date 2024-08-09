@@ -1,6 +1,6 @@
 <?php
 
-namespace Narsil\Auth\Models;
+namespace Narsil\Table\Models;
 
 #region USE
 

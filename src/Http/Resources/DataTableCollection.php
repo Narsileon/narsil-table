@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use JsonSerializable;
-use Narsil\Auth\Models\TableTemplate;
+use Narsil\Table\Models\TableTemplate;
 use Narsil\Table\Services\TableService;
 
 #endregion

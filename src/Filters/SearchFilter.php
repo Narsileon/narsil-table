@@ -7,9 +7,9 @@ namespace Narsil\Table\Filters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Narsil\Auth\Models\TableTemplate;
 use Narsil\Table\Constants\SQL;
 use Narsil\Table\Constants\Types;
+use Narsil\Table\Models\TableTemplate;
 use Narsil\Table\Services\TableService;
 use Narsil\Table\Structures\ModelColumn;
 
