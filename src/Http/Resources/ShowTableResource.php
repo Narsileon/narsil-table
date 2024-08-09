@@ -37,7 +37,7 @@ class ShowTableResource extends JsonResource
      */
     public function with(Request $request): array
     {
-        $columns = $this->getColumns()->toArray();
+        $columns = array_values($this->getColumns()->toArray());
         $meta = $this->getMeta();
 
         return compact(
