@@ -86,7 +86,7 @@ class DataTableCollection extends ResourceCollection
      */
     public function with($request): array
     {
-        $columns = $this->getColumns();
+        $columns = $this->getColumns()->toArray();
         $meta = $this->getMeta();
 
         return compact(
