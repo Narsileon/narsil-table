@@ -150,6 +150,10 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 		defaultColumn: {
 			minSize: 100,
 		},
+		manualFiltering: true,
+		manualGrouping: true,
+		manualPagination: true,
+		manualSorting: true,
 		state: {
 			columnFilters: tableStore.columnFilters,
 			columnOperators: tableStore.columnOperators,
