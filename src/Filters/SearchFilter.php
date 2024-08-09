@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Narsil\Table\Constants\SQL;
 use Narsil\Table\Constants\Types;
-use Narsil\Table\Models\TableTemplate;
 use Narsil\Table\Services\TableService;
 use Narsil\Table\Structures\ModelColumn;
 
@@ -61,7 +60,10 @@ class SearchFilter
      */
     public function apply(): Builder
     {
-        $this->applyGlobalFilter();
+        $this->query->where(function (Builder $subquery)
+        {
+            $this->applyGlobalFilter($subquery);
+        });
 
         return $this->query;
     }
@@ -75,15 +77,15 @@ class SearchFilter
      * @param array $tableColumn
      * @param string $field
      *
-     * @return Builder
+     * @return void
      */
-    private function applyGlobalFilter(): Builder
+    private function applyGlobalFilter(Builder $query): void
     {
-        $globalFilter = $this->request->get(TableTemplate::GLOBAL_FILTER);
+        $globalFilter = $this->request->get('globalFilter');
 
         if (!$globalFilter)
         {
-            return $this->query;
+            return;
         }
 
         foreach ($this->modelColumns as $modelColumn)
@@ -96,26 +98,26 @@ class SearchFilter
                 case Types::OBJECT:
                     if ($modelColumn->foreignTable)
                     {
-                        return $this->query->orWhereRelation($modelColumn->relation, $key, 'like', '%' . $globalFilter . '%');
+                        $query->orWhereRelation($modelColumn->relation, $key, 'like', '%' . $globalFilter . '%');
                     }
-                    return $this->query->orWhere($key, 'like', '%' . $globalFilter . '%');
+                    $query->orWhere($key, 'like', '%' . $globalFilter . '%');
                 case Types::COLOR:
                 case Types::ICON:
                 case Types::STRING:
                 case Types::TEXT:
                     if ($modelColumn->foreignTable)
                     {
-                        return $this->query->orWhereRelation($modelColumn->relation, $key, 'like', '%' . $globalFilter . '%');
+                        $query->orWhereRelation($modelColumn->relation, $key, 'like', '%' . $globalFilter . '%');
                     }
-                    return $this->query->orWhere($key, SQL::LIKE, '%' . $globalFilter . '%');
+                    $query->orWhere($key, SQL::LIKE, '%' . $globalFilter . '%');
                 case Types::DATE:
                 case Types::DATETIME_LOCAL:
-                    return $this->query->orWhereDate($key, SQL::LIKE, $globalFilter);
+                    $query->orWhereDate($key, SQL::LIKE, $globalFilter);
                 case Types::FLOAT:
                 case Types::INTEGER:
-                    return $this->query->orWhere($key, SQL::LIKE, '%' . $globalFilter . '%');
+                    $query->orWhere($key, SQL::LIKE, '%' . $globalFilter . '%');
                 default:
-                    return $this->query;
+                    $query;
             }
         }
     }
