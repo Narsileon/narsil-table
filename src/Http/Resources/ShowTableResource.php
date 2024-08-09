@@ -6,6 +6,7 @@ namespace Narsil\Table\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Collection;
 use Narsil\Table\Services\TableService;
 
 #endregion
@@ -48,9 +49,9 @@ class ShowTableResource extends JsonResource
     #region PROTECTED METHODS
 
     /**
-     * @return array
+     * @return Collection
      */
-    protected function getColumns(): array
+    protected function getColumns(): Collection
     {
         return TableService::getModelColumns($this->resource->getTable());
     }

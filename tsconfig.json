@@ -12,6 +12,7 @@
 		"noEmit": true,
 		"noFallthroughCasesInSwitch": true,
 		"paths": {
+            "@narsil-forms/*": ["./vendor/narsil/forms/resources/js/*"],
             "@narsil-table/*": ["./resources/js/*"],
 			"@narsil-ui/*": ["./vendor/narsil/ui/resources/js/*"]
 		},

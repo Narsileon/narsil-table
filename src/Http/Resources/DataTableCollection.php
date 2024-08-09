@@ -7,8 +7,9 @@ namespace Narsil\Table\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use JsonSerializable;
-use Narsil\Table\Constants\Tables;
+use Narsil\Auth\Models\TableTemplate;
 use Narsil\Table\Services\TableService;
 
 #endregion
@@ -41,6 +42,19 @@ class DataTableCollection extends ResourceCollection
 
         parent::__construct($this->paginate($resource));
     }
+
+    #endregion
+
+    #region CONSTANTS
+
+    /**
+     * @var string
+     */
+    final public const PAGE = 'page';
+    /**
+     * @var string
+     */
+    final public const PAGE_SIZE = 'pageSize';
 
     #endregion
 
@@ -86,9 +100,9 @@ class DataTableCollection extends ResourceCollection
     #region PROTECTED METHODS
 
     /**
-     * @return array
+     * @return Collection
      */
-    protected function getColumns(): array
+    protected function getColumns(): Collection
     {
         return TableService::getModelColumns($this->table);
     }
@@ -110,7 +124,7 @@ class DataTableCollection extends ResourceCollection
      */
     private function getPageIndex(): int
     {
-        return request(Tables::PAGE, 1);
+        return request(self::PAGE, 1);
     }
 
     /**
@@ -118,7 +132,7 @@ class DataTableCollection extends ResourceCollection
      */
     private function getPageSize(): int
     {
-        return request(Tables::PAGE_SIZE, 10);
+        return request(self::PAGE_SIZE, 10);
     }
 
     /**
@@ -126,7 +140,7 @@ class DataTableCollection extends ResourceCollection
      */
     private function getSortings(): array
     {
-        $sorting = request(Tables::SORTING, []);
+        $sorting = request(TableTemplate::SORTING, []);
 
         $sortings = [];
 

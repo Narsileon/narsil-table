@@ -107,7 +107,7 @@ final class TableColumn
      */
     public readonly int $length;
     /**
-     * @var bool
+     * @var string
      */
     public readonly string $name;
     /**

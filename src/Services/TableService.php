@@ -4,10 +4,10 @@ namespace Narsil\Table\Services;
 
 #region USE
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
-use Narsil\Localization\Services\LocalizationService;
-use Narsil\Table\Constants\Tables;
+use Narsil\Table\Structures\ModelColumn;
 use Narsil\Table\Structures\TableColumn;
 
 #endregion
@@ -24,61 +24,28 @@ final class TableService
     /**
      * @param string $table;
      *
-     * @return array
+     * @return Collection<ModelColumn>
      */
-    public static function getModelColumns(string $table): array
+    public static function getModelColumns(string $table): Collection
     {
         $tableColumns = static::getTableColumns($table);
 
-        $modelColumns = [];
-
-        foreach ($tableColumns as $attribute => $column)
+        return $tableColumns->map(function (TableColumn $tableColumn)
         {
-            $rules = [];
-
-            if ($column->foreignTable)
-            {
-                $relation = str_replace('_id', '', $attribute);
-
-                $rules = [
-                    Tables::ACCESSOR_KEY => $relation . '.id',
-                    Tables::HEADER => LocalizationService::trans("validation.attributes.$relation"),
-                    Tables::RELATIONSHIP => $relation,
-                    Tables::RELATIONSHIP_TABLE => $column->foreignTable,
-                ];
-            }
-            else
-            {
-                $rules = [
-                    Tables::ACCESSOR_KEY => $attribute,
-                    Tables::HEADER => LocalizationService::trans("validation.attributes.$attribute"),
-                ];
-            }
-
-            $rules = array_merge($rules, [
-                Tables::ID => $attribute,
-                Tables::META => [
-                    Tables::TYPE => $column->type,
-                ],
-            ]);
-
-            $modelColumns[] = $rules;
-        }
-
-        return $modelColumns;
+            return new ModelColumn($tableColumn);
+        });
     }
 
     /**
-     * @param string $column
-     * @param bool $includeAuto
+     * @param string $table
      *
-     * @return array<string,TableColumn>
+     * @return Collection<TableColumn>
      */
-    public static function getTableColumns(string $table, bool $includeAuto = true): array
+    public static function getTableColumns(string $table): Collection
     {
-        $tableColumns = Cache::rememberForever("schema:$table", function () use ($table, $includeAuto)
+        return Cache::rememberForever("schema:$table", function () use ($table)
         {
-            $tableColumns = [];
+            $tableColumns = collect([]);
 
             $columns = Schema::getColumns($table);
             $foreignKeys = Schema::getForeignKeys($table);
@@ -88,18 +55,11 @@ final class TableService
             {
                 $tableColumn = new TableColumn($column, $foreignKeys, $indexes);
 
-                if (!$includeAuto && $tableColumn->auto)
-                {
-                    continue;
-                }
-
-                $tableColumns[$tableColumn->name] = $tableColumn;
+                $tableColumns->put($tableColumn->name, $tableColumn);
             }
 
             return $tableColumns;
         });
-
-        return $tableColumns;
     }
 
     #endregion
