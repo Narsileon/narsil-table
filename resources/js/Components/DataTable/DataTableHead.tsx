@@ -1,5 +1,5 @@
 import { Button, cn, Popover, PopoverContent, PopoverTrigger, TableHead, TooltipWrapper } from "@narsil-ui/Components";
-import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronsUpDown, ChevronUp, GripVertical } from "lucide-react";
 import { CSS } from "@dnd-kit/utilities";
 import { flexRender } from "@tanstack/react-table";
 import { useDataTable } from "@narsil-table/Components";
@@ -38,30 +38,35 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 			{...props}
 		>
 			<div className='flex items-center justify-between pr-2'>
+				<Button
+					size='icon'
+					variant='ghost'
+					{...attributes}
+					{...listeners}
+				>
+					<GripVertical />
+				</Button>
 				<Popover>
-					<PopoverTrigger asChild={true}>
-						{!header.isPlaceholder && header.column.id !== "_menu" ? (
-							<TooltipWrapper tooltip={flexRender(header.column.columnDef.header, header.getContext())}>
+					<TooltipWrapper tooltip={flexRender(header.column.columnDef.header, header.getContext())}>
+						<PopoverTrigger asChild={true}>
+							{!header.isPlaceholder && header.column.id !== "_menu" ? (
 								<Button
 									className='block grow truncate text-left'
 									variant='ghost'
-									{...attributes}
-									{...listeners}
 								>
 									{header.isPlaceholder
 										? null
 										: flexRender(header.column.columnDef.header, header.getContext())}
 								</Button>
-							</TooltipWrapper>
-						) : null}
-					</PopoverTrigger>
+							) : null}
+						</PopoverTrigger>
+					</TooltipWrapper>
 					{header.column.getCanFilter() ? (
 						<PopoverContent align='start'>
 							<DataTableColumnSearch header={header} />
 						</PopoverContent>
 					) : null}
 				</Popover>
-
 				{header.column.getCanSort() ? (
 					<TooltipWrapper tooltip={trans("Sort")}>
 						<Button

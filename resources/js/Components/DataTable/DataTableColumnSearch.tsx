@@ -14,25 +14,26 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	const options = (() => {
 		switch (header.column.columnDef.meta?.type) {
 			case "array":
+			case "json":
 			case "object":
 				return [
 					{
-						label: trans("filters.contains"),
+						label: trans("Contains"),
 						value: "like",
 					},
 					{
-						label: trans("filters.contains_not"),
+						label: trans("Does not contain"),
 						value: "not like",
 					},
 				];
 			case "boolean":
 				return [
 					{
-						label: trans("filters.true"),
+						label: trans("True"),
 						value: 1,
 					},
 					{
-						label: trans("filters.false"),
+						label: trans("False"),
 						value: 0,
 					},
 				];
@@ -42,19 +43,19 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 			case "text":
 				return [
 					{
-						label: trans("filters.contains"),
+						label: trans("Contains"),
 						value: "like",
 					},
 					{
-						label: trans("filters.contains_not"),
+						label: trans("Does not contain"),
 						value: "not like",
 					},
 					{
-						label: trans("filters.start_with"),
+						label: trans("Starts with"),
 						value: "start",
 					},
 					{
-						label: trans("filters.end_with"),
+						label: trans("Ends with"),
 						value: "end",
 					},
 				];
@@ -63,54 +64,54 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 			case "time":
 				return [
 					{
-						label: trans("filters.equal"),
+						label: trans("Equal to"),
 						value: "like",
 					},
 					{
-						label: trans("filters.equal_not"),
+						label: trans("Not equal to"),
 						value: "not like",
 					},
 					{
-						label: trans("filters.before"),
+						label: trans("Before"),
 						value: "<",
 					},
 					{
-						label: trans("filters.before_or_equal"),
+						label: trans("Before or equal to"),
 						value: "<=",
 					},
 					{
-						label: trans("filters.after_or_equal"),
+						label: trans("After or equal to"),
 						value: ">=",
 					},
 					{
-						label: trans("filters.after"),
+						label: trans("After"),
 						value: ">",
 					},
 				];
 			case "number":
 				return [
 					{
-						label: trans("filters.equal"),
+						label: trans("Equal to"),
 						value: "like",
 					},
 					{
-						label: trans("filters.equal_not"),
+						label: trans("Not equal to"),
 						value: "not like",
 					},
 					{
-						label: trans("filters.less"),
+						label: trans("Less than"),
 						value: "<",
 					},
 					{
-						label: trans("filters.less_or_equal"),
+						label: trans("Less than or equal to"),
 						value: "<=",
 					},
 					{
-						label: trans("filters.greater_or_equal"),
+						label: trans("Greater than or equal to"),
 						value: ">=",
 					},
 					{
-						label: trans("filters.greater"),
+						label: trans("Greater than"),
 						value: ">",
 					},
 				];
@@ -154,11 +155,11 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 					onChange={(value) => columnStore.setOperator(value)}
 					options={[
 						{
-							label: trans("filters.and"),
+							label: trans("And"),
 							value: "&&",
 						},
 						{
-							label: trans("filters.or"),
+							label: trans("Or"),
 							value: "||",
 						},
 					]}

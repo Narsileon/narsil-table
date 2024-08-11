@@ -6,6 +6,7 @@ type TableCellType =
 	| "datetime-local"
 	| "icon"
 	| "image"
+	| "json"
 	| "number"
 	| "object"
 	| "string"
