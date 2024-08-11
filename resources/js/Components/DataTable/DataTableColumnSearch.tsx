@@ -1,8 +1,18 @@
-import { Combobox } from "@narsil-ui/Components";
 import { Input } from "@narsil-forms/Components";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
 import createDataTableColumnStore from "@narsil-table/Stores/dataTableColumnStore";
+
+import {
+	Button,
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+	Combobox,
+	Separator,
+} from "@narsil-ui/Components";
 
 const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	const { trans } = useTranslationsStore();
@@ -131,15 +141,12 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	const columnStore = useColumnStore((state) => state);
 
 	return (
-		<section className='space-y-2 font-normal'>
-			<div className='flex items-center justify-between'>
-				<h1 className='text-left font-semibold'>{trans("Filters")}</h1>
-			</div>
+		<Card variant='inline'>
+			<CardHeader>
+				<CardTitle>{trans("Filters")}</CardTitle>
+			</CardHeader>
 
-			<hr />
-
-			<div className='space-y-2'>
-				(
+			<CardContent>
 				<Combobox
 					value={columnStore.firstOperator}
 					onChange={(value) => columnStore.setFirstOperator(value)}
@@ -149,7 +156,7 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 					value={columnStore.firstFilter}
 					onChange={(event) => columnStore.setFirstFilter(event.target.value)}
 				/>
-				<hr />
+				<Separator />
 				<Combobox
 					value={columnStore.operator}
 					onChange={(value) => columnStore.setOperator(value)}
@@ -164,21 +171,27 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 						},
 					]}
 				/>
-				<hr />
-				<Input
-					value={columnStore.secondFilter}
-					onChange={(event) => columnStore.setSecondFilter(event.target.value)}
-				/>
+				<Separator />
 				<Combobox
 					value={columnStore.secondOperator}
 					onChange={(value) => columnStore.setSecondOperator(value)}
 					options={options}
 				/>
-				)
-			</div>
+				<Input
+					value={columnStore.secondFilter}
+					onChange={(event) => columnStore.setSecondFilter(event.target.value)}
+				/>
+			</CardContent>
 
-			<hr />
-		</section>
+			<CardFooter>
+				<Button
+					className='w-full'
+					onClick={() => columnStore.clear()}
+				>
+					{trans("Clear filters")}
+				</Button>
+			</CardFooter>
+		</Card>
 	);
 };
 
