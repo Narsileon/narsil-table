@@ -13,6 +13,15 @@ const createDataTableColumnStore = ({ initialState }: CreateDataTableColumnStore
 		...defaultState,
 		...initialState,
 		clear: () => set(defaultState),
+		getValue: () => {
+			return {
+				firstFilter: get().firstFilter,
+				firstOperator: get().firstOperator,
+				operator: get().operator,
+				secondFilter: get().secondFilter,
+				secondOperator: get().secondOperator,
+			};
+		},
 		setFirstFilter: (firstFilter) =>
 			set({
 				firstFilter: firstFilter,
