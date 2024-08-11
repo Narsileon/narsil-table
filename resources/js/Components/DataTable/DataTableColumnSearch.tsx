@@ -209,7 +209,7 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 			<CardFooter>
 				<Button
 					className='w-full'
-					onClick={() => columnStore.clear()}
+					onClick={() => header.column.setFilterValue(undefined)}
 				>
 					{trans("Clear filters")}
 				</Button>
