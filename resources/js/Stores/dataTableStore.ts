@@ -27,16 +27,27 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 					const params = {
 						globalFilter: get().globalFilter,
 						columnFilters: (() => {
-							const filteredColumnFilters = Object.values(get().columnFilters).filter((columnFilter) => {
-								const value = columnFilter.value as DataTableColumnStoreState;
+							const filteredColumnFilters = get().columnFilters.filter((columnFilter) => {
+								let filter = columnFilter.value as DataTableColumnStoreState;
 
-								return value?.firstFilter || value?.secondFilter;
+								return !isEmpty(filter?.firstFilter) || !isEmpty(filter?.secondFilter);
 							});
 
-							const minimizedColumnFilters = omitBy(
-								filteredColumnFilters,
-								(columnFilter) => isNil(columnFilter) && isEmpty(columnFilter)
-							);
+							const minimizedColumnFilters = filteredColumnFilters.map((columnFilter) => {
+								let filter = columnFilter.value as DataTableColumnStoreState;
+
+								if (isEmpty(filter?.firstFilter) || isEmpty(filter?.secondFilter)) {
+									filter = {
+										...filter,
+										operator: null,
+									};
+								}
+
+								return {
+									...columnFilter,
+									value: omitBy(filter, (value) => isEmpty(value)),
+								};
+							});
 
 							return minimizedColumnFilters;
 						})(),
