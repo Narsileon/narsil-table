@@ -161,7 +161,7 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 		} else if (columnStore.secondFilter && columnStore.secondOperator) {
 			header.column.setFilterValue(columnStore.getValue());
 		}
-	}, [columnStore.firstFilter, columnStore.secondFilter]);
+	}, [columnStore]);
 
 	return (
 		<Card variant='inline'>
