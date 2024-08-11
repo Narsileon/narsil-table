@@ -26,6 +26,7 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 				getParams: () => {
 					const params = {
 						globalFilter: get().globalFilter,
+						columnFilters: get().columnFilters,
 						pageSize: get().pageSize,
 						sorting: get().sorting.reduce(
 							(acc, { id, desc }) => {
