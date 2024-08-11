@@ -17,10 +17,6 @@ import {
 const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	const { trans } = useTranslationsStore();
 
-	const columnFilterValue = header.column.getFilterValue();
-
-	console.log(columnFilterValue);
-
 	const { options, type } = (() => {
 		let options: SelectOption[] = [];
 		let type: TableCellType = header.column.columnDef.meta?.type ?? "text";
@@ -148,7 +144,7 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	const useColumnStore = React.useMemo(
 		() =>
 			createDataTableColumnStore({
-				initialState: {},
+				initialState: header.column.getFilterValue() ?? {},
 			}),
 		[]
 	);
