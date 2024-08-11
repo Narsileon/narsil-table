@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
 const defaultState: DataTableColumnStoreState = {
-	firstFilter: null,
-	firstOperator: null,
-	operator: null,
-	secondFilter: null,
-	secondOperator: null,
+	firstFilter: "",
+	firstOperator: "",
+	operator: "",
+	secondFilter: "",
+	secondOperator: "",
 };
 
 const createDataTableColumnStore = ({ initialState }: CreateDataTableColumnStoreProps) =>

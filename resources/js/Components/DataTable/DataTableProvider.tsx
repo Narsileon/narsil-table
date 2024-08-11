@@ -202,7 +202,7 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 		filter(href, tableStore.getParams());
 
 		return () => filter.cancel();
-	}, [tableStore.columnFilters, tableStore.globalFilter, tableStore.pageSize, tableStore.sorting]);
+	}, [tableStore.filteredColumnFilters, tableStore.globalFilter, tableStore.pageSize, tableStore.sorting]);
 
 	const sensors = useSensors(useSensor(MouseSensor, {}), useSensor(TouchSensor, {}), useSensor(KeyboardSensor, {}));
 

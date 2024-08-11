@@ -5,6 +5,7 @@ type DataTableStoreState = {
 	columnSizing: import("@tanstack/react-table").ColumnSizingState;
 	columnVisibility: import("@tanstack/react-table").VisibilityState;
 	expanded: import("@tanstack/react-table").ExpandedState;
+	filteredColumnFilters: import("@tanstack/react-table").ColumnFiltersState;
 	globalFilter: string;
 	grouping: import("@tanstack/react-table").GroupingState;
 	pageIndex: number;

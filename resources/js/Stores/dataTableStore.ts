@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { isEmpty, isNil, omitBy } from "lodash";
+import { isEmpty, omitBy } from "lodash";
 
 const defaultState: DataTableStoreState = {
 	columnFilters: [],
@@ -11,11 +11,38 @@ const defaultState: DataTableStoreState = {
 	expanded: {},
 	globalFilter: "",
 	grouping: [],
+	filteredColumnFilters: [],
 	pageIndex: 0,
 	pageSize: 10,
 	quickFilters: [],
 	sorting: [],
 };
+
+function setfilteredColumnFilters(columnFilters: DataTableStoreState["columnFilters"]) {
+	const filteredColumnFilters = columnFilters.filter((columnFilter) => {
+		let filter = columnFilter.value as DataTableColumnStoreState;
+
+		return !isEmpty(filter?.firstFilter) || !isEmpty(filter?.secondFilter);
+	});
+
+	const minimizedColumnFilters = filteredColumnFilters.map((columnFilter) => {
+		let filter = columnFilter.value as DataTableColumnStoreState;
+
+		if (isEmpty(filter?.firstFilter) || isEmpty(filter?.secondFilter)) {
+			filter = {
+				...filter,
+				operator: null,
+			};
+		}
+
+		return {
+			...columnFilter,
+			value: omitBy(filter, (value) => isEmpty(value)),
+		};
+	});
+
+	return minimizedColumnFilters;
+}
 
 const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =>
 	create<DataTableStoreType>()(
@@ -26,31 +53,7 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 				getParams: () => {
 					const params = {
 						globalFilter: get().globalFilter,
-						columnFilters: (() => {
-							const filteredColumnFilters = get().columnFilters.filter((columnFilter) => {
-								let filter = columnFilter.value as DataTableColumnStoreState;
-
-								return !isEmpty(filter?.firstFilter) || !isEmpty(filter?.secondFilter);
-							});
-
-							const minimizedColumnFilters = filteredColumnFilters.map((columnFilter) => {
-								let filter = columnFilter.value as DataTableColumnStoreState;
-
-								if (isEmpty(filter?.firstFilter) || isEmpty(filter?.secondFilter)) {
-									filter = {
-										...filter,
-										operator: null,
-									};
-								}
-
-								return {
-									...columnFilter,
-									value: omitBy(filter, (value) => isEmpty(value)),
-								};
-							});
-
-							return minimizedColumnFilters;
-						})(),
+						columnFilters: get().filteredColumnFilters,
 						pageSize: get().pageSize,
 						sorting: get().sorting.reduce(
 							(acc, { id, desc }) => {
@@ -69,6 +72,7 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 				setColumnFilters: (columnFilters) =>
 					set({
 						columnFilters: columnFilters,
+						filteredColumnFilters: setfilteredColumnFilters(columnFilters),
 					}),
 				setColumnOperators: (columnOperators) =>
 					set({
@@ -94,7 +98,6 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 					set({
 						globalFilter: globalFilter,
 					}),
-
 				setGrouping: (grouping) =>
 					set({
 						grouping: grouping,
