@@ -23,14 +23,6 @@ import {
 	ColumnSizingState,
 	ExpandedState,
 	getCoreRowModel,
-	getExpandedRowModel,
-	getFacetedMinMaxValues,
-	getFacetedRowModel,
-	getFacetedUniqueValues,
-	getFilteredRowModel,
-	getGroupedRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
 	GroupingState,
 	PaginationState,
 	SortingState,
@@ -171,14 +163,6 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 			quickFilters: tableStore.quickFilters,
 		},
 		getCoreRowModel: getCoreRowModel(),
-		getExpandedRowModel: getExpandedRowModel(),
-		getFacetedMinMaxValues: getFacetedMinMaxValues(),
-		getFacetedRowModel: getFacetedRowModel(),
-		getFacetedUniqueValues: getFacetedUniqueValues(),
-		getFilteredRowModel: getFilteredRowModel(),
-		getGroupedRowModel: getGroupedRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getSortedRowModel: getSortedRowModel(),
 		onColumnFiltersChange: handleColumnFiltersChange,
 		onColumnOrderChange: handleColumnOrderChange,
 		onColumnSizingChange: handleColumnSizingChange,
@@ -218,7 +202,7 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 		filter(href, tableStore.getParams());
 
 		return () => filter.cancel();
-	}, [tableStore.globalFilter, tableStore.pageSize, tableStore.sorting]);
+	}, [tableStore.columnFilters, tableStore.globalFilter, tableStore.pageSize, tableStore.sorting]);
 
 	const sensors = useSensors(useSensor(MouseSensor, {}), useSensor(TouchSensor, {}), useSensor(KeyboardSensor, {}));
 

@@ -155,6 +155,14 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 
 	const columnStore = useColumnStore((state) => state);
 
+	React.useEffect(() => {
+		if (columnStore.firstFilter && columnStore.firstOperator) {
+			header.column.setFilterValue(columnStore);
+		} else if (columnStore.secondFilter && columnStore.secondOperator) {
+			header.column.setFilterValue(columnStore);
+		}
+	}, [columnStore.firstFilter, columnStore.secondFilter]);
+
 	return (
 		<Card variant='inline'>
 			<CardHeader>
