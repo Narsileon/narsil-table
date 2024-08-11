@@ -26,6 +26,11 @@
 		},
 		{
 			"type": "vcs",
+			"url": "git@github.com:Narsileon/narsil-policies.git",
+			"no-api": true
+		},
+		{
+			"type": "vcs",
 			"url": "git@github.com:Narsileon/narsil-ui.git",
 			"no-api": true
 		}

@@ -1,5 +1,4 @@
-import { cn } from "@narsil-ui/Components";
-import { Input } from "@narsil-forms/Components";
+import { cn, Input } from "@narsil-ui/Components";
 import { Search } from "lucide-react";
 import { useDataTable } from "./DataTableProvider";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
