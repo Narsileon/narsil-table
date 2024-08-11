@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { omitBy } from "lodash";
+import { isEmpty, isNil, omitBy } from "lodash";
 
 const defaultState: DataTableStoreState = {
 	columnFilters: [],
@@ -26,11 +26,20 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 				getParams: () => {
 					const params = {
 						globalFilter: get().globalFilter,
-						columnFilters: Object.values(get().columnFilters).filter((columnFilter) => {
-							const value = columnFilter.value as DataTableColumnStoreState;
+						columnFilters: (() => {
+							const filteredColumnFilters = Object.values(get().columnFilters).filter((columnFilter) => {
+								const value = columnFilter.value as DataTableColumnStoreState;
 
-							return value?.firstFilter || value?.secondFilter;
-						}),
+								return value?.firstFilter || value?.secondFilter;
+							});
+
+							const minimizedColumnFilters = omitBy(
+								filteredColumnFilters,
+								(columnFilter) => isNil(columnFilter) && isEmpty(columnFilter)
+							);
+
+							return minimizedColumnFilters;
+						})(),
 						pageSize: get().pageSize,
 						sorting: get().sorting.reduce(
 							(acc, { id, desc }) => {

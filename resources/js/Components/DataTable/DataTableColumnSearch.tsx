@@ -144,7 +144,14 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	const useColumnStore = React.useMemo(
 		() =>
 			createDataTableColumnStore({
-				initialState: header.column.getFilterValue() ?? {},
+				initialState: {
+					firstFilter: "",
+					firstOperator: "",
+					operator: "&&",
+					secondFilter: "",
+					secondOperator: "",
+					...(header.column.getFilterValue() ?? {}),
+				},
 			}),
 		[]
 	);
