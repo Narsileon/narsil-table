@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { omitBy } from "lodash";
 
-const defaultState: TableStoreState = {
+const defaultState: DataTableStoreState = {
 	columnFilters: [],
 	columnOperators: [],
 	columnOrder: [],
@@ -17,8 +17,8 @@ const defaultState: TableStoreState = {
 	sorting: [],
 };
 
-const createTableStore = ({ id, initialState }: CreateTableStoreProps) =>
-	create<TableStoreType>()(
+const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =>
+	create<DataTableStoreType>()(
 		persist(
 			(set, get) => ({
 				...defaultState,
@@ -103,4 +103,4 @@ const createTableStore = ({ id, initialState }: CreateTableStoreProps) =>
 		)
 	);
 
-export default createTableStore;
+export default createDataTableStore;

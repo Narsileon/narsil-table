@@ -1,4 +1,4 @@
-type TableStoreState = {
+type DataTableStoreState = {
 	columnFilters: import("@tanstack/react-table").ColumnFiltersState;
 	columnOperators: any[];
 	columnOrder: import("@tanstack/react-table").ColumnOrderState;
@@ -13,7 +13,7 @@ type TableStoreState = {
 	sorting: import("@tanstack/react-table").SortingState;
 };
 
-type TableStoreActions = {
+type DataTableStoreActions = {
 	getParams: () => { [key: string]: any };
 	setColumnFilters: (columnFilters: import("@tanstack/react-table").ColumnFiltersState) => void;
 	setColumnOperators: (columnOperators: any[]) => void;
@@ -30,9 +30,9 @@ type TableStoreActions = {
 	setSorting: (sorting: import("@tanstack/react-table").SortingState) => void;
 };
 
-type TableStoreType = TableStoreState & TableStoreActions;
+type DataTableStoreType = DataTableStoreState & DataTableStoreActions;
 
-interface CreateTableStoreProps {
+interface CreateDataTableStoreProps {
 	id: string;
-	initialState: Partial<TableStoreState>;
+	initialState: Partial<DataTableStoreState>;
 }

@@ -4,7 +4,7 @@ import { debounce, isString } from "lodash";
 import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 import { router } from "@inertiajs/react";
 import * as React from "react";
-import createTableStore from "@narsil-table/Stores/tableStore";
+import createDataTableStore from "@narsil-table/Stores/dataTableStore";
 
 import {
 	type DragEndEvent,
@@ -86,7 +86,7 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 
 	const useTableStore = React.useMemo(
 		() =>
-			createTableStore({
+			createDataTableStore({
 				id: id,
 				initialState: {
 					columnOrder: getColumnOrder(),

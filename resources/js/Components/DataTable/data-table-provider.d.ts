@@ -1,6 +1,6 @@
 type DataTableProviderState = {
 	table: import("@tanstack/react-table").Table<any>;
-	tableStore: TableStoreType;
+	tableStore: DataTableStoreType;
 };
 
 type DataTableProviderAction = {};

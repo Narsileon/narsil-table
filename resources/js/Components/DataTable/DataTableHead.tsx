@@ -6,6 +6,7 @@ import { useDataTable } from "@narsil-table/Components";
 import { useSortable } from "@dnd-kit/sortable";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
+import DataTableColumnSearch from "./DataTableColumnSearch";
 
 const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 	const { table } = useDataTable();
@@ -54,7 +55,11 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 							</TooltipWrapper>
 						) : null}
 					</PopoverTrigger>
-					<PopoverContent align='start'></PopoverContent>
+					{header.column.getCanFilter() ? (
+						<PopoverContent align='start'>
+							<DataTableColumnSearch header={header} />
+						</PopoverContent>
+					) : null}
 				</Popover>
 
 				{header.column.getCanSort() ? (
