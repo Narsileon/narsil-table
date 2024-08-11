@@ -98,7 +98,9 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 						value: ">",
 					},
 				];
+			case "float":
 			case "number":
+			case "integer":
 				return [
 					{
 						label: trans("Equal to"),
