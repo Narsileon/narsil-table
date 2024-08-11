@@ -152,11 +152,7 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	const columnStore = useColumnStore((state) => state);
 
 	React.useEffect(() => {
-		if (columnStore.firstFilter && columnStore.firstOperator) {
-			header.column.setFilterValue(columnStore.getValue());
-		} else if (columnStore.secondFilter && columnStore.secondOperator) {
-			header.column.setFilterValue(columnStore.getValue());
-		}
+		header.column.setFilterValue(columnStore.getValue());
 	}, [columnStore]);
 
 	return (

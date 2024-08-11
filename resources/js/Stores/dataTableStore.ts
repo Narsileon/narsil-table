@@ -26,7 +26,11 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 				getParams: () => {
 					const params = {
 						globalFilter: get().globalFilter,
-						columnFilters: get().columnFilters,
+						columnFilters: Object.values(get().columnFilters).filter((columnFilter) => {
+							const value = columnFilter.value as DataTableColumnStoreState;
+
+							return value?.firstFilter || value?.secondFilter;
+						}),
 						pageSize: get().pageSize,
 						sorting: get().sorting.reduce(
 							(acc, { id, desc }) => {
