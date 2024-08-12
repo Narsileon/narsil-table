@@ -15,7 +15,7 @@ const DataTableSearch = React.forwardRef<HTMLDivElement, DataTableSearchProps>((
 			className={cn("relative w-96", className)}
 			{...props}
 		>
-			<Search className='botton-1.5 absolute left-1.5 top-1.5' />
+			<Search className='botton-1.5 z-1 absolute left-1.5 top-1.5' />
 
 			<Input
 				className='w-full px-9'
