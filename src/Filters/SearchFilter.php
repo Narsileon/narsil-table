@@ -6,6 +6,7 @@ namespace Narsil\Table\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Narsil\Table\Constants\SQL;
 use Narsil\Table\Constants\Types;
@@ -32,6 +33,39 @@ class SearchFilter
 
         $this->modelColumns = TableService::getModelColumns($this->query->from);
     }
+
+    #endregion
+
+    #region CONSTANTS
+
+    /**
+     * @var string
+     */
+    private const COLUMN_FILTERS = 'columnFilters';
+    /**
+     * @var string
+     */
+    private const FIRST_FILTER = 'firstFilter';
+    /**
+     * @var string
+     */
+    private const FIRST_OPERATOR = 'firstOperator';
+    /**
+     * @var string
+     */
+    private const GLOBAL_FILTER = 'globalFilter';
+    /**
+     * @var string
+     */
+    private const OPERATOR = 'operator';
+    /**
+     * @var string
+     */
+    private const SECOND_FILTER = 'secondFilter';
+    /**
+     * @var string
+     */
+    private const SECOND_OPERATOR = 'secondOperator';
 
     #endregion
 
@@ -65,6 +99,11 @@ class SearchFilter
             $this->applyGlobalFilter($subquery);
         });
 
+        $this->query->where(function (Builder $subquery)
+        {
+            $this->applyColumnFilters($subquery);
+        });
+
         return $this->query;
     }
 
@@ -79,9 +118,59 @@ class SearchFilter
      *
      * @return void
      */
+    private function applyColumnFilters(Builder $query): void
+    {
+        $columnFilters = $this->request->get(self::COLUMN_FILTERS);
+
+        if (!$columnFilters)
+        {
+            return;
+        }
+
+        foreach ($this->modelColumns as $modelColumn)
+        {
+            $key = $modelColumn->id;
+
+            if ($columnFilter = Arr::get($columnFilters, $key, null))
+            {
+                $firstFilter = Arr::get($columnFilter, self::FIRST_FILTER);
+                $firstOperator = Arr::get($columnFilter, self::FIRST_OPERATOR);
+                $operator = Arr::get($columnFilter, self::OPERATOR);
+                $secondFilter = Arr::get($columnFilter, self::SECOND_FILTER);
+                $secondOperator = Arr::get($columnFilter, self::SECOND_OPERATOR);
+
+                if ($firstFilter && $firstOperator)
+                {
+                    $this->scopeWhere($query, $modelColumn, $key, $firstOperator, $firstFilter);
+
+                    if ($secondFilter && $secondOperator)
+                    {
+                        if ($operator === '&&')
+                        {
+                            $this->scopeWhere($query, $modelColumn, $key, $secondOperator, $secondFilter);
+                        }
+                        else
+                        {
+                            $this->scopeOrWhere($query, $modelColumn, $key, $secondOperator, $secondFilter);
+                        }
+                    }
+                }
+                else if ($secondFilter && $secondOperator)
+                {
+                    $this->scopeWhere($query, $modelColumn, $key, $secondOperator, $secondFilter);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @return void
+     */
     private function applyGlobalFilter(Builder $query): void
     {
-        $globalFilter = $this->request->get('globalFilter');
+        $globalFilter = $this->request->get(self::GLOBAL_FILTER);
 
         if (!$globalFilter)
         {
@@ -98,39 +187,45 @@ class SearchFilter
                 case Types::OBJECT:
                     if ($modelColumn->foreignTable)
                     {
-                        $query->orWhereRelation($modelColumn->relation, $key, 'like', '%' . $globalFilter . '%');
+                        $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE, '%' . $globalFilter . '%');
                     }
-                    $query->orWhere($key, 'like', '%' . $globalFilter . '%');
+                    $query->orWhere($key, SQL::LIKE, '%' . $globalFilter . '%');
+                    break;
                 case Types::COLOR:
                 case Types::ICON:
                 case Types::STRING:
                 case Types::TEXT:
                     if ($modelColumn->foreignTable)
                     {
-                        $query->orWhereRelation($modelColumn->relation, $key, 'like', '%' . $globalFilter . '%');
+                        $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE, '%' . $globalFilter . '%');
                     }
                     $query->orWhere($key, SQL::LIKE, '%' . $globalFilter . '%');
+                    break;
                 case Types::DATE:
                 case Types::DATETIME_LOCAL:
                     $query->orWhereDate($key, SQL::LIKE, $globalFilter);
+                    break;
                 case Types::FLOAT:
                 case Types::INTEGER:
                     $query->orWhere($key, SQL::LIKE, '%' . $globalFilter . '%');
+                    break;
                 default:
                     $query;
+                    break;
             }
         }
     }
 
     /**
+     * @param Builder $query
      * @param ModelColumn $modelColumn
      * @param string $key
      * @param string $operator
      * @param mixed $value
      *
-     * @return Builder
+     * @return void
      */
-    private function scopeWhere(ModelColumn $modelColumn, string $key, string $operator, mixed $value): Builder
+    private function scopeWhere(Builder $query, ModelColumn $modelColumn, string $key, string $operator, mixed $value): void
     {
         switch ($modelColumn->meta->type)
         {
@@ -138,11 +233,14 @@ class SearchFilter
             case Types::OBJECT:
                 if ($modelColumn->foreignTable)
                 {
-                    return $this->query->whereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                    $query->whereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                    break;
                 }
-                return $this->query->where($key, $operator, '%' . $value . '%');
+                $query->where($key, $operator, '%' . $value . '%');
+                break;
             case Types::BOOLEAN:
-                return $this->query->where($key, $operator, $value);
+                $query->where($key, $operator, $value);
+                break;
             case Types::COLOR:
             case Types::ICON:
             case Types::STRING:
@@ -152,15 +250,20 @@ class SearchFilter
                     switch ($operator)
                     {
                         case 'start':
-                            return $this->query->whereRelation($modelColumn->relation, $key, SQL::LIKE, $value . '%');
+                            $query->whereRelation($modelColumn->relation, $key, SQL::LIKE, $value . '%');
+                            break;
                         case 'start binary':
-                            return $this->query->whereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, $value . '%');
+                            $query->whereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, $value . '%');
+                            break;
                         case 'end':
-                            return $this->query->whereRelation($modelColumn->relation, $key, SQL::LIKE, '%' . $value);
+                            $query->whereRelation($modelColumn->relation, $key, SQL::LIKE, '%' . $value);
+                            break;
                         case 'end binary':
-                            return $this->query->whereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, '%' . $value);
+                            $query->whereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, '%' . $value);
+                            break;
                         default:
-                            return $this->query->whereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                            $query->whereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                            break;
                     }
                 }
 
@@ -169,37 +272,45 @@ class SearchFilter
                     switch ($operator)
                     {
                         case 'start':
-                            return $this->query->where($key, SQL::LIKE, $value . '%');
+                            $query->where($key, SQL::LIKE, $value . '%');
+                            break;
                         case 'start binary':
-                            return $this->query->where($key, SQL::LIKE_BINARY, $value . '%');
+                            $query->where($key, SQL::LIKE_BINARY, $value . '%');
+                            break;
                         case 'end':
-                            return $this->query->where($key, SQL::LIKE, '%' . $value);
+                            $query->where($key, SQL::LIKE, '%' . $value);
+                            break;
                         case 'end binary':
-                            return $this->query->where($key, SQL::LIKE_BINARY, '%' . $value);
+                            $query->where($key, SQL::LIKE_BINARY, '%' . $value);
+                            break;
                         default:
-                            return $this->query->where($key, $operator, '%' . $value . '%');
+                            $query->where($key, $operator, '%' . $value . '%');
+                            break;
                     }
                 }
             case Types::DATE:
             case Types::DATETIME_LOCAL:
-                return $this->query->whereDate($key, $operator, $value);
+                $query->whereDate($key, $operator, $value);
+                break;
             case Types::FLOAT:
             case Types::INTEGER:
-                return $this->query->where($key, $operator, $value);
+                $query->where($key, $operator, $value);
+                break;
             default:
-                return $this->query;
+                break;
         }
     }
 
     /**
+     * @param Builder $query
      * @param ModelColumn $modelColumn
      * @param string $key
      * @param string $operator
      * @param mixed $value
      *
-     * @return Builder
+     * @return void
      */
-    private function scopeOrWhere(ModelColumn $modelColumn, string $key, string $operator, mixed $value): Builder
+    private function scopeOrWhere(Builder $query, ModelColumn $modelColumn, string $key, string $operator, mixed $value): void
     {
         switch ($modelColumn->meta->type)
         {
@@ -207,9 +318,11 @@ class SearchFilter
             case Types::OBJECT:
                 if ($modelColumn->foreignTable)
                 {
-                    return $this->query->orWhereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                    $query->orWhereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                    break;
                 }
-                return $this->query->orWhere($key, $operator, '%' . $value . '%');
+                $query->orWhere($key, $operator, '%' . $value . '%');
+                break;
             case Types::COLOR:
             case Types::ICON:
             case Types::STRING:
@@ -219,15 +332,20 @@ class SearchFilter
                     switch ($operator)
                     {
                         case 'start':
-                            return $this->query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE, $value . '%');
+                            $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE, $value . '%');
+                            break;
                         case 'start binary':
-                            return $this->query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, $value . '%');
+                            $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, $value . '%');
+                            break;
                         case 'end':
-                            return $this->query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE, '%' . $value);
+                            $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE, '%' . $value);
+                            break;
                         case 'end binary':
-                            return $this->query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, '%' . $value);
+                            $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, '%' . $value);
+                            break;
                         default:
-                            return $this->query->orWhereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                            $query->orWhereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                            break;
                     }
                 }
 
@@ -236,25 +354,32 @@ class SearchFilter
                     switch ($operator)
                     {
                         case 'start':
-                            return $this->query->orWhere($key, SQL::LIKE, $value . '%');
+                            $query->orWhere($key, SQL::LIKE, $value . '%');
+                            break;
                         case 'start binary':
-                            return $this->query->orWhere($key, SQL::LIKE_BINARY, $value . '%');
+                            $query->orWhere($key, SQL::LIKE_BINARY, $value . '%');
+                            break;
                         case 'end':
-                            return $this->query->orWhere($key, SQL::LIKE, '%' . $value);
+                            $query->orWhere($key, SQL::LIKE, '%' . $value);
+                            break;
                         case 'end binary':
-                            return $this->query->orWhere($key, SQL::LIKE_BINARY, '%' . $value);
+                            $query->orWhere($key, SQL::LIKE_BINARY, '%' . $value);
+                            break;
                         default:
-                            return $this->query->orWhere($key, $operator, '%' . $value . '%');
+                            $query->orWhere($key, $operator, '%' . $value . '%');
+                            break;
                     }
                 }
             case Types::DATE:
             case Types::DATETIME_LOCAL:
-                return $this->query->orWhereDate($key, $operator, $value);
+                $query->orWhereDate($key, $operator, $value);
+                break;
             case Types::FLOAT:
             case Types::INTEGER:
-                return $this->query->orWhere($key, $operator, $value);
+                $query->orWhere($key, $operator, $value);
+                break;
             default:
-                return $this->query;
+                break;
         }
     }
 
