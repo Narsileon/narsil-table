@@ -26,6 +26,16 @@ function filterColumnFilters(columnFilters: DataTableStoreState["columnFilters"]
 	});
 }
 
+function formatColumFilters(columnFilters: DataTableStoreState["columnFilters"]) {
+	return columnFilters.reduce(
+		(acc, { id, value }) => {
+			acc[id] = value;
+			return acc;
+		},
+		{} as Record<string, unknown>
+	);
+}
+
 function formatSorting(sorting: DataTableStoreState["sorting"]) {
 	return sorting.reduce(
 		(acc, { id, desc }) => {
@@ -69,7 +79,7 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 				getParams: () => {
 					const params = {
 						globalFilter: get().globalFilter,
-						columnFilters: get().filteredColumnFilters,
+						columnFilters: formatColumFilters(get().filteredColumnFilters),
 						pageSize: get().pageSize,
 						sorting: formatSorting(get().sorting),
 					};
