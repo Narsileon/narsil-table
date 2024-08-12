@@ -4,6 +4,7 @@ namespace Narsil\Table\Structures;
 
 #region USE
 
+use Illuminate\Support\Facades\Log;
 use Narsil\Localization\Models\Translation;
 use Narsil\Table\Constants\DBTypes;
 use Narsil\Table\Constants\Types;
@@ -249,7 +250,8 @@ final class TableColumn
             case DBTypes::TIME:
                 return Types::TIME;
             default:
-                return dd($this->type);
+                Log::error($this->typeName);
+                return Types::TEXT;
         }
     }
 
