@@ -12,7 +12,6 @@ const createDataTableColumnStore = ({ initialState }: CreateDataTableColumnStore
 	create<DataTableColumnStoreType>()((set, get) => ({
 		...defaultState,
 		...initialState,
-		clear: () => set(defaultState),
 		getValue: () => {
 			return {
 				firstFilter: get().firstFilter,

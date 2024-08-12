@@ -141,6 +141,9 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 		data: data as any[],
 		defaultColumn: {
 			minSize: 100,
+			filterFn: () => {
+				return true;
+			},
 		},
 		manualFiltering: true,
 		manualGrouping: true,

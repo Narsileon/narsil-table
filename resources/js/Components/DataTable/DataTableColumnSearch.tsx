@@ -1,3 +1,4 @@
+import { useDataTable } from "@narsil-table/Components";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
 import createDataTableColumnStore from "@narsil-table/Stores/dataTableColumnStore";
@@ -16,6 +17,8 @@ import {
 
 const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	const { trans } = useTranslationsStore();
+
+	const { tableStore } = useDataTable();
 
 	const { options, type } = (() => {
 		let options: SelectOption[] = [];
@@ -212,7 +215,12 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 			<CardFooter>
 				<Button
 					className='w-full'
-					onClick={() => header.column.setFilterValue(undefined)}
+					onClick={() => {
+						columnStore.setFirstFilter("");
+						columnStore.setSecondFilter("");
+
+						tableStore.unsetColumnFilter(header.column.id);
+					}}
 				>
 					{trans("Clear filters")}
 				</Button>

@@ -18,14 +18,26 @@ const defaultState: DataTableStoreState = {
 	sorting: [],
 };
 
-function setfilteredColumnFilters(columnFilters: DataTableStoreState["columnFilters"]) {
-	const filteredColumnFilters = columnFilters.filter((columnFilter) => {
+function filterColumnFilters(columnFilters: DataTableStoreState["columnFilters"]) {
+	return columnFilters.filter((columnFilter) => {
 		let filter = columnFilter.value as DataTableColumnStoreState;
 
 		return !isEmpty(filter?.firstFilter) || !isEmpty(filter?.secondFilter);
 	});
+}
 
-	const minimizedColumnFilters = filteredColumnFilters.map((columnFilter) => {
+function formatSorting(sorting: DataTableStoreState["sorting"]) {
+	return sorting.reduce(
+		(acc, { id, desc }) => {
+			acc[id] = desc ? "desc" : "asc";
+			return acc;
+		},
+		{} as Record<string, "asc" | "desc">
+	);
+}
+
+function minimizeColumnFilters(columnFilters: DataTableStoreState["columnFilters"]) {
+	return columnFilters.map((columnFilter) => {
 		let filter = columnFilter.value as DataTableColumnStoreState;
 
 		if (isEmpty(filter?.firstFilter) || isEmpty(filter?.secondFilter)) {
@@ -40,8 +52,12 @@ function setfilteredColumnFilters(columnFilters: DataTableStoreState["columnFilt
 			value: omitBy(filter, (value) => isEmpty(value)),
 		};
 	});
+}
 
-	return minimizedColumnFilters;
+function removeColumnFilter(columnFilters: DataTableStoreState["columnFilters"], id: string) {
+	return columnFilters.filter((columnFilter) => {
+		return columnFilter.id !== id;
+	});
 }
 
 const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =>
@@ -55,24 +71,20 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 						globalFilter: get().globalFilter,
 						columnFilters: get().filteredColumnFilters,
 						pageSize: get().pageSize,
-						sorting: get().sorting.reduce(
-							(acc, { id, desc }) => {
-								acc[id] = desc ? "desc" : "asc";
-								return acc;
-							},
-							{} as Record<string, "asc" | "desc">
-						),
+						sorting: formatSorting(get().sorting),
 					};
+
 					const filteredParams = omitBy(
 						params,
 						(value) => value === null || (Array.isArray(value) && value.length === 0)
 					);
+
 					return filteredParams;
 				},
 				setColumnFilters: (columnFilters) =>
 					set({
 						columnFilters: columnFilters,
-						filteredColumnFilters: setfilteredColumnFilters(columnFilters),
+						filteredColumnFilters: minimizeColumnFilters(filterColumnFilters(columnFilters)),
 					}),
 				setColumnOperators: (columnOperators) =>
 					set({
@@ -122,6 +134,10 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 				setSorting: (sorting) =>
 					set({
 						sorting: sorting,
+					}),
+				unsetColumnFilter: (id) =>
+					set({
+						columnFilters: removeColumnFilter(get().columnFilters, id),
 					}),
 			}),
 			{

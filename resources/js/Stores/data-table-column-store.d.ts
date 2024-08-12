@@ -7,7 +7,6 @@ type DataTableColumnStoreState = {
 };
 
 type DataTableColumnStoreActions = {
-	clear: () => void;
 	getValue: () => DataTableColumnStoreState;
 	setFirstFilter: (firstFilter: any) => void;
 	setFirstOperator: (firstOperator: any) => void;

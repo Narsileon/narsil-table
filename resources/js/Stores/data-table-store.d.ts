@@ -29,6 +29,7 @@ type DataTableStoreActions = {
 	setPagination: (pagination: import("@tanstack/react-table").PaginationState) => void;
 	setQuickFilters: (specialFilters: any[]) => void;
 	setSorting: (sorting: import("@tanstack/react-table").SortingState) => void;
+	unsetColumnFilter: (id: string) => void;
 };
 
 type DataTableStoreType = DataTableStoreState & DataTableStoreActions;
