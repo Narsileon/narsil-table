@@ -288,6 +288,7 @@ class SearchFilter
                             break;
                     }
                 }
+                break;
             case Types::DATE:
             case Types::DATETIME_LOCAL:
                 $query->whereDate($key, $operator, $value);
@@ -370,6 +371,7 @@ class SearchFilter
                             break;
                     }
                 }
+                break;
             case Types::DATE:
             case Types::DATETIME_LOCAL:
                 $query->orWhereDate($key, $operator, $value);
