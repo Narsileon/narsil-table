@@ -78,7 +78,7 @@ const TableCellRenderer = ({ className, defaultValue, format, type, value }: Tab
 				</span>
 			);
 		default:
-			return <span>{JSON.stringify(defaultValue ?? value)}</span>;
+			return <span>{(defaultValue as string) ?? value}</span>;
 	}
 };
 
