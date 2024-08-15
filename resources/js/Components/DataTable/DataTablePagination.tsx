@@ -20,7 +20,7 @@ const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePagination
 				data={tableStore.getParams()}
 				from={collection.meta.grouped_from ?? collection.meta.from}
 				lastPage={collection.meta.lastPage}
-				links={collection.meta.links}
+				links={collection.meta.links.slice(1, collection.meta.links.length - 1)}
 				onPageSizeChange={(value) => table.setPageSize(Number(value))}
 				pageSize={table.getState().pagination.pageSize}
 				ref={ref}
