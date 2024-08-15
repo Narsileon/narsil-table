@@ -1,6 +1,8 @@
-import { PaginationSelect } from "@narsil-ui/Components";
-import { useDataTable } from "@narsil-table/Components";
+import { useDataTable } from "./DataTableProvider";
+import PaginationSelect, { PaginationSelectProps } from "@narsil-ui/Components/Pagination/PaginationSelect";
 import * as React from "react";
+
+export interface DataTablePaginationSelectProps extends Partial<PaginationSelectProps> {}
 
 const DataTablePaginationSelect = React.forwardRef<HTMLDivElement, DataTablePaginationSelectProps>(
 	({ ...props }, ref) => {

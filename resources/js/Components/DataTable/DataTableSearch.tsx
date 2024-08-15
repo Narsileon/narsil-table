@@ -1,8 +1,11 @@
-import { cn, Input } from "@narsil-ui/Components";
+import { cn } from "@narsil-ui/Components";
 import { Search } from "lucide-react";
 import { useDataTable } from "./DataTableProvider";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
+import Input from "@narsil-ui/Components/Input/Input";
+
+export interface DataTableSearchProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const DataTableSearch = React.forwardRef<HTMLDivElement, DataTableSearchProps>(({ className, ...props }, ref) => {
 	const { trans } = useTranslationsStore();

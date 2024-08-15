@@ -1,27 +1,41 @@
-import { DataTableRowMenuItem } from "@narsil-table/Components";
 import { InertiaLinkProps, Link } from "@inertiajs/react";
 import { Menu } from "lucide-react";
 import { RouteList } from "ziggy-js";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
+import AlertDialog from "@narsil-ui/Components/AlertDialog/AlertDialog";
+import AlertDialogAction from "@narsil-ui/Components/AlertDialog/AlertDialogAction";
+import AlertDialogCancel from "@narsil-ui/Components/AlertDialog/AlertDialogCancel";
+import AlertDialogContent from "@narsil-ui/Components/AlertDialog/AlertDialogContent";
+import AlertDialogDescription from "@narsil-ui/Components/AlertDialog/AlertDialogDescription";
+import AlertDialogFooter from "@narsil-ui/Components/AlertDialog/AlertDialogFooter";
+import AlertDialogHeader from "@narsil-ui/Components/AlertDialog/AlertDialogHeader";
+import AlertDialogTitle from "@narsil-ui/Components/AlertDialog/AlertDialogTitle";
+import Button from "@narsil-ui/Components/Button/Button";
+import DataTableRowMenuItem from "./DataTableRowMenuItem";
+import DropdownMenu from "@narsil-ui/Components/DropdownMenu/DropdownMenu";
+import DropdownMenuContent from "@narsil-ui/Components/DropdownMenu/DropdownMenuContent";
+import DropdownMenuSeparator from "@narsil-ui/Components/DropdownMenu/DropdownMenuSeparator";
+import DropdownMenuTrigger from "@narsil-ui/Components/DropdownMenu/DropdownMenuTrigger";
 
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	Button,
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@narsil-ui/Components";
+export type ActionOption = SelectOption & Pick<import("@inertiajs/react").InertiaLinkProps, "method">;
+
+export type DataTableRowMenuProviderState = {};
+
+export type DataTableRowMenuProviderAction = {
+	setHref: (href: import("@inertiajs/react").InertiaLinkProps["href"]) => void;
+	setMethod: (href: import("@inertiajs/react").InertiaLinkProps["method"]) => void;
+};
+
+export type DataTableRowMenuProviderType = DataTableRowMenuProviderAction & DataTableRowMenuProviderState;
 
 const DataTableRowMenuContext = React.createContext<DataTableRowMenuProviderType>({} as DataTableRowMenuProviderType);
+
+export interface DataTableRowMenuProps {
+	actions?: ActionOption[];
+	children?: React.ReactNode;
+	row: import("@tanstack/react-table").Row<any>;
+}
 
 const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => {
 	const { trans } = useTranslationsStore();

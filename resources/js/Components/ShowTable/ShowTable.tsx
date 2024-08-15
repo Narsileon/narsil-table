@@ -1,7 +1,17 @@
-import { cn, Table, TableBody, TableHead, TableHeader, TableRow } from "@narsil-ui/Components";
-import { ShowRow } from "@narsil-table/Components";
+import { cn } from "@narsil-ui/Components";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
+import ShowRow from "@narsil-table/Components/ShowTable/ShowRow";
+import Table, { TableProps } from "@narsil-ui/Components/Table/Table";
+import TableBody from "@narsil-ui/Components/Table/TableBody";
+import TableHead from "@narsil-ui/Components/Table/TableHead";
+import TableHeader from "@narsil-ui/Components/Table/TableHeader";
+import TableRow from "@narsil-ui/Components/Table/TableRow";
+
+export interface ShowTableProps extends TableProps {
+	columns: import("@tanstack/react-table").ColumnDef<any, any>[];
+	data: { [key: string]: any };
+}
 
 const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(({ className, columns, data, ...props }, ref) => {
 	const { trans } = useTranslationsStore();

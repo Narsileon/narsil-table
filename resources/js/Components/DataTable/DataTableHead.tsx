@@ -1,12 +1,23 @@
-import { Button, cn, Popover, PopoverContent, PopoverTrigger, TableHead, TooltipWrapper } from "@narsil-ui/Components";
 import { ChevronDown, ChevronsUpDown, ChevronUp, GripVertical } from "lucide-react";
+import { cn } from "@narsil-ui/Components";
 import { CSS } from "@dnd-kit/utilities";
 import { flexRender } from "@tanstack/react-table";
-import { useDataTable } from "@narsil-table/Components";
+import { Header } from "@tanstack/react-table";
+import { useDataTable } from "./DataTableProvider";
 import { useSortable } from "@dnd-kit/sortable";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
+import Button from "@narsil-ui/Components/Button/Button";
 import DataTableColumnSearch from "./DataTableColumnSearch";
+import Popover from "@narsil-ui/Components/Popover/Popover";
+import PopoverContent from "@narsil-ui/Components/Popover/PopoverContent";
+import PopoverTrigger from "@narsil-ui/Components/Popover/PopoverTrigger";
+import TableHead from "@narsil-ui/Components/Table/TableHead";
+import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
+
+export interface DataTableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
+	header: Header<any, any>;
+}
 
 const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 	const { table } = useDataTable();

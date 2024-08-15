@@ -1,8 +1,14 @@
 import { isArray, isBoolean, isEmpty, isNil, isNumber, isObject } from "lodash";
-import { TableCell, TableRow } from "@narsil-ui/Components";
-import { TableCellRenderer } from "@narsil-table/Components";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
+import TableCell from "@narsil-ui/Components/Table/TableCell";
+import TableCellRenderer, { TableCellRendererProps } from "@narsil-table/Components/Table/TableCellRenderer";
+import TableRow, { TableRowProps } from "@narsil-ui/Components/Table/TableRow";
+
+export interface ShowRowProps extends TableRowProps, Omit<TableCellRendererProps, "defaultValue"> {
+	attribute: string;
+	label?: string;
+}
 
 const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
 	({ attribute, format, label, type, value, ...props }, ref) => {

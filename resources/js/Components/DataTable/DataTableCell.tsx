@@ -1,9 +1,15 @@
-import { cn, TableCell } from "@narsil-ui/Components";
+import { Cell, flexRender } from "@tanstack/react-table";
+import { cn } from "@narsil-ui/Components";
 import { CSS } from "@dnd-kit/utilities";
-import { flexRender } from "@tanstack/react-table";
-import { TableCellRenderer } from "@narsil-table/Components";
 import { useSortable } from "@dnd-kit/sortable";
 import * as React from "react";
+import TableCell from "@narsil-ui/Components/Table/TableCell";
+import TableCellRenderer from "@narsil-table/Components/Table/TableCellRenderer";
+
+export interface DataTableCellProps {
+	cell: Cell<any, any>;
+	grouping?: Record<string, any>;
+}
 
 const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 	const { isDragging, setNodeRef, transform } = useSortable({

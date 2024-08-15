@@ -3,8 +3,9 @@ import { createContext, useContext } from "react";
 import { debounce, isString } from "lodash";
 import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 import { router } from "@inertiajs/react";
+import { TableCellType } from "@narsil-table/Components/Table/TableCellRenderer";
 import * as React from "react";
-import createDataTableStore from "@narsil-table/Stores/dataTableStore";
+import createDataTableStore, { DataTableStoreType } from "@narsil-table/Stores/dataTableStore";
 
 import {
 	type DragEndEvent,
@@ -48,7 +49,24 @@ declare module "@tanstack/table-core" {
 	}
 }
 
+export type DataTableProviderState = {
+	table: import("@tanstack/react-table").Table<any>;
+	tableStore: DataTableStoreType;
+};
+
+export type DataTableProviderAction = {};
+
+export type DataTableProviderType = DataTableProviderState & DataTableProviderAction;
+
 const DataTableContext = createContext<DataTableProviderType>({} as DataTableProviderType);
+
+export interface DataTableProviderProps {
+	children: React.ReactNode;
+	columns: import("@tanstack/react-table").ColumnDef<any, any>[];
+	data: { [key: string]: any };
+	id: string;
+	menu?: (props: import("@tanstack/react-table").CellContext<any, any>) => any;
+}
 
 const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProviderProps) => {
 	if (menu) {

@@ -1,1 +1,0 @@
-interface DataTableSettingsProps extends PopoverProps {}

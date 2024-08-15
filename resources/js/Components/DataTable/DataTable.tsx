@@ -1,9 +1,17 @@
-import { DataTableCell, DataTableHead } from "@narsil-table/Components";
 import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
-import { ScrollArea, Table, TableBody, TableCell, TableHeader, TableRow } from "@narsil-ui/Components";
-import { useDataTable } from "@narsil-table/Components";
+import { useDataTable } from "./DataTableProvider";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
+import DataTableCell from "./DataTableCell";
+import DataTableHead from "./DataTableHead";
+import ScrollArea, { ScrollAreaProps } from "@narsil-ui/Components/ScrollArea/ScrollArea";
+import Table from "@narsil-ui/Components/Table/Table";
+import TableBody from "@narsil-ui/Components/Table/TableBody";
+import TableCell from "@narsil-ui/Components/Table/TableCell";
+import TableHeader from "@narsil-ui/Components/Table/TableHeader";
+import TableRow from "@narsil-ui/Components/Table/TableRow";
+
+export interface DataTableProps extends ScrollAreaProps {}
 
 const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }, ref) => {
 	const { table } = useDataTable();

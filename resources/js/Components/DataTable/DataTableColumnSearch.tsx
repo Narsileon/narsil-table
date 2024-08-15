@@ -1,19 +1,22 @@
-import { useDataTable } from "@narsil-table/Components";
+import { Header } from "@tanstack/react-table";
+import { TableCellType } from "@narsil-table/Components/Table/TableCellRenderer";
+import { useDataTable } from "./DataTableProvider";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
+import Button from "@narsil-ui/Components/Button/Button";
+import Card from "@narsil-ui/Components/Card/Card";
+import CardContent from "@narsil-ui/Components/Card/CardContent";
+import CardFooter from "@narsil-ui/Components/Card/CardFooter";
+import CardHeader from "@narsil-ui/Components/Card/CardHeader";
+import CardTitle from "@narsil-ui/Components/Card/CardTitle";
+import Combobox from "@narsil-ui/Components/Combobox/Combobox";
 import createDataTableColumnStore from "@narsil-table/Stores/dataTableColumnStore";
+import Input from "@narsil-ui/Components/Input/Input";
+import Separator from "@narsil-ui/Components/Separator/Separator";
 
-import {
-	Button,
-	Card,
-	CardContent,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-	Combobox,
-	Input,
-	Separator,
-} from "@narsil-ui/Components";
+export interface DataTableColumnSearchProps {
+	header: Header<any, any>;
+}
 
 const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	const { trans } = useTranslationsStore();

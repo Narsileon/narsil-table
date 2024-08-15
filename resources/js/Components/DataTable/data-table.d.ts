@@ -1,1 +1,0 @@
-interface DataTableProps extends ScrollAreaProps {}

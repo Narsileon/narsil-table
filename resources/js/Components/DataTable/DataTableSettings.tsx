@@ -1,7 +1,15 @@
-import { Button, Card, CardContent, Heading, Popover, PopoverContent, PopoverTrigger } from "@narsil-ui/Components";
-import { DataTableVisiblity } from "@narsil-table/Components";
 import { Settings } from "lucide-react";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
+import Button from "@narsil-ui/Components/Button/Button";
+import Card from "@narsil-ui/Components/Card/Card";
+import CardContent from "@narsil-ui/Components/Card/CardContent";
+import DataTableVisiblity from "./DataTableVisibility";
+import Heading from "@narsil-ui/Components/Heading/Heading";
+import Popover, { PopoverProps } from "@narsil-ui/Components/Popover/Popover";
+import PopoverContent from "@narsil-ui/Components/Popover/PopoverContent";
+import PopoverTrigger from "@narsil-ui/Components/Popover/PopoverTrigger";
+
+export interface DataTableSettingsProps extends PopoverProps {}
 
 const DataTableSettings = ({ ...props }: DataTableSettingsProps) => {
 	const { trans } = useTranslationsStore();

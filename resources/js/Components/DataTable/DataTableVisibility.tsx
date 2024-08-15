@@ -1,6 +1,8 @@
-import { Checkbox } from "@narsil-ui/Components";
 import { isString, upperFirst } from "lodash";
-import { useDataTable } from "@narsil-table/Components";
+import { useDataTable } from "./DataTableProvider";
+import Checkbox from "@narsil-ui/Components/Checkbox/Checkbox";
+
+export interface DataTableVisibilityProps {}
 
 const DataTableVisiblity = ({}: DataTableVisibilityProps) => {
 	const { table } = useDataTable();

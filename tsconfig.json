@@ -12,8 +12,8 @@
 		"noEmit": true,
 		"noFallthroughCasesInSwitch": true,
 		"paths": {
-            "@narsil-forms/*": ["./vendor/narsil/forms/resources/js/*"],
-            "@narsil-table/*": ["./resources/js/*"],
+			"@narsil-forms/*": ["./vendor/narsil/forms/resources/js/*"],
+			"@narsil-table/*": ["./resources/js/*"],
 			"@narsil-ui/*": ["./vendor/narsil/ui/resources/js/*"]
 		},
 		"resolveJsonModule": true,
@@ -21,6 +21,6 @@
 		"strict": true,
 		"target": "ESNext"
 	},
-	"include": ["resources/js/**/*.d.ts", "resources/js/**/*.ts", "resources/js/**/*.tsx", "vendor/narsil/**/*.d.ts"],
+	"include": ["resources/js/**/*.ts", "resources/js/**/*.tsx", "vendor/narsil/**/*.ts", "vendor/narsil/**/*.tsx"],
 	"exclude": ["node_modules"]
 }
