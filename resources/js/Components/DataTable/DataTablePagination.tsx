@@ -8,7 +8,7 @@ export interface DataTablePaginationProps extends Partial<PaginationProps> {
 
 const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePaginationProps>(
 	({ collection, ...props }, ref) => {
-		const { tableStore } = useDataTable();
+		const { table, tableStore } = useDataTable();
 
 		React.useEffect(() => {
 			tableStore.setPageIndex(collection.meta.current_page);
@@ -16,12 +16,17 @@ const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePagination
 
 		return (
 			<Pagination
-				ref={ref}
 				currentPage={collection.meta.current_page}
 				data={tableStore.getParams()}
+				from={collection.meta.grouped_from ?? collection.meta.from}
 				lastPage={collection.meta.lastPage}
 				links={collection.meta.links}
+				onPageSizeChange={(value) => table.setPageSize(Number(value))}
+				pageSize={table.getState().pagination.pageSize}
+				ref={ref}
 				simpleLinks={collection.links}
+				to={collection.meta.grouped_to ?? collection.meta.to}
+				total={collection.meta.grouped_total ?? collection.meta.total}
 				{...props}
 			/>
 		);
