@@ -9,7 +9,7 @@ import TableHeader from "@narsil-ui/Components/Table/TableHeader";
 import TableRow from "@narsil-ui/Components/Table/TableRow";
 
 export interface ShowTableProps extends TableProps {
-	columns: import("@tanstack/react-table").ColumnDef<any, any>[];
+	columns?: import("@tanstack/react-table").ColumnDef<any, any>[];
 	data: { [key: string]: any };
 }
 
@@ -47,7 +47,7 @@ const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(({ classNam
 				) : null}
 
 				{Object.entries(attributes)?.map(([attribute, value], index) => {
-					const column = columns.find((x) => x.id === attribute);
+					const column = columns?.find((x) => x.id === attribute);
 
 					return (
 						<ShowRow
