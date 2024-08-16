@@ -1,33 +1,19 @@
-import { cn } from "@narsil-ui/Components";
-import { isEmpty } from "lodash";
-import { Search } from "lucide-react";
 import { useDataTable } from "./DataTableProvider";
-import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
 import * as React from "react";
-import Input from "@narsil-ui/Components/Input/Input";
+import InputSearch, { InputSearchProps } from "@narsil-ui/Components/Input/InputSearch";
 
-export interface DataTableSearchProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface DataTableSearchProps extends InputSearchProps {}
 
-const DataTableSearch = React.forwardRef<HTMLDivElement, DataTableSearchProps>(({ className, ...props }, ref) => {
-	const { trans } = useTranslationsStore();
-
+const DataTableSearch = React.forwardRef<HTMLDivElement, DataTableSearchProps>(({ ...props }, ref) => {
 	const { tableStore } = useDataTable();
 
 	return (
-		<div
+		<InputSearch
 			ref={ref}
-			className={cn("relative w-96", { "text-primary": !isEmpty(tableStore.globalFilter) }, className)}
+			value={tableStore.globalFilter}
+			onChange={(event) => tableStore.setGlobalFilter(event.target.value)}
 			{...props}
-		>
-			<Search className='botton-1.5 z-1 absolute left-1.5 top-1.5' />
-
-			<Input
-				className='w-full px-9'
-				placeholder={trans("Search...")}
-				value={tableStore.globalFilter}
-				onChange={(event) => tableStore.setGlobalFilter(event.target.value)}
-			/>
-		</div>
+		/>
 	);
 });
 
