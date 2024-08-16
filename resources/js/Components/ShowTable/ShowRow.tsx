@@ -26,7 +26,7 @@ const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
 				const number = match[2];
 				label = `${trans(`validation.attributes.${baseAttribute}`)} - ${number}`;
 			} else {
-				label = trans(`validation.attributes.${attribute}`);
+				label = trans(`validation.attributes.${attribute.replace("_id", "")}`);
 			}
 		}
 
