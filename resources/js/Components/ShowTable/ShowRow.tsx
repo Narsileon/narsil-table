@@ -19,7 +19,15 @@ const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
 		}
 
 		if (!label) {
-			label = trans(`validation.attributes.${attribute}`);
+			const match = attribute.match(/^(.*)_(\d+)$/);
+
+			if (match) {
+				const baseAttribute = match[1];
+				const number = match[2];
+				label = `${trans(`validation.attributes.${baseAttribute}`)} - ${number}`;
+			} else {
+				label = trans(`validation.attributes.${attribute}`);
+			}
 		}
 
 		if (!isNumber(value)) {
