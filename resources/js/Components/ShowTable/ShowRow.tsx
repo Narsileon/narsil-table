@@ -44,12 +44,12 @@ const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
 				{...props}
 			>
 				<TableCell
-					className='truncate px-2 py-1'
+					className='truncate px-4 py-1'
 					title={label}
 				>
 					{label}
 				</TableCell>
-				<TableCell className='px-2 py-1'>
+				<TableCell className='px-4 py-1'>
 					{isArray(value) ? (
 						<ul>
 							{value.map((item: unknown, index: number) => {
