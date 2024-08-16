@@ -62,7 +62,11 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 						<PopoverTrigger asChild={true}>
 							{!header.isPlaceholder && header.column.id !== "_menu" ? (
 								<Button
-									className='block grow truncate text-left'
+									className={cn("block grow truncate text-left", {
+										"text-primary":
+											(header.column.getFilterValue() as any)?.firstFilter ||
+											(header.column.getFilterValue() as any)?.secondFilter,
+									})}
 									variant='ghost'
 								>
 									{header.isPlaceholder

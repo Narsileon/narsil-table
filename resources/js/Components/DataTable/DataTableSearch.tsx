@@ -1,4 +1,5 @@
 import { cn } from "@narsil-ui/Components";
+import { isEmpty } from "lodash";
 import { Search } from "lucide-react";
 import { useDataTable } from "./DataTableProvider";
 import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
@@ -15,7 +16,7 @@ const DataTableSearch = React.forwardRef<HTMLDivElement, DataTableSearchProps>((
 	return (
 		<div
 			ref={ref}
-			className={cn("relative w-96", className)}
+			className={cn("relative w-96", { "text-primary": !isEmpty(tableStore.globalFilter) }, className)}
 			{...props}
 		>
 			<Search className='botton-1.5 z-1 absolute left-1.5 top-1.5' />
