@@ -21,7 +21,7 @@ const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(({ classNam
 	return (
 		<Table
 			ref={ref}
-			className={cn("w-full", className)}
+			className={cn("w-full min-w-full", className)}
 			{...props}
 		>
 			<TableHeader>
