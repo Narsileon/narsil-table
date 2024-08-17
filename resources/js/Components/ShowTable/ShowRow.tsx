@@ -1,5 +1,5 @@
 import { isArray, isBoolean, isEmpty, isNil, isNumber, isObject } from "lodash";
-import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
+import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import TableCell from "@narsil-ui/Components/Table/TableCell";
 import TableCellRenderer, { TableCellRendererProps } from "@narsil-table/Components/Table/TableCellRenderer";

@@ -1,6 +1,6 @@
 import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import { useDataTable } from "./DataTableProvider";
-import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
+import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import DataTableCell from "./DataTableCell";
 import DataTableHead from "./DataTableHead";

@@ -1,7 +1,7 @@
 import { Check, X } from "lucide-react";
 import { isArray, isBoolean, isObject } from "lodash";
 import { cn } from "@narsil-ui/Components";
-import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
+import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import moment from "moment/min/moment-with-locales";
 import parse from "html-react-parser";
 import ScrollArea from "@narsil-ui/Components/ScrollArea/ScrollArea";

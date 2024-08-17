@@ -1,7 +1,7 @@
 import { Header } from "@tanstack/react-table";
 import { TableCellType } from "@narsil-table/Components/Table/TableCellRenderer";
 import { useDataTable } from "./DataTableProvider";
-import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
+import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import Button from "@narsil-ui/Components/Button/Button";
 import Card from "@narsil-ui/Components/Card/Card";

@@ -1,7 +1,7 @@
 import { InertiaLinkProps, Link } from "@inertiajs/react";
 import { Menu } from "lucide-react";
 import { RouteList } from "ziggy-js";
-import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
+import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import AlertDialog from "@narsil-ui/Components/AlertDialog/AlertDialog";
 import AlertDialogAction from "@narsil-ui/Components/AlertDialog/AlertDialogAction";

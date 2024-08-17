@@ -5,7 +5,7 @@ import { flexRender } from "@tanstack/react-table";
 import { Header } from "@tanstack/react-table";
 import { useDataTable } from "./DataTableProvider";
 import { useSortable } from "@dnd-kit/sortable";
-import { useTranslationsStore } from "@narsil-ui/Stores/translationStore";
+import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import Button from "@narsil-ui/Components/Button/Button";
 import DataTableColumnSearch from "./DataTableColumnSearch";
