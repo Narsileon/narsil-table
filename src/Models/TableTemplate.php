@@ -26,6 +26,10 @@ class TableTemplate extends Model
     {
         $this->table = self::TABLE;
 
+        $this->casts = [
+            self::ACTIVE => 'boolean',
+        ];
+
         parent::__construct($attributes);
     }
 
