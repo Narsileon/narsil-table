@@ -1858,12 +1858,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-forms.git",
-                "reference": "024275b59404107fa968113562c1bd88c0cec2ca"
+                "reference": "ed9cb857cb6789529e08b93e0eafa6a8c3d0150b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-forms/zipball/024275b59404107fa968113562c1bd88c0cec2ca",
-                "reference": "024275b59404107fa968113562c1bd88c0cec2ca",
+                "url": "https://api.github.com/repos/Narsileon/narsil-forms/zipball/ed9cb857cb6789529e08b93e0eafa6a8c3d0150b",
+                "reference": "ed9cb857cb6789529e08b93e0eafa6a8c3d0150b",
                 "shasum": ""
             },
             "require": {
@@ -1902,14 +1902,17 @@
             "description": "Narsil Forms",
             "keywords": [
                 "forms",
+                "inertia",
                 "laravel",
-                "narsil"
+                "narsil",
+                "php",
+                "react"
             ],
             "support": {
                 "source": "https://github.com/Narsileon/narsil-forms/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-forms/issues"
             },
-            "time": "2024-08-17T05:19:28+00:00"
+            "time": "2024-08-17T09:49:38+00:00"
         },
         {
             "name": "narsil/localization",
@@ -1917,12 +1920,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-localization.git",
-                "reference": "558226ab86c7f4aa290c91096ac71e72692b2d67"
+                "reference": "2acd47ceeb8cef851fbc92b210914708c71ac3a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-localization/zipball/558226ab86c7f4aa290c91096ac71e72692b2d67",
-                "reference": "558226ab86c7f4aa290c91096ac71e72692b2d67",
+                "url": "https://api.github.com/repos/Narsileon/narsil-localization/zipball/2acd47ceeb8cef851fbc92b210914708c71ac3a6",
+                "reference": "2acd47ceeb8cef851fbc92b210914708c71ac3a6",
                 "shasum": ""
             },
             "require": {
@@ -1970,7 +1973,7 @@
                 "source": "https://github.com/Narsileon/narsil-localization/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-localization/issues"
             },
-            "time": "2024-08-17T09:00:00+00:00"
+            "time": "2024-08-17T10:02:34+00:00"
         },
         {
             "name": "narsil/menus",
@@ -1978,12 +1981,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-menus.git",
-                "reference": "23bdf6e01cd5d70306b4dd80274e6a1f5bc69ea4"
+                "reference": "640fa7c5076f91d27df69855983dc7544891c73d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-menus/zipball/23bdf6e01cd5d70306b4dd80274e6a1f5bc69ea4",
-                "reference": "23bdf6e01cd5d70306b4dd80274e6a1f5bc69ea4",
+                "url": "https://api.github.com/repos/Narsileon/narsil-menus/zipball/640fa7c5076f91d27df69855983dc7544891c73d",
+                "reference": "640fa7c5076f91d27df69855983dc7544891c73d",
                 "shasum": ""
             },
             "require": {
@@ -2003,7 +2006,7 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Narsil\\Menus\\NarsilTableServiceProvider"
+                        "Narsil\\Menus\\NarsilMenusServiceProvider"
                     ]
                 }
             },
@@ -2033,7 +2036,7 @@
                 "source": "https://github.com/Narsileon/narsil-menus/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-menus/issues"
             },
-            "time": "2024-08-17T09:30:44+00:00"
+            "time": "2024-08-17T10:00:28+00:00"
         },
         {
             "name": "narsil/policies",
@@ -2041,12 +2044,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-policies.git",
-                "reference": "0bf6dcc4b11c59776626cc7870860ff6f71b0255"
+                "reference": "75102a263c1aa175a0f5850162a5efef0ac220ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-policies/zipball/0bf6dcc4b11c59776626cc7870860ff6f71b0255",
-                "reference": "0bf6dcc4b11c59776626cc7870860ff6f71b0255",
+                "url": "https://api.github.com/repos/Narsileon/narsil-policies/zipball/75102a263c1aa175a0f5850162a5efef0ac220ea",
+                "reference": "75102a263c1aa175a0f5850162a5efef0ac220ea",
                 "shasum": ""
             },
             "require": {
@@ -2093,7 +2096,7 @@
                 "source": "https://github.com/Narsileon/narsil-policies/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-policies/issues"
             },
-            "time": "2024-08-17T08:55:13+00:00"
+            "time": "2024-08-17T10:03:41+00:00"
         },
         {
             "name": "narsil/storage",
@@ -2101,12 +2104,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-storage.git",
-                "reference": "3f3013522d3380e7f70fa1050c2d9cbad763f2dd"
+                "reference": "f034af9397300f8e6554141bd46dae8a4cc85db4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-storage/zipball/3f3013522d3380e7f70fa1050c2d9cbad763f2dd",
-                "reference": "3f3013522d3380e7f70fa1050c2d9cbad763f2dd",
+                "url": "https://api.github.com/repos/Narsileon/narsil-storage/zipball/f034af9397300f8e6554141bd46dae8a4cc85db4",
+                "reference": "f034af9397300f8e6554141bd46dae8a4cc85db4",
                 "shasum": ""
             },
             "require": {
@@ -2140,15 +2143,18 @@
             ],
             "description": "Narsil Storage",
             "keywords": [
+                "inertia",
                 "laravel",
                 "narsil",
+                "php",
+                "react",
                 "storage"
             ],
             "support": {
                 "source": "https://github.com/Narsileon/narsil-storage/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-storage/issues"
             },
-            "time": "2024-08-17T05:24:37+00:00"
+            "time": "2024-08-17T09:54:33+00:00"
         },
         {
             "name": "narsil/tree",
@@ -2156,12 +2162,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-tree.git",
-                "reference": "9bd91b31f0301f3563fa58ef28bf76623d6c91b0"
+                "reference": "5c1b3acbaefdeed78c5a98ff54e8ba53cbe2d95e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-tree/zipball/9bd91b31f0301f3563fa58ef28bf76623d6c91b0",
-                "reference": "9bd91b31f0301f3563fa58ef28bf76623d6c91b0",
+                "url": "https://api.github.com/repos/Narsileon/narsil-tree/zipball/5c1b3acbaefdeed78c5a98ff54e8ba53cbe2d95e",
+                "reference": "5c1b3acbaefdeed78c5a98ff54e8ba53cbe2d95e",
                 "shasum": ""
             },
             "require": {
@@ -2178,7 +2184,7 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Narsil\\Tree\\NarsilTableServiceProvider"
+                        "Narsil\\Tree\\NarsilTreeServiceProvider"
                     ]
                 }
             },
@@ -2208,7 +2214,7 @@
                 "source": "https://github.com/Narsileon/narsil-tree/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-tree/issues"
             },
-            "time": "2024-08-17T09:30:12+00:00"
+            "time": "2024-08-17T10:01:05+00:00"
         },
         {
             "name": "narsil/ui",
@@ -2216,12 +2222,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-ui.git",
-                "reference": "a8af2e4a322967d96fe001ee81a1e239e7828140"
+                "reference": "911120cc1c7bb653435d196d2c21a6c8bbbff9c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-ui/zipball/a8af2e4a322967d96fe001ee81a1e239e7828140",
-                "reference": "a8af2e4a322967d96fe001ee81a1e239e7828140",
+                "url": "https://api.github.com/repos/Narsileon/narsil-ui/zipball/911120cc1c7bb653435d196d2c21a6c8bbbff9c6",
+                "reference": "911120cc1c7bb653435d196d2c21a6c8bbbff9c6",
                 "shasum": ""
             },
             "require": {
@@ -2267,7 +2273,7 @@
                 "source": "https://github.com/Narsileon/narsil-ui/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-ui/issues"
             },
-            "time": "2024-08-17T09:28:44+00:00"
+            "time": "2024-08-17T09:52:57+00:00"
         },
         {
             "name": "nesbot/carbon",
