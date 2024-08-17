@@ -4,6 +4,7 @@ namespace Narsil\Table\Http\Menus;
 
 #region USE
 
+use Narsil\Menus\Enums\VisibilityEnum;
 use Narsil\Menus\Http\Menus\AbstractMenu;
 use Narsil\Menus\Models\MenuNode;
 
@@ -26,6 +27,7 @@ class Menu extends AbstractMenu
         return [[
             MenuNode::LABEL => 'Table templates',
             MenuNode::URL => '/backend/table-templates',
+            MenuNode::VISIBILITY => VisibilityEnum::AUTH->value,
             MenuNode::RELATIONSHIP_ICON => 'lucide/table',
         ]];
     }
