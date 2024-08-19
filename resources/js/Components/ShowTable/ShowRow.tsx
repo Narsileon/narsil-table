@@ -11,7 +11,7 @@ export interface ShowRowProps extends TableRowProps, Omit<TableCellRendererProps
 }
 
 const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
-	({ attribute, format, label, type, value, ...props }, ref) => {
+	({ attribute, formatString, label, type, value, ...props }, ref) => {
 		const { trans } = useTranslationsStore();
 
 		if (isNil(value)) {
@@ -84,7 +84,7 @@ const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
 						</ul>
 					) : (
 						<TableCellRenderer
-							format={format}
+							formatString={formatString}
 							type={type ?? "string"}
 							value={value}
 						/>

@@ -34,7 +34,7 @@ import {
 
 declare module "@tanstack/table-core" {
 	interface ColumnMeta<TData, TValue> {
-		format: string;
+		formatString: string;
 		type: TableCellType;
 	}
 

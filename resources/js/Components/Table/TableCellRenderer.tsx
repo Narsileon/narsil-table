@@ -1,8 +1,9 @@
 import { Check, X } from "lucide-react";
-import { isArray, isBoolean, isObject } from "lodash";
 import { cn } from "@narsil-ui/Components";
+import { format } from "date-fns";
+import { isArray, isBoolean, isObject } from "lodash";
+import { useDatetimeLocale } from "@narsil-ui/Components/Input/Datetime/datetimeUtils";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
-import moment from "moment/min/moment-with-locales";
 import parse from "html-react-parser";
 import ScrollArea from "@narsil-ui/Components/ScrollArea/ScrollArea";
 
@@ -26,14 +27,12 @@ export type TableCellType =
 export interface TableCellRendererProps {
 	className?: string;
 	defaultValue?: any[] | boolean | number | object | string | React.ReactNode;
-	format?: string;
+	formatString?: string;
 	type: TableCellType;
 	value: any[] | boolean | number | object | string;
 }
 
-const TableCellRenderer = ({ className, defaultValue, format, type, value }: TableCellRendererProps) => {
-	const { locale } = useTranslationsStore();
-
+const TableCellRenderer = ({ className, defaultValue, formatString, type, value }: TableCellRendererProps) => {
 	if (isArray(value)) {
 		return <span>{JSON.stringify(value)}</span>;
 	}
@@ -46,23 +45,15 @@ const TableCellRenderer = ({ className, defaultValue, format, type, value }: Tab
 		return <span>{JSON.stringify(value)}</span>;
 	}
 
+	const { locale } = useTranslationsStore();
+
+	const datetimeLocale = useDatetimeLocale(locale);
+
 	switch (type) {
 		case "date":
-			return (
-				<span>
-					{moment(value)
-						.locale(locale)
-						.format(format ?? "L")}
-				</span>
-			);
+			return <span>{format(value, "P", { locale: datetimeLocale })}</span>;
 		case "datetime-local":
-			return (
-				<span>
-					{moment(value)
-						.locale(locale)
-						.format(format ?? "L LTS")}
-				</span>
-			);
+			return <span>{format(value, "Pp", { locale: datetimeLocale })}</span>;
 		case "text":
 			return (
 				<ScrollArea>
@@ -70,13 +61,7 @@ const TableCellRenderer = ({ className, defaultValue, format, type, value }: Tab
 				</ScrollArea>
 			);
 		case "time":
-			return (
-				<span>
-					{moment(value, ["h:m:s"])
-						.locale(locale)
-						.format(format ?? "LTS")}
-				</span>
-			);
+			return <span>{format(value, "p", { locale: datetimeLocale })}</span>;
 		default:
 			return <span>{(defaultValue as string) ?? value}</span>;
 	}
