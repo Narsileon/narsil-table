@@ -52,7 +52,7 @@ const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(({ classNam
 					return (
 						<ShowRow
 							attribute={attribute}
-							format={column?.meta?.format}
+							formatString={column?.meta?.formatString}
 							type={column?.meta?.type ?? "string"}
 							value={value}
 							key={index}
@@ -63,7 +63,7 @@ const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(({ classNam
 				{created_at ? (
 					<ShowRow
 						attribute='created_at'
-						format='LLLL'
+						formatString='LLLL'
 						type='datetime-local'
 						value={created_at}
 					/>
@@ -71,7 +71,7 @@ const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(({ classNam
 				{updated_at ? (
 					<ShowRow
 						attribute='updated_at'
-						format='LLLL'
+						formatString='LLLL'
 						type='datetime-local'
 						value={updated_at}
 					/>
