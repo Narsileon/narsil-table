@@ -169,6 +169,7 @@ const useDataTable = ({ columns, data, id, menu, ...props }: createDataTableProp
 			quickFilters: tableStore.quickFilters,
 		},
 		getCoreRowModel: getCoreRowModel(),
+		getRowId: (row) => row.id,
 		onColumnFiltersChange: handleColumnFiltersChange,
 		onColumnOrderChange: handleColumnOrderChange,
 		onColumnSizingChange: handleColumnSizingChange,
