@@ -12,13 +12,13 @@ final class ModelColumnMeta
     #region CONSTRUCTOR
 
     /**
-     * @param TableColumn $tableColumn
+     * @param string $type
      *
      * @return void
      */
-    public function __construct(TableColumn $tableColumn)
+    public function __construct(string $type)
     {
-        $this->type = $tableColumn->type;
+        $this->type = $type;
     }
 
     #endregion

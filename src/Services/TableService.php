@@ -7,7 +7,9 @@ namespace Narsil\Table\Services;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
+use Narsil\Localization\Services\LocalizationService;
 use Narsil\Table\Structures\ModelColumn;
+use Narsil\Table\Structures\ModelColumnMeta;
 use Narsil\Table\Structures\TableColumn;
 
 #endregion
@@ -32,7 +34,7 @@ final class TableService
 
         return $tableColumns->map(function (TableColumn $tableColumn)
         {
-            return new ModelColumn($tableColumn);
+            return static::convertTableColumnToModelColumn($tableColumn);
         });
     }
 
@@ -60,6 +62,72 @@ final class TableService
 
             return $tableColumns;
         });
+    }
+
+    #endregion
+
+    #region PRIVATE METHODS
+
+    /**
+     * @param TableColumn $tableColumn
+     *
+     * @return string
+     */
+    private static function getAccessorKey(TableColumn $tableColumn): string
+    {
+        return str_replace('_id', '.id', $tableColumn->name);
+    }
+
+    /**
+     * @param TableColumn $tableColumn
+     *
+     * @return string
+     */
+    private static function getHeader(TableColumn $tableColumn): string
+    {
+        $attribute = str_replace('_id', '', $tableColumn->name);
+
+        return LocalizationService::trans("validation.attributes.$attribute");
+    }
+
+    /**
+     * @param TableColumn $tableColumn
+     *
+     * @return string
+     */
+    private static function getRelation(TableColumn $tableColumn): string
+    {
+        return str_replace('_id', '', $tableColumn->name);
+    }
+
+    /**
+     * @param TableColumn $tableColumn
+     *
+     * @return ModelColumn
+     */
+    private static function convertTableColumnToModelColumn(TableColumn $tableColumn): ModelColumn
+    {
+        $id = $tableColumn->name;
+        $foreignTable = $tableColumn->foreignTable;
+
+        $accessorKey = static::getAccessorKey($tableColumn);
+        $header = static::getHeader($tableColumn);
+
+        if ($foreignTable)
+        {
+            $relation = static::getRelation($tableColumn);
+        }
+
+        $meta = new ModelColumnMeta($tableColumn->type);
+
+        return new ModelColumn(
+            accessorKey: $accessorKey,
+            foreignTable: $foreignTable,
+            header: $header,
+            id: $id,
+            meta: $meta,
+            relation: $relation,
+        );
     }
 
     #endregion

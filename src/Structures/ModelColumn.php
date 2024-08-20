@@ -2,12 +2,6 @@
 
 namespace Narsil\Table\Structures;
 
-#region USE
-
-use Narsil\Localization\Services\LocalizationService;
-
-#endregion
-
 /**
  * @version 1.0.0
  *
@@ -15,27 +9,31 @@ use Narsil\Localization\Services\LocalizationService;
  */
 final class ModelColumn
 {
-    #region CONSTRUCTOR
-
     /**
-     * @param TableColumn $tableColumn
-     *
-     * @return void
+     * @param string $id
+     * @param string $accessorKey
+     * @param string $header
+     * @param ModelColumnMeta $meta
+     * @param string|null $foreignTable
+     * @param string|null $relation
+
      */
-    public function __construct(TableColumn $tableColumn)
+    public function __construct(
+        string $id,
+        string $accessorKey,
+        string $header,
+        ModelColumnMeta $meta,
+        ?string $foreignTable,
+        ?string $relation,
+
+    )
     {
-        $this->id = $tableColumn->name;
-        $this->foreignTable = $tableColumn->foreignTable;
-
-        $this->accessorKey = $this->getAccessorKey($tableColumn);
-        $this->header = $this->getHeader($tableColumn);
-
-        if ($this->foreignTable)
-        {
-            $this->relation = $this->getRelation($tableColumn);
-        }
-
-        $this->meta = new ModelColumnMeta($tableColumn);
+        $this->id = $id;
+        $this->accessorKey = $accessorKey;
+        $this->header = $header;
+        $this->meta = $meta;
+        $this->foreignTable = $foreignTable;
+        $this->relation = $relation;
     }
 
     #endregion
@@ -67,42 +65,6 @@ final class ModelColumn
      * @var ModelColumMeta
      */
     public readonly ModelColumnMeta $meta;
-
-    #endregion
-
-    #region PRIVATE METHODS
-
-    /**
-     * @param TableColumn $tableColumn
-     *
-     * @return string
-     */
-    private function getAccessorKey(TableColumn $tableColumn): string
-    {
-        return str_replace('_id', '.id', $tableColumn->name);
-    }
-
-    /**
-     * @param TableColumn $tableColumn
-     *
-     * @return string
-     */
-    private function getHeader(TableColumn $tableColumn): string
-    {
-        $attribute = str_replace('_id', '', $tableColumn->name);
-
-        return LocalizationService::trans("validation.attributes.$attribute");
-    }
-
-    /**
-     * @param TableColumn $tableColumn
-     *
-     * @return string
-     */
-    private function getRelation(TableColumn $tableColumn): string
-    {
-        return str_replace('_id', '', $tableColumn->name);
-    }
 
     #endregion
 }
