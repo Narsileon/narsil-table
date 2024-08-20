@@ -9,16 +9,17 @@ import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
 interface DataTableSelectActionsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const DataTableSelectActions = React.forwardRef<HTMLDivElement, DataTableSelectActionsProps>(
-	({ className, ...props }, ref) => {
+	({ className, children, ...props }, ref) => {
 		const { table } = useDataTableContext();
 		const { trans } = useTranslationsStore();
 
-		return (
+		return table?.getIsSomeRowsSelected() ? (
 			<div
 				ref={ref}
 				className={cn("flex items-center gap-2", className)}
 				{...props}
 			>
+				{children}
 				<TooltipWrapper tooltip={trans("Clear selection")}>
 					<Button
 						size='icon'
@@ -28,7 +29,7 @@ const DataTableSelectActions = React.forwardRef<HTMLDivElement, DataTableSelectA
 					</Button>
 				</TooltipWrapper>
 			</div>
-		);
+		) : null;
 	}
 );
 
