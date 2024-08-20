@@ -16,15 +16,16 @@ final class ModelColumn
      * @param ModelColumnMeta $meta
      * @param string|null $foreignTable
      * @param string|null $relation
-
+     *
+     * @return void
      */
     public function __construct(
         string $id,
         string $accessorKey,
         string $header,
         ModelColumnMeta $meta,
-        ?string $foreignTable,
-        ?string $relation,
+        string $foreignTable = null,
+        string $relation = null,
 
     )
     {
