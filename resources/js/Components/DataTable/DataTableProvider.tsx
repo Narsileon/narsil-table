@@ -19,6 +19,8 @@ import {
 } from "@dnd-kit/core";
 
 import {
+	CellContext,
+	ColumnDef,
 	ColumnFiltersState,
 	ColumnOrderState,
 	ColumnSizingState,
@@ -28,6 +30,7 @@ import {
 	PaginationState,
 	RowSelectionState,
 	SortingState,
+	TableOptions,
 	Updater,
 	useReactTable,
 	VisibilityState,
@@ -61,15 +64,14 @@ export type DataTableProviderType = DataTableProviderState & DataTableProviderAc
 
 const DataTableContext = createContext<DataTableProviderType>({} as DataTableProviderType);
 
-export interface DataTableProviderProps {
+export interface DataTableProviderProps extends Partial<TableOptions<any>> {
 	children: React.ReactNode;
-	columns: import("@tanstack/react-table").ColumnDef<any, any>[];
-	data: { [key: string]: any };
+	columns: ColumnDef<any, any>[];
 	id: string;
-	menu?: (props: import("@tanstack/react-table").CellContext<any, any>) => any;
+	menu?: (props: CellContext<any, any>) => any;
 }
 
-const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProviderProps) => {
+const DataTableProvider = ({ children, columns, data, id, menu, ...props }: DataTableProviderProps) => {
 	if (menu) {
 		columns = [
 			{
@@ -170,6 +172,7 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 				return true;
 			},
 		},
+		enableRowSelection: false,
 		manualFiltering: true,
 		manualGrouping: true,
 		manualPagination: true,
@@ -202,6 +205,7 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 		onPaginationChange: handlePaginationChange,
 		onRowSelectionChange: handleRowSelectionChange,
 		onSortingChange: handleSortingChange,
+		...props,
 	});
 
 	function handleDragEnd(event: DragEndEvent) {
