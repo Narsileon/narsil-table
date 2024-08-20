@@ -5,7 +5,7 @@ import DataTableSettings from "./DataTableSettings";
 
 interface DataTableUnselectActionsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const DataTableUnselectActions = React.forwardRef<HTMLDivElement, DataTableUnselectActionsProps>(
+const DataTableUnselectedActions = React.forwardRef<HTMLDivElement, DataTableUnselectActionsProps>(
 	({ className, children, ...props }, ref) => {
 		const { table } = useDataTableContext();
 
@@ -22,4 +22,4 @@ const DataTableUnselectActions = React.forwardRef<HTMLDivElement, DataTableUnsel
 	}
 );
 
-export default DataTableUnselectActions;
+export default DataTableUnselectedActions;

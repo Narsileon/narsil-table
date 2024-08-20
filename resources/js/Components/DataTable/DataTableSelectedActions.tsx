@@ -8,7 +8,7 @@ import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
 
 interface DataTableSelectActionsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const DataTableSelectActions = React.forwardRef<HTMLDivElement, DataTableSelectActionsProps>(
+const DataTableSelectedActions = React.forwardRef<HTMLDivElement, DataTableSelectActionsProps>(
 	({ className, children, ...props }, ref) => {
 		const { table } = useDataTableContext();
 		const { trans } = useTranslationsStore();
@@ -33,4 +33,4 @@ const DataTableSelectActions = React.forwardRef<HTMLDivElement, DataTableSelectA
 	}
 );
 
-export default DataTableSelectActions;
+export default DataTableSelectedActions;
