@@ -24,8 +24,8 @@ final class ModelColumn
         string $accessorKey,
         string $header,
         ModelColumnMeta $meta,
-        string $foreignTable = null,
-        string $relation = null,
+        string|null $foreignTable = null,
+        string|null $relation = null,
 
     )
     {
