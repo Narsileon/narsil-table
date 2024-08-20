@@ -60,7 +60,7 @@ final class ModelColumn
     /**
      * @var string
      */
-    public readonly string $relation;
+    public readonly string|null $relation;
 
     /**
      * @var ModelColumMeta
