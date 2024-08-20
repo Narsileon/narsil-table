@@ -12,6 +12,7 @@ import AlertDialogFooter from "@narsil-ui/Components/AlertDialog/AlertDialogFoot
 import AlertDialogHeader from "@narsil-ui/Components/AlertDialog/AlertDialogHeader";
 import AlertDialogTitle from "@narsil-ui/Components/AlertDialog/AlertDialogTitle";
 import Button from "@narsil-ui/Components/Button/Button";
+import Checkbox from "@narsil-ui/Components/Checkbox/Checkbox";
 import DataTableRowMenuItem from "./DataTableRowMenuItem";
 import DropdownMenu from "@narsil-ui/Components/DropdownMenu/DropdownMenu";
 import DropdownMenuContent from "@narsil-ui/Components/DropdownMenu/DropdownMenuContent";
@@ -84,66 +85,71 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 				setMethod: setMethod,
 			}}
 		>
-			<AlertDialog>
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild={true}>
-						<Button
-							size='icon'
-							variant='ghost'
-						>
-							<Menu />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align='end'>
-						{actions?.map((action, index) =>
-							action.options ? (
-								<React.Fragment key={index}>
-									{index > 0 ? <DropdownMenuSeparator /> : null}
-									{action.options.map((subAction, subIndex) => (
-										<DataTableRowMenuItem
-											alert={subAction.method === "delete"}
-											href={subAction.href as string}
-											method={subAction.method ?? "get"}
-											onClick={subAction.onClick}
-											key={subIndex}
-										>
-											{subAction.label}
-										</DataTableRowMenuItem>
-									))}
-								</React.Fragment>
-							) : (
-								<DataTableRowMenuItem
-									alert={action.method === "delete"}
-									href={action.href as string}
-									method={action.method ?? "get"}
-									onClick={action.onClick}
-									key={index}
-								>
-									{action.label}
-								</DataTableRowMenuItem>
-							)
-						)}
-						{children}
-					</DropdownMenuContent>
-				</DropdownMenu>
-				<AlertDialogContent>
-					<AlertDialogHeader>
-						<AlertDialogTitle>{trans("Are you sure you want to perform this action?")}</AlertDialogTitle>
-						<AlertDialogDescription>{trans("This action cannot be undone.")}</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter>
-						<AlertDialogCancel>{trans("Cancel")}</AlertDialogCancel>
-						<AlertDialogAction asChild={true}>
-							<Link
-								href={href}
-								method={method}
+			<div className='flex items-center pl-2'>
+				<Checkbox checked={row.getIsSelected()} />
+				<AlertDialog>
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild={true}>
+							<Button
+								size='icon'
+								variant='ghost'
 							>
-								{trans("Continue")}
-							</Link>
-						</AlertDialogAction>
-					</AlertDialogFooter>
-				</AlertDialogContent>
-			</AlertDialog>
+								<Menu />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align='end'>
+							{actions?.map((action, index) =>
+								action.options ? (
+									<React.Fragment key={index}>
+										{index > 0 ? <DropdownMenuSeparator /> : null}
+										{action.options.map((subAction, subIndex) => (
+											<DataTableRowMenuItem
+												alert={subAction.method === "delete"}
+												href={subAction.href as string}
+												method={subAction.method ?? "get"}
+												onClick={subAction.onClick}
+												key={subIndex}
+											>
+												{subAction.label}
+											</DataTableRowMenuItem>
+										))}
+									</React.Fragment>
+								) : (
+									<DataTableRowMenuItem
+										alert={action.method === "delete"}
+										href={action.href as string}
+										method={action.method ?? "get"}
+										onClick={action.onClick}
+										key={index}
+									>
+										{action.label}
+									</DataTableRowMenuItem>
+								)
+							)}
+							{children}
+						</DropdownMenuContent>
+					</DropdownMenu>
+					<AlertDialogContent>
+						<AlertDialogHeader>
+							<AlertDialogTitle>
+								{trans("Are you sure you want to perform this action?")}
+							</AlertDialogTitle>
+							<AlertDialogDescription>{trans("This action cannot be undone.")}</AlertDialogDescription>
+						</AlertDialogHeader>
+						<AlertDialogFooter>
+							<AlertDialogCancel>{trans("Cancel")}</AlertDialogCancel>
+							<AlertDialogAction asChild={true}>
+								<Link
+									href={href}
+									method={method}
+								>
+									{trans("Continue")}
+								</Link>
+							</AlertDialogAction>
+						</AlertDialogFooter>
+					</AlertDialogContent>
+				</AlertDialog>
+			</div>
 		</DataTableRowMenuContext.Provider>
 	);
 };

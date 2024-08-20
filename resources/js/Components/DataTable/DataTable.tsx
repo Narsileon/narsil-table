@@ -47,8 +47,9 @@ const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }
 					{table.getRowModel().rows?.length ? (
 						table.getRowModel().rows.map((row) => (
 							<TableRow
-								key={row.id}
+								onClick={row.getToggleSelectedHandler()}
 								data-state={row.getIsSelected() && "selected"}
+								key={row.id}
 							>
 								<SortableContext
 									items={table.getState().columnOrder}

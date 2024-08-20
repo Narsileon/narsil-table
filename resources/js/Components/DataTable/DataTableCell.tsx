@@ -19,7 +19,7 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 	const isMenu = cell.column.columnDef.id === "_menu";
 
 	const style: React.CSSProperties = {
-		maxWidth: isMenu ? "56px" : cell.column.getSize(),
+		maxWidth: isMenu ? "68px" : cell.column.getSize(),
 		opacity: isDragging ? 0.8 : 1,
 		position: "relative",
 		transform: CSS.Translate.toString(transform),
