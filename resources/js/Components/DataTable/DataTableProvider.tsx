@@ -26,6 +26,7 @@ import {
 	getCoreRowModel,
 	GroupingState,
 	PaginationState,
+	RowSelectionState,
 	SortingState,
 	Updater,
 	useReactTable,
@@ -149,6 +150,12 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 		);
 	};
 
+	const handleRowSelectionChange = (rowSelection: Updater<RowSelectionState> | RowSelectionState) => {
+		tableStore.setRowSelection(
+			typeof rowSelection === "function" ? rowSelection(tableStore.rowSelection) : rowSelection
+		);
+	};
+
 	const handleSortingChange = (sorting: Updater<SortingState> | SortingState) => {
 		tableStore.setSorting(typeof sorting === "function" ? sorting(tableStore.sorting) : sorting);
 	};
@@ -180,6 +187,7 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 				pageIndex: 0,
 				pageSize: tableStore.pageSize,
 			},
+			rowSelection: tableStore.rowSelection,
 			sorting: tableStore.sorting,
 			quickFilters: tableStore.quickFilters,
 		},
@@ -192,6 +200,7 @@ const DataTableProvider = ({ children, columns, data, id, menu }: DataTableProvi
 		onGlobalFilterChange: tableStore.setGlobalFilter,
 		onGroupingChange: handleGroupingChange,
 		onPaginationChange: handlePaginationChange,
+		onRowSelectionChange: handleRowSelectionChange,
 		onSortingChange: handleSortingChange,
 	});
 

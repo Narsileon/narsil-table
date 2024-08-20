@@ -3,37 +3,51 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { DataTableColumnStoreState } from "./dataTableColumnStore";
 import { isEmpty, omitBy } from "lodash";
 
+import {
+	ColumnFiltersState,
+	ColumnOrderState,
+	ColumnSizingState,
+	ExpandedState,
+	GroupingState,
+	PaginationState,
+	RowSelectionState,
+	SortingState,
+	VisibilityState,
+} from "@tanstack/react-table";
+
 export type DataTableStoreState = {
-	columnFilters: import("@tanstack/react-table").ColumnFiltersState;
+	columnFilters: ColumnFiltersState;
 	columnOperators: any[];
-	columnOrder: import("@tanstack/react-table").ColumnOrderState;
-	columnSizing: import("@tanstack/react-table").ColumnSizingState;
-	columnVisibility: import("@tanstack/react-table").VisibilityState;
-	expanded: import("@tanstack/react-table").ExpandedState;
-	filteredColumnFilters: import("@tanstack/react-table").ColumnFiltersState;
+	columnOrder: ColumnOrderState;
+	columnSizing: ColumnSizingState;
+	columnVisibility: VisibilityState;
+	expanded: ExpandedState;
+	filteredColumnFilters: ColumnFiltersState;
 	globalFilter: string;
-	grouping: import("@tanstack/react-table").GroupingState;
+	grouping: GroupingState;
 	pageIndex: number;
 	pageSize: number;
 	quickFilters: any[];
-	sorting: import("@tanstack/react-table").SortingState;
+	rowSelection: RowSelectionState;
+	sorting: SortingState;
 };
 
 export type DataTableStoreActions = {
 	getParams: () => { [key: string]: any };
-	setColumnFilters: (columnFilters: import("@tanstack/react-table").ColumnFiltersState) => void;
+	setColumnFilters: (columnFilters: ColumnFiltersState) => void;
 	setColumnOperators: (columnOperators: any[]) => void;
-	setColumnOrder: (columnOrder: import("@tanstack/react-table").ColumnOrderState) => void;
-	setColumnSizing: (columnSizing: import("@tanstack/react-table").ColumnSizingState) => void;
-	setColumnVisibility: (columnVisibility: import("@tanstack/react-table").VisibilityState) => void;
-	setExpanded: (expanded: import("@tanstack/react-table").ExpandedState) => void;
+	setColumnOrder: (columnOrder: ColumnOrderState) => void;
+	setColumnSizing: (columnSizing: ColumnSizingState) => void;
+	setColumnVisibility: (columnVisibility: VisibilityState) => void;
+	setExpanded: (expanded: ExpandedState) => void;
 	setGlobalFilter: (globalFilter: string) => void;
-	setGrouping: (grouping: import("@tanstack/react-table").GroupingState) => void;
+	setGrouping: (grouping: GroupingState) => void;
 	setPageIndex: (pageIndex: number) => void;
 	setPageSize: (pageSige: number) => void;
-	setPagination: (pagination: import("@tanstack/react-table").PaginationState) => void;
+	setPagination: (pagination: PaginationState) => void;
 	setQuickFilters: (specialFilters: any[]) => void;
-	setSorting: (sorting: import("@tanstack/react-table").SortingState) => void;
+	setRowSelection: (rowSelection: RowSelectionState) => void;
+	setSorting: (sorting: SortingState) => void;
 	unsetColumnFilter: (id: string) => void;
 };
 
@@ -57,6 +71,7 @@ const defaultState: DataTableStoreState = {
 	pageIndex: 0,
 	pageSize: 10,
 	quickFilters: [],
+	rowSelection: {},
 	sorting: [],
 };
 
@@ -182,6 +197,10 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 				setQuickFilters: (quickFilters) =>
 					set({
 						quickFilters: quickFilters,
+					}),
+				setRowSelection: (rowSelection) =>
+					set({
+						rowSelection: rowSelection,
 					}),
 				setSorting: (sorting) =>
 					set({
