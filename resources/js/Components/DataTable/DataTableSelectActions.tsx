@@ -1,5 +1,5 @@
 import { cn } from "@narsil-ui/Components";
-import { useDataTable } from "./DataTableProvider";
+import { useDataTableContext } from "./DataTableProvider";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import { X } from "lucide-react";
 import * as React from "react";
@@ -10,7 +10,7 @@ interface DataTableSelectActionsProps extends React.HTMLAttributes<HTMLDivElemen
 
 const DataTableSelectActions = React.forwardRef<HTMLDivElement, DataTableSelectActionsProps>(
 	({ className, ...props }, ref) => {
-		const { table } = useDataTable();
+		const { table } = useDataTableContext();
 		const { trans } = useTranslationsStore();
 
 		return (

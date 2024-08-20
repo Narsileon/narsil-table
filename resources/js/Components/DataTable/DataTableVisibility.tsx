@@ -1,11 +1,11 @@
 import { isString, upperFirst } from "lodash";
-import { useDataTable } from "./DataTableProvider";
+import { useDataTableContext } from "./DataTableProvider";
 import Checkbox from "@narsil-ui/Components/Checkbox/Checkbox";
 
 export interface DataTableVisibilityProps {}
 
 const DataTableVisiblity = ({}: DataTableVisibilityProps) => {
-	const { table } = useDataTable();
+	const { table } = useDataTableContext();
 
 	return (
 		<div className='grid'>

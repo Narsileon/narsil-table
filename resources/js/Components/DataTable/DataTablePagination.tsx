@@ -1,4 +1,4 @@
-import { useDataTable } from "./DataTableProvider";
+import { useDataTableContext } from "./DataTableProvider";
 import * as React from "react";
 import Pagination, { PaginationProps } from "@narsil-ui/Components/Pagination/Pagination";
 
@@ -8,7 +8,7 @@ export interface DataTablePaginationProps extends Partial<PaginationProps> {
 
 const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePaginationProps>(
 	({ collection, ...props }, ref) => {
-		const { table, tableStore } = useDataTable();
+		const { table, tableStore } = useDataTableContext();
 
 		React.useEffect(() => {
 			tableStore.setPageIndex(collection.meta.current_page);

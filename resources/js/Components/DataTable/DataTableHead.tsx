@@ -3,7 +3,7 @@ import { cn } from "@narsil-ui/Components";
 import { CSS } from "@dnd-kit/utilities";
 import { flexRender } from "@tanstack/react-table";
 import { Header } from "@tanstack/react-table";
-import { useDataTable } from "./DataTableProvider";
+import { useDataTableContext } from "./DataTableProvider";
 import { useSortable } from "@dnd-kit/sortable";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
@@ -20,7 +20,7 @@ export interface DataTableHeadProps extends React.ThHTMLAttributes<HTMLTableCell
 }
 
 const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
-	const { table } = useDataTable();
+	const { table } = useDataTableContext();
 
 	const { attributes, isDragging, listeners, setNodeRef, transform } = useSortable({
 		id: header.column.id,

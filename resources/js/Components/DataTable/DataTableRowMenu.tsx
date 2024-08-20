@@ -154,11 +154,11 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 	);
 };
 
-export function useDataTableRowMenu() {
+export function useDataTableRowMenuContext() {
 	const context = React.useContext(DataTableRowMenuContext);
 
 	if (!context) {
-		throw new Error("useDataTable must be used within a <DataTableRowAction />");
+		throw new Error("useDataTableRowMenuContext must be used within a <DataTableRowMenu />");
 	}
 
 	return context;

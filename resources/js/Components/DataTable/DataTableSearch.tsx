@@ -1,11 +1,11 @@
-import { useDataTable } from "./DataTableProvider";
+import { useDataTableContext } from "./DataTableProvider";
 import * as React from "react";
 import InputSearch, { InputSearchProps } from "@narsil-ui/Components/Input/InputSearch";
 
 export interface DataTableSearchProps extends InputSearchProps {}
 
 const DataTableSearch = React.forwardRef<HTMLDivElement, DataTableSearchProps>(({ ...props }, ref) => {
-	const { tableStore } = useDataTable();
+	const { tableStore } = useDataTableContext();
 
 	return (
 		<InputSearch

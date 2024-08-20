@@ -1,6 +1,6 @@
 import { Header } from "@tanstack/react-table";
 import { TableCellType } from "@narsil-table/Components/Table/TableCellRenderer";
-import { useDataTable } from "./DataTableProvider";
+import { useDataTableContext } from "./DataTableProvider";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import Button from "@narsil-ui/Components/Button/Button";
@@ -21,7 +21,7 @@ export interface DataTableColumnSearchProps {
 const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	const { trans } = useTranslationsStore();
 
-	const { tableStore } = useDataTable();
+	const { tableStore } = useDataTableContext();
 
 	const { options, type } = (() => {
 		let options: SelectOption[] = [];
