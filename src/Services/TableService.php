@@ -108,17 +108,14 @@ final class TableService
     private static function convertTableColumnToModelColumn(TableColumn $tableColumn): ModelColumn
     {
         $id = $tableColumn->name;
-        $foreignTable = $tableColumn->foreignTable;
 
         $accessorKey = static::getAccessorKey($tableColumn);
         $header = static::getHeader($tableColumn);
 
-        if ($foreignTable)
-        {
-            $relation = static::getRelation($tableColumn);
-        }
-
         $meta = new ModelColumnMeta($tableColumn->type);
+
+        $foreignTable = $tableColumn->foreignTable;
+        $relation = $foreignTable ? static::getRelation($tableColumn) : null;
 
         return new ModelColumn(
             accessorKey: $accessorKey,
