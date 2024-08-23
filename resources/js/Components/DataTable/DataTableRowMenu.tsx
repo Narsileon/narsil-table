@@ -1,5 +1,5 @@
+import { Ellipsis } from "lucide-react";
 import { InertiaLinkProps, Link } from "@inertiajs/react";
-import { Menu } from "lucide-react";
 import { RouteList } from "ziggy-js";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
@@ -94,7 +94,7 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 								size='icon'
 								variant='ghost'
 							>
-								<Menu />
+								<Ellipsis />
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align='end'>
