@@ -14,12 +14,16 @@ import PopoverContent from "@narsil-ui/Components/Popover/PopoverContent";
 import PopoverTrigger from "@narsil-ui/Components/Popover/PopoverTrigger";
 import TableHead from "@narsil-ui/Components/Table/TableHead";
 import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
+import useScreenStore from "@narsil-ui/Stores/screenStore";
 
 export interface DataTableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
 	header: Header<any, any>;
 }
 
 const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
+	const { trans } = useTranslationsStore();
+
+	const { isMobile } = useScreenStore();
 	const { table } = useDataTableContext();
 
 	const { attributes, isDragging, listeners, setNodeRef, transform } = useSortable({
@@ -38,8 +42,6 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 		width: isMenu ? "56px" : header.column.getSize(),
 		zIndex: isDragging ? 1 : 0,
 	};
-
-	const { trans } = useTranslationsStore();
 
 	return (
 		<TableHead
@@ -83,7 +85,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 						</PopoverContent>
 					) : null}
 				</Popover>
-				{header.column.getCanSort() ? (
+				{!isMobile && header.column.getCanSort() ? (
 					<TooltipWrapper tooltip={trans("Sort")}>
 						<Button
 							className='w-6 min-w-6'
