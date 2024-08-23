@@ -1,3 +1,4 @@
+import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
 import { Header } from "@tanstack/react-table";
 import { TableCellType } from "@narsil-table/Components/Table/TableCellRenderer";
 import { useDataTableContext } from "./DataTableProvider";
@@ -13,6 +14,7 @@ import Combobox from "@narsil-ui/Components/Combobox/Combobox";
 import createDataTableColumnStore from "@narsil-table/Stores/dataTableColumnStore";
 import Input from "@narsil-ui/Components/Input/Input";
 import Separator from "@narsil-ui/Components/Separator/Separator";
+import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
 
 export interface DataTableColumnSearchProps {
 	header: Header<any, any>;
@@ -172,6 +174,23 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 		<Card variant='inline'>
 			<CardHeader>
 				<CardTitle>{trans("Filters")}</CardTitle>
+				{header.column.getCanSort() ? (
+					<TooltipWrapper tooltip={trans("Sort")}>
+						<Button
+							size='icon'
+							variant='ghost'
+							onClick={header.column.getToggleSortingHandler()}
+						>
+							{header.column.getIsSorted() === "asc" ? (
+								<ChevronUp />
+							) : header.column.getIsSorted() === "desc" ? (
+								<ChevronDown />
+							) : (
+								<ChevronsUpDown />
+							)}
+						</Button>
+					</TooltipWrapper>
+				) : null}
 			</CardHeader>
 			<CardContent>
 				<Combobox
