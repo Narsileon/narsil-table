@@ -1,6 +1,7 @@
 import { Ellipsis } from "lucide-react";
 import { InertiaLinkProps, Link } from "@inertiajs/react";
 import { RouteList } from "ziggy-js";
+import { useDataTableContext } from "./DataTableProvider";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import AlertDialog from "@narsil-ui/Components/AlertDialog/AlertDialog";
@@ -39,6 +40,7 @@ export interface DataTableRowMenuProps {
 }
 
 const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => {
+	const { table } = useDataTableContext();
 	const { trans } = useTranslationsStore();
 
 	const [href, setHref] = React.useState<InertiaLinkProps["href"]>("");
@@ -86,7 +88,8 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 			}}
 		>
 			<div className='flex items-center pl-2'>
-				<Checkbox checked={row.getIsSelected()} />
+				{table.options.enableRowSelection ? <Checkbox checked={row.getIsSelected()} /> : null}
+
 				<AlertDialog>
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild={true}>
