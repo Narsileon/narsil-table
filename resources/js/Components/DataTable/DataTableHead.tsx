@@ -48,21 +48,22 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 			style={style}
 			{...props}
 		>
-			<div className='flex items-center justify-between pr-2'>
+			<div className='flex items-center justify-between pl-1 pr-2'>
 				<Button
+					className='w-6 min-w-6'
 					size='icon'
 					variant='ghost'
 					{...attributes}
 					{...listeners}
 				>
-					<GripVertical />
+					<GripVertical className='h-4 w-4' />
 				</Button>
 				<Popover>
 					<TooltipWrapper tooltip={flexRender(header.column.columnDef.header, header.getContext())}>
 						<PopoverTrigger asChild={true}>
 							{!header.isPlaceholder && header.column.id !== "_menu" ? (
 								<Button
-									className={cn("block grow truncate text-left", {
+									className={cn("block grow truncate px-2 text-left", {
 										"text-primary":
 											(header.column.getFilterValue() as any)?.firstFilter ||
 											(header.column.getFilterValue() as any)?.secondFilter,
@@ -85,6 +86,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 				{header.column.getCanSort() ? (
 					<TooltipWrapper tooltip={trans("Sort")}>
 						<Button
+							className='w-6 min-w-6'
 							size='icon'
 							variant='ghost'
 							onClick={header.column.getToggleSortingHandler()}
