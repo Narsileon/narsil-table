@@ -13,7 +13,7 @@ const DataTableSelectedActions = React.forwardRef<HTMLDivElement, DataTableSelec
 		const { table } = useDataTableContext();
 		const { trans } = useTranslationsStore();
 
-		return table?.getIsSomeRowsSelected() ? (
+		return table.getIsAllRowsSelected() || table.getIsSomeRowsSelected() ? (
 			<div
 				ref={ref}
 				className={cn("flex items-center gap-2", className)}
