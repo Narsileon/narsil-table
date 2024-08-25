@@ -1,11 +1,9 @@
-import { Link } from "@inertiajs/react";
+import { InertiaLinkProps, Link } from "@inertiajs/react";
 import { useDataTableRowMenuContext } from "./DataTableRowMenu";
 import AlertDialogTrigger from "@narsil-ui/Components/AlertDialog/AlertDialogTrigger";
 import DropdownMenuItem, { DropdownMenuItemProps } from "@narsil-ui/Components/DropdownMenu/DropdownMenuItem";
 
-export interface DataTableRowMenuItemProps
-	extends DropdownMenuItemProps,
-		Pick<import("@inertiajs/react").InertiaLinkProps, "href" | "method"> {
+export interface DataTableRowMenuItemProps extends DropdownMenuItemProps, Pick<InertiaLinkProps, "href" | "method"> {
 	alert?: boolean;
 }
 

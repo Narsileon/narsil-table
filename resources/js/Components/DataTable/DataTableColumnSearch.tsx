@@ -1,5 +1,6 @@
 import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
 import { Header } from "@tanstack/react-table";
+import { SelectOption } from "@narsil-ui/Types";
 import { TableCellType } from "@narsil-table/Components/Table/TableCellRenderer";
 import { useDataTableContext } from "./DataTableProvider";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";

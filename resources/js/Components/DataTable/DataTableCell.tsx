@@ -16,15 +16,17 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 		id: cell.column.id,
 	});
 
-	const isMenu = cell.column.columnDef.id === "_menu";
+	const isMenu = cell.column.id === "_menu";
+	const isSelect = cell.column.id === "_select";
 
 	const style: React.CSSProperties = {
-		maxWidth: isMenu ? "68px" : cell.column.getSize(),
+		maxWidth: isMenu || isSelect ? "49px" : cell.column.getSize(),
 		opacity: isDragging ? 0.8 : 1,
-		position: "relative",
+		position: isMenu ? "sticky" : "relative",
+		right: 0,
 		transform: CSS.Translate.toString(transform),
 		transition: "width transform 0.2s ease-in-out",
-		width: isMenu ? "56px" : cell.column.getSize(),
+		width: isMenu || isSelect ? "49px" : cell.column.getSize(),
 		zIndex: isDragging ? 1 : 0,
 	};
 
@@ -56,7 +58,7 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 	return (
 		<TableCell
 			ref={setNodeRef}
-			className={cn("truncate", { "px-1": isMenu })}
+			className={cn("truncate", { "bg-background border-b px-1": isMenu })}
 			style={style}
 		>
 			<TableCellRenderer

@@ -13,6 +13,7 @@
 	"Contains": "Contient",
 	"Continue": "Continuer",
 	"Create": "Créer",
+	"Created at": "Créé le",
 	"Delete": "Supprimer",
 	"Does not contain": "Ne contient pas",
 	"Duplicate": "Dupliquer",
@@ -33,6 +34,7 @@
 	"Starts with": "Commence avec",
 	"This action cannot be undone.": "Cette action ne peut pas être annulée.",
 	"True": "Vrai",
+	"Updated at": "Mis à jour le",
 	"Value": "Valeur",
 	"View": "Voir"
 }

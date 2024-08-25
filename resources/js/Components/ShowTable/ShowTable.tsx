@@ -1,4 +1,5 @@
 import { cn } from "@narsil-ui/Components";
+import { ColumnDef } from "@tanstack/react-table";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import ShowRow from "@narsil-table/Components/ShowTable/ShowRow";
@@ -9,7 +10,7 @@ import TableHeader from "@narsil-ui/Components/Table/TableHeader";
 import TableRow from "@narsil-ui/Components/Table/TableRow";
 
 export interface ShowTableProps extends TableProps {
-	columns?: import("@tanstack/react-table").ColumnDef<any, any>[];
+	columns?: ColumnDef<any, any>[];
 	data: { [key: string]: any };
 }
 

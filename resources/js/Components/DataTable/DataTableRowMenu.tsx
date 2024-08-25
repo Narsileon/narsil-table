@@ -1,6 +1,8 @@
 import { Ellipsis } from "lucide-react";
 import { InertiaLinkProps, Link } from "@inertiajs/react";
 import { RouteList } from "ziggy-js";
+import { Row } from "@tanstack/react-table";
+import { SelectOption } from "@narsil-ui/Types";
 import { useDataTableContext } from "./DataTableProvider";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
@@ -20,13 +22,13 @@ import DropdownMenuContent from "@narsil-ui/Components/DropdownMenu/DropdownMenu
 import DropdownMenuSeparator from "@narsil-ui/Components/DropdownMenu/DropdownMenuSeparator";
 import DropdownMenuTrigger from "@narsil-ui/Components/DropdownMenu/DropdownMenuTrigger";
 
-export type ActionOption = SelectOption & Pick<import("@inertiajs/react").InertiaLinkProps, "method">;
+export type ActionOption = SelectOption & Pick<InertiaLinkProps, "method">;
 
 export type DataTableRowMenuProviderState = {};
 
 export type DataTableRowMenuProviderAction = {
-	setHref: (href: import("@inertiajs/react").InertiaLinkProps["href"]) => void;
-	setMethod: (href: import("@inertiajs/react").InertiaLinkProps["method"]) => void;
+	setHref: (href: InertiaLinkProps["href"]) => void;
+	setMethod: (href: InertiaLinkProps["method"]) => void;
 };
 
 export type DataTableRowMenuProviderType = DataTableRowMenuProviderAction & DataTableRowMenuProviderState;
@@ -36,7 +38,7 @@ const DataTableRowMenuContext = React.createContext<DataTableRowMenuProviderType
 export interface DataTableRowMenuProps {
 	actions?: ActionOption[];
 	children?: React.ReactNode;
-	row: import("@tanstack/react-table").Row<any>;
+	row: Row<any>;
 }
 
 const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => {
@@ -87,72 +89,66 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 				setMethod: setMethod,
 			}}
 		>
-			<div className='flex items-center pl-2'>
-				{table.options.enableRowSelection ? <Checkbox checked={row.getIsSelected()} /> : null}
-
-				<AlertDialog>
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild={true}>
-							<Button
-								size='icon'
-								variant='ghost'
-							>
-								<Ellipsis />
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align='end'>
-							{actions?.map((action, index) =>
-								action.options ? (
-									<React.Fragment key={index}>
-										{index > 0 ? <DropdownMenuSeparator /> : null}
-										{action.options.map((subAction, subIndex) => (
-											<DataTableRowMenuItem
-												alert={subAction.method === "delete"}
-												href={subAction.href as string}
-												method={subAction.method ?? "get"}
-												onClick={subAction.onClick}
-												key={subIndex}
-											>
-												{subAction.label}
-											</DataTableRowMenuItem>
-										))}
-									</React.Fragment>
-								) : (
-									<DataTableRowMenuItem
-										alert={action.method === "delete"}
-										href={action.href as string}
-										method={action.method ?? "get"}
-										onClick={action.onClick}
-										key={index}
-									>
-										{action.label}
-									</DataTableRowMenuItem>
-								)
-							)}
-							{children}
-						</DropdownMenuContent>
-					</DropdownMenu>
-					<AlertDialogContent>
-						<AlertDialogHeader>
-							<AlertDialogTitle>
-								{trans("Are you sure you want to perform this action?")}
-							</AlertDialogTitle>
-							<AlertDialogDescription>{trans("This action cannot be undone.")}</AlertDialogDescription>
-						</AlertDialogHeader>
-						<AlertDialogFooter>
-							<AlertDialogCancel>{trans("Cancel")}</AlertDialogCancel>
-							<AlertDialogAction asChild={true}>
-								<Link
-									href={href}
-									method={method}
+			<AlertDialog>
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild={true}>
+						<Button
+							size='icon'
+							variant='ghost'
+						>
+							<Ellipsis />
+						</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent align='end'>
+						{actions?.map((action, index) =>
+							action.options ? (
+								<React.Fragment key={index}>
+									{index > 0 ? <DropdownMenuSeparator /> : null}
+									{action.options.map((subAction, subIndex) => (
+										<DataTableRowMenuItem
+											alert={subAction.method === "delete"}
+											href={subAction.href as string}
+											method={subAction.method ?? "get"}
+											onClick={subAction.onClick}
+											key={subIndex}
+										>
+											{subAction.label}
+										</DataTableRowMenuItem>
+									))}
+								</React.Fragment>
+							) : (
+								<DataTableRowMenuItem
+									alert={action.method === "delete"}
+									href={action.href as string}
+									method={action.method ?? "get"}
+									onClick={action.onClick}
+									key={index}
 								>
-									{trans("Continue")}
-								</Link>
-							</AlertDialogAction>
-						</AlertDialogFooter>
-					</AlertDialogContent>
-				</AlertDialog>
-			</div>
+									{action.label}
+								</DataTableRowMenuItem>
+							)
+						)}
+						{children}
+					</DropdownMenuContent>
+				</DropdownMenu>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle>{trans("Are you sure you want to perform this action?")}</AlertDialogTitle>
+						<AlertDialogDescription>{trans("This action cannot be undone.")}</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogCancel>{trans("Cancel")}</AlertDialogCancel>
+						<AlertDialogAction asChild={true}>
+							<Link
+								href={href}
+								method={method}
+							>
+								{trans("Continue")}
+							</Link>
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 		</DataTableRowMenuContext.Provider>
 	);
 };

@@ -13,6 +13,7 @@
 	"Contains": "Enthält",
 	"Continue": "Fortfahren",
 	"Create": "Erstellen",
+	"Created at": "Erstellt am",
 	"Delete": "Löschen",
 	"Does not contain": "Enthält nicht",
 	"Duplicate": "Duplizieren",
@@ -33,6 +34,7 @@
 	"Starts with": "Beginn mit",
 	"This action cannot be undone.": "Diese Aktion kann nicht rückgängig gemacht werden.",
 	"True": "Wahr",
+	"Updated at": "Aktualisiert am",
 	"Value": "Wert",
 	"View": "Anzeigen"
 }

@@ -19,7 +19,7 @@ import {
 } from "@dnd-kit/core";
 
 export type DataTableProviderState = {
-	table: import("@tanstack/react-table").Table<any>;
+	table: Table<any>;
 	tableStore: DataTableStoreType;
 };
 

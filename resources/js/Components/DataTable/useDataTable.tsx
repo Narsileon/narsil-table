@@ -21,6 +21,7 @@ import {
 	useReactTable,
 	VisibilityState,
 } from "@tanstack/react-table";
+import DataTableRowSelect from "./DataTableRowSelect";
 
 declare module "@tanstack/table-core" {
 	interface ColumnMeta<TData, TValue> {
@@ -45,9 +46,21 @@ export interface createDataTableProps extends Partial<TableOptions<any>> {
 	menu?: (props: CellContext<any, any>) => any;
 }
 
-const useDataTable = ({ columns, data, id, menu, ...props }: createDataTableProps) => {
+const useDataTable = ({ columns, data, enableRowSelection = true, id, menu, ...props }: createDataTableProps) => {
 	if (menu) {
 		columns = [
+			...(enableRowSelection
+				? [
+						{
+							id: "_select",
+							enableHiding: false,
+							enableResizing: false,
+							enableSorting: false,
+							cell: (props: CellContext<any, any>) => <DataTableRowSelect row={props.row} />,
+						},
+					]
+				: []),
+			...columns,
 			{
 				id: "_menu",
 				enableHiding: false,
@@ -55,7 +68,6 @@ const useDataTable = ({ columns, data, id, menu, ...props }: createDataTableProp
 				enableSorting: false,
 				cell: menu,
 			},
-			...columns,
 		];
 	}
 
@@ -146,7 +158,7 @@ const useDataTable = ({ columns, data, id, menu, ...props }: createDataTableProp
 				return true;
 			},
 		},
-		enableRowSelection: false,
+		enableRowSelection: enableRowSelection,
 		manualFiltering: true,
 		manualGrouping: true,
 		manualPagination: true,

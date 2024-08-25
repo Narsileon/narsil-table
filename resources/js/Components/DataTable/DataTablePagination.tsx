@@ -1,9 +1,10 @@
+import { DataTableCollection } from "@narsil-table/Types";
 import { useDataTableContext } from "./DataTableProvider";
 import * as React from "react";
 import Pagination, { PaginationProps } from "@narsil-ui/Components/Pagination/Pagination";
 
 export interface DataTablePaginationProps extends Partial<PaginationProps> {
-	collection: Collection;
+	collection: DataTableCollection;
 }
 
 const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePaginationProps>(
@@ -19,7 +20,7 @@ const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePagination
 				currentPage={collection.meta.current_page}
 				data={tableStore.getParams()}
 				from={collection.meta.grouped_from ?? collection.meta.from}
-				lastPage={collection.meta.lastPage}
+				lastPage={collection.meta.last_page}
 				links={collection.meta.links.slice(1, collection.meta.links.length - 1)}
 				onPageSizeChange={(value) => table.setPageSize(Number(value))}
 				pageSize={table.getState().pagination.pageSize}
