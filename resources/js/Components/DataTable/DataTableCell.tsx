@@ -58,7 +58,7 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 	return (
 		<TableCell
 			ref={setNodeRef}
-			className={cn("truncate", { "bg-background border-b px-1": isMenu })}
+			className={cn("truncate", { "bg-background rounded-md border-b px-1": isMenu }, { "pl-2": isSelect })}
 			style={style}
 		>
 			<TableCellRenderer

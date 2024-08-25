@@ -8,6 +8,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import Button from "@narsil-ui/Components/Button/Button";
+import Checkbox from "@narsil-ui/Components/Checkbox/Checkbox";
 import DataTableColumnSearch from "./DataTableColumnSearch";
 import Popover from "@narsil-ui/Components/Popover/Popover";
 import PopoverContent from "@narsil-ui/Components/Popover/PopoverContent";
@@ -47,11 +48,18 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 	return (
 		<TableHead
 			ref={setNodeRef}
-			className={cn("group whitespace-nowrap px-0")}
+			className={cn("group whitespace-nowrap px-0", { "bg-background rounded-md": isMenu })}
 			style={style}
 			{...props}
 		>
-			{!(isMenu || isSelect) ? (
+			{isSelect ? (
+				<div className='flex items-center justify-center'>
+					<Checkbox
+						checked={table.getIsAllRowsSelected()}
+						onCheckedChange={() => table.toggleAllRowsSelected()}
+					/>
+				</div>
+			) : !isMenu ? (
 				<>
 					<div className='flex items-center justify-between pl-1 pr-2'>
 						<Button
