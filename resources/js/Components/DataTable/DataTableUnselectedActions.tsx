@@ -9,7 +9,7 @@ const DataTableUnselectedActions = React.forwardRef<HTMLDivElement, DataTableUns
 	({ className, children, ...props }, ref) => {
 		const { table } = useDataTableContext();
 
-		return !table.getIsAllRowsSelected() || !table.getIsSomeRowsSelected() ? (
+		return !(table.getIsAllRowsSelected() || table.getIsSomeRowsSelected()) ? (
 			<div
 				ref={ref}
 				className={cn("flex items-center gap-2", className)}
