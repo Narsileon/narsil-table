@@ -7,7 +7,7 @@ export interface DataTableRowSelectProps extends Partial<CheckboxProps> {
 
 const DataTableRowSelect = ({ row, ...props }: DataTableRowSelectProps) => {
 	return (
-		<div className='flex items-center'>
+		<div className='flex items-center pl-2'>
 			<Checkbox
 				checked={row.getIsSelected()}
 				{...props}
