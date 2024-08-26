@@ -183,11 +183,11 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 							onClick={header.column.getToggleSortingHandler()}
 						>
 							{header.column.getIsSorted() === "asc" ? (
-								<ChevronUp />
+								<ChevronUp className='h-6 w-6' />
 							) : header.column.getIsSorted() === "desc" ? (
-								<ChevronDown />
+								<ChevronDown className='h-6 w-6' />
 							) : (
-								<ChevronsUpDown />
+								<ChevronsUpDown className='h-6 w-6' />
 							)}
 						</Button>
 					</TooltipWrapper>

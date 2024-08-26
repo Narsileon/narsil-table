@@ -25,7 +25,7 @@ const DataTableSelectedActions = React.forwardRef<HTMLDivElement, DataTableSelec
 						size='icon'
 						onClick={() => table.resetRowSelection()}
 					>
-						<X />
+						<X className='h-6 w-6' />
 					</Button>
 				</TooltipWrapper>
 			</div>

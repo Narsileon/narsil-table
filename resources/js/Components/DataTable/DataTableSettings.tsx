@@ -18,7 +18,7 @@ const DataTableSettings = ({ ...props }: DataTableSettingsProps) => {
 		<Popover {...props}>
 			<PopoverTrigger asChild={true}>
 				<Button size='icon'>
-					<Settings />
+					<Settings className='h-6 w-6' />
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent align='end'>
