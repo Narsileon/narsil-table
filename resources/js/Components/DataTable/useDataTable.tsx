@@ -1,4 +1,4 @@
-import { debounce, isString } from "lodash";
+import { debounce, isString, sortBy } from "lodash";
 import { router } from "@inertiajs/react";
 import { TableCellType } from "@narsil-table/Components/Table/TableCellRenderer";
 import * as React from "react";
@@ -55,6 +55,19 @@ export interface createDataTableProps extends Partial<TableOptions<any>> {
 }
 
 const useDataTable = ({ columns, data, enableRowSelection = true, id, menu, ...props }: createDataTableProps) => {
+	const useTableStore = React.useMemo(
+		() =>
+			createDataTableStore({
+				id: id,
+				initialState: {
+					pageSize: 10,
+				},
+			}),
+		[id]
+	);
+
+	const tableStore = useTableStore((state) => state);
+
 	if (menu) {
 		columns = [
 			...(enableRowSelection
@@ -80,32 +93,6 @@ const useDataTable = ({ columns, data, enableRowSelection = true, id, menu, ...p
 			},
 		];
 	}
-
-	function getColumnOrder() {
-		const columnOrder = columns.reduce((array: string[], column) => {
-			if (!isString(column.id) || array.includes(column.id)) {
-				return array;
-			}
-
-			return array.concat(column.id);
-		}, []);
-
-		return columnOrder;
-	}
-
-	const useTableStore = React.useMemo(
-		() =>
-			createDataTableStore({
-				id: id,
-				initialState: {
-					columnOrder: getColumnOrder(),
-					pageSize: 10,
-				},
-			}),
-		[id]
-	);
-
-	const tableStore = useTableStore((state) => state);
 
 	const handleColumnFiltersChange = (
 		filters: ColumnFiltersState | ((old: ColumnFiltersState) => ColumnFiltersState)
@@ -233,6 +220,28 @@ const useDataTable = ({ columns, data, enableRowSelection = true, id, menu, ...p
 		}, 300),
 		[]
 	);
+
+	React.useEffect(() => {
+		let columnOrder = columns.reduce((array: string[], column) => {
+			if (!isString(column.id) || array.includes(column.id)) {
+				return array;
+			}
+
+			return array.concat(column.id);
+		}, []);
+
+		columnOrder = sortBy(columnOrder, (column) => {
+			if (column === "_select") {
+				return -2;
+			} else if (column === "_menu") {
+				return 2;
+			}
+
+			return tableStore.grouping.includes(column) ? -1 : 1;
+		});
+
+		table.setColumnOrder(columnOrder);
+	}, [tableStore.grouping]);
 
 	React.useEffect(() => {
 		const href = window.location.href.replace(location.search, "");
