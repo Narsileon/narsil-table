@@ -181,10 +181,7 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 							<Button
 								size='icon'
 								variant='ghost'
-								onClick={() => {
-									header.column.toggleSorting();
-									header.column.toggleGrouping();
-								}}
+								onClick={header.column.getToggleSortingHandler()}
 							>
 								{header.column.getIsSorted() === "asc" ? (
 									<ChevronUp className='text-primary-highlight h-6 w-6' />
@@ -203,7 +200,10 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 							<Button
 								size='icon'
 								variant='ghost'
-								onClick={header.column.getToggleGroupingHandler()}
+								onClick={() => {
+									header.column.toggleSorting();
+									header.column.toggleGrouping();
+								}}
 							>
 								{header.column.getIsGrouped() ? (
 									<Ungroup className='text-primary-highlight h-6 w-6' />
