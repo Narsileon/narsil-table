@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronsUpDown, ChevronUp, Group, Ungroup } from "lucide-react";
 import { Header } from "@tanstack/react-table";
 import { SelectOption } from "@narsil-ui/Types";
 import { TableCellType } from "@narsil-table/Components/Table/TableCellRenderer";
@@ -175,25 +175,42 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 		<Card variant='inline'>
 			<CardHeader>
 				<CardTitle>{trans("Filters")}</CardTitle>
-				{header.column.getCanSort() ? (
-					<TooltipWrapper tooltip={trans("Sort")}>
-						<Button
-							size='icon'
-							variant='ghost'
-							onClick={header.column.getToggleSortingHandler()}
-						>
-							{header.column.getIsSorted() === "asc" ? (
-								<ChevronUp className='h-6 w-6' />
-							) : header.column.getIsSorted() === "desc" ? (
-								<ChevronDown className='h-6 w-6' />
-							) : (
-								<ChevronsUpDown className='h-6 w-6' />
-							)}
-						</Button>
-					</TooltipWrapper>
-				) : null}
+				<div className='flex items-center gap-x-2'>
+					{header.column.getCanSort() ? (
+						<TooltipWrapper tooltip={trans("Sort")}>
+							<Button
+								size='icon'
+								variant='ghost'
+								onClick={header.column.getToggleSortingHandler()}
+							>
+								{header.column.getIsSorted() === "asc" ? (
+									<ChevronUp className='h-6 w-6' />
+								) : header.column.getIsSorted() === "desc" ? (
+									<ChevronDown className='h-6 w-6' />
+								) : (
+									<ChevronsUpDown className='h-6 w-6' />
+								)}
+							</Button>
+						</TooltipWrapper>
+					) : null}
+					{header.column.getCanGroup() ? (
+						<TooltipWrapper tooltip={trans("Group")}>
+							<Button
+								size='icon'
+								variant='ghost'
+								onClick={header.column.getToggleGroupingHandler()}
+							>
+								{header.column.getIsGrouped() ? (
+									<Ungroup className='h-6 w-6' />
+								) : (
+									<Group className='h-6 w-6' />
+								)}
+							</Button>
+						</TooltipWrapper>
+					) : null}
+				</div>
 			</CardHeader>
-			<CardContent>
+			<CardContent className='gap-y-2'>
 				<Combobox
 					value={columnStore.firstOperator}
 					onChange={(value) => columnStore.setFirstOperator(value)}

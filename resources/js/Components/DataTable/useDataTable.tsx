@@ -159,6 +159,7 @@ const useDataTable = ({ columns, data, enableRowSelection = true, id, menu, ...p
 			},
 		},
 		enableRowSelection: enableRowSelection,
+		groupedColumnMode: false,
 		manualFiltering: true,
 		manualGrouping: true,
 		manualPagination: true,
@@ -210,7 +211,13 @@ const useDataTable = ({ columns, data, enableRowSelection = true, id, menu, ...p
 		filter(href, tableStore.getParams());
 
 		return () => filter.cancel();
-	}, [tableStore.filteredColumnFilters, tableStore.globalFilter, tableStore.pageSize, tableStore.sorting]);
+	}, [
+		tableStore.filteredColumnFilters,
+		tableStore.globalFilter,
+		tableStore.grouping,
+		tableStore.pageSize,
+		tableStore.sorting,
+	]);
 
 	return { table, tableStore };
 };

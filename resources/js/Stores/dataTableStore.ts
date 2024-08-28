@@ -137,6 +137,7 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 					const params = {
 						globalFilter: get().globalFilter,
 						columnFilters: formatColumFilters(get().filteredColumnFilters),
+						grouping: get().grouping,
 						pageSize: get().pageSize,
 						sorting: formatSorting(get().sorting),
 					};
