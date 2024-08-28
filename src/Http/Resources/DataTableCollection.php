@@ -46,6 +46,8 @@ class DataTableCollection extends ResourceCollection
             }
         }
 
+        $this->groupingCounts = $this->getGroupingCounts($resource);
+
         parent::__construct($this->paginate($resource));
     }
 
@@ -74,6 +76,10 @@ class DataTableCollection extends ResourceCollection
 
     #region PROPERTIES
 
+    /**
+     * @var array
+     */
+    private readonly array $groupingCounts;
     /**
      * @var array
      */
@@ -147,7 +153,7 @@ class DataTableCollection extends ResourceCollection
     protected function getMeta(): array
     {
         return [
-            'grouping_counts' => $this->getGroupingCounts($this->resource),
+            'grouping_counts' => $this->groupingCounts,
         ];
     }
 
