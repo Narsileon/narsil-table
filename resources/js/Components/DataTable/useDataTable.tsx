@@ -51,7 +51,7 @@ declare module "@tanstack/table-core" {
 
 export interface createDataTableProps extends Partial<TableOptions<any>> {
 	columns: ColumnDef<any, any>[];
-	groupingCounts: DataTableCollectionMeta["grouping_counts"];
+	groupingCounts?: DataTableCollectionMeta["grouping_counts"];
 	id: string;
 	menu?: (props: CellContext<any, any>) => any;
 }
@@ -60,7 +60,7 @@ const useDataTable = ({
 	columns,
 	data,
 	enableRowSelection = true,
-	groupingCounts,
+	groupingCounts = {},
 	id,
 	menu,
 	...props
