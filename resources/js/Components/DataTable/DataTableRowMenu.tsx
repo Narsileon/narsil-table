@@ -15,7 +15,6 @@ import AlertDialogFooter from "@narsil-ui/Components/AlertDialog/AlertDialogFoot
 import AlertDialogHeader from "@narsil-ui/Components/AlertDialog/AlertDialogHeader";
 import AlertDialogTitle from "@narsil-ui/Components/AlertDialog/AlertDialogTitle";
 import Button from "@narsil-ui/Components/Button/Button";
-import Checkbox from "@narsil-ui/Components/Checkbox/Checkbox";
 import DataTableRowMenuItem from "./DataTableRowMenuItem";
 import DropdownMenu from "@narsil-ui/Components/DropdownMenu/DropdownMenu";
 import DropdownMenuContent from "@narsil-ui/Components/DropdownMenu/DropdownMenuContent";

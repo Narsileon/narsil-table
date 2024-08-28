@@ -261,13 +261,6 @@ class DataTableCollection extends ResourceCollection
 
             foreach ($resource as $item)
             {
-                if ($index % $this->pageSize === 0)
-                {
-                    $groupedResource->splice($index, 0, array($grouping));
-
-                    $index += 1;
-                }
-
                 $currentItem = $item[$grouping];
 
                 if ($currentItem !== $previousItem)
