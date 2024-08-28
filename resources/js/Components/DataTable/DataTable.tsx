@@ -47,8 +47,12 @@ const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }
 					{table.getRowModel().rows?.length ? (
 						table.getRowModel().rows.map((row) => (
 							<TableRow
-								onClick={row.getToggleSelectedHandler()}
-								data-state={row.getIsSelected() && "selected"}
+								onClick={() => (row.getCanExpand() ? row.toggleExpanded() : row.toggleSelected())}
+								data-state={
+									row.getCanExpand()
+										? row.getIsExpanded() && "expanded"
+										: row.getIsSelected() && "selected"
+								}
 								key={row.id}
 							>
 								<SortableContext

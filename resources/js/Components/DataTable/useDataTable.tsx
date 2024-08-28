@@ -3,6 +3,7 @@ import { router } from "@inertiajs/react";
 import { TableCellType } from "@narsil-table/Components/Table/TableCellRenderer";
 import * as React from "react";
 import createDataTableStore from "@narsil-table/Stores/dataTableStore";
+import DataTableRowAction from "./DataTableRowAction";
 
 import {
 	CellContext,
@@ -29,7 +30,6 @@ import {
 	useReactTable,
 	VisibilityState,
 } from "@tanstack/react-table";
-import DataTableRowSelect from "./DataTableRowSelect";
 
 declare module "@tanstack/table-core" {
 	interface ColumnMeta<TData, TValue> {
@@ -65,7 +65,7 @@ const useDataTable = ({ columns, data, enableRowSelection = true, id, menu, ...p
 							enableHiding: false,
 							enableResizing: false,
 							enableSorting: false,
-							cell: (props: CellContext<any, any>) => <DataTableRowSelect row={props.row} />,
+							cell: (props: CellContext<any, any>) => <DataTableRowAction row={props.row} />,
 						},
 					]
 				: []),

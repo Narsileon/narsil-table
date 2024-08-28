@@ -3,11 +3,11 @@ import { Row } from "@tanstack/react-table";
 import Button, { ButtonProps } from "@narsil-ui/Components/Button/Button";
 import Checkbox from "@narsil-ui/Components/Checkbox/Checkbox";
 
-export interface DataTableRowSelectProps extends Partial<ButtonProps> {
+export interface DataTableRowActionProps extends Partial<ButtonProps> {
 	row: Row<any>;
 }
 
-const DataTableRowSelect = ({ row, ...props }: DataTableRowSelectProps) => {
+const DataTableRowAction = ({ row, ...props }: DataTableRowActionProps) => {
 	return row.getCanExpand() ? (
 		<Button
 			size='icon'
@@ -31,4 +31,4 @@ const DataTableRowSelect = ({ row, ...props }: DataTableRowSelectProps) => {
 	);
 };
 
-export default DataTableRowSelect;
+export default DataTableRowAction;
