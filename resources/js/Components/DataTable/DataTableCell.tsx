@@ -51,14 +51,14 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 	let isGrouped: boolean = cell ? cell.row.getIsGrouped() && cell.column.getIsGrouped() : false;
 	let count = cell ? getCount() : 0;
 
-	if (cell && (cell.getIsPlaceholder() || cell.getIsAggregated())) {
-		<TableCell />;
+	if (cell && cell.getValue() !== undefined && (cell.getIsPlaceholder() || cell.getIsAggregated())) {
+		return <TableCell />;
 	}
 
 	return (
 		<TableCell
 			ref={setNodeRef}
-			className={cn("truncate", { "bg-background rounded-md border-b px-1": isMenu }, { "pl-2": isSelect })}
+			className={cn("truncate", { "bg-background rounded-md px-1": isMenu }, { "pl-2": isSelect })}
 			style={style}
 		>
 			<TableCellRenderer
