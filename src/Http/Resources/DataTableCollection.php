@@ -60,6 +60,10 @@ class DataTableCollection extends ResourceCollection
                 $this->groupedMeta = $this->getGroupedMeta($resource->toArray(), []);
             }
         }
+        else
+        {
+            $this->groupedMeta = $this->getGroupedMeta($resource->toArray(), []);
+        }
 
         parent::__construct($this->paginate($resource));
     }
