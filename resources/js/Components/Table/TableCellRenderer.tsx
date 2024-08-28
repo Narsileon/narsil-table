@@ -35,13 +35,9 @@ export interface TableCellRendererProps {
 const TableCellRenderer = ({ className, defaultValue, formatString, type, value }: TableCellRendererProps) => {
 	if (isArray(value)) {
 		return <span>{JSON.stringify(value)}</span>;
-	}
-
-	if (isBoolean(value)) {
+	} else if (isBoolean(value)) {
 		return value ? <Check className='text-constructive h-5 w-5' /> : <X className='text-destructive h-5 w-5' />;
-	}
-
-	if (isObject(value)) {
+	} else if (isObject(value)) {
 		return <span>{JSON.stringify(value)}</span>;
 	}
 
@@ -51,9 +47,9 @@ const TableCellRenderer = ({ className, defaultValue, formatString, type, value 
 
 	switch (type) {
 		case "date":
-			return <span>{format(value, "P", { locale: datetimeLocale })}</span>;
+			return value ? <span>{format(value, "P", { locale: datetimeLocale })}</span> : null;
 		case "datetime-local":
-			return <span>{format(value, "Pp", { locale: datetimeLocale })}</span>;
+			return value ? <span>{format(value, "Pp", { locale: datetimeLocale })}</span> : null;
 		case "text":
 			return (
 				<ScrollArea>
@@ -61,7 +57,7 @@ const TableCellRenderer = ({ className, defaultValue, formatString, type, value 
 				</ScrollArea>
 			);
 		case "time":
-			return <span>{format(value, "p", { locale: datetimeLocale })}</span>;
+			return value ? <span>{format(value, "p", { locale: datetimeLocale })}</span> : null;
 		default:
 			return <span>{(defaultValue as string) ?? value}</span>;
 	}
