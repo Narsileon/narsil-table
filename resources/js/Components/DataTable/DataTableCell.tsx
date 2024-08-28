@@ -48,9 +48,6 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 		}
 	}
 
-	let isGrouped: boolean = cell ? cell.row.getIsGrouped() && cell.column.getIsGrouped() : false;
-	let count = cell ? getCount() : 0;
-
 	if (cell && cell.getValue() !== undefined && (cell.getIsPlaceholder() || cell.getIsAggregated())) {
 		return <TableCell />;
 	}
