@@ -201,7 +201,12 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 								size='icon'
 								variant='ghost'
 								onClick={() => {
-									header.column.toggleSorting();
+									if (header.column.getIsGrouped()) {
+										header.column.clearSorting();
+									} else {
+										header.column.toggleSorting(false);
+									}
+
 									header.column.toggleGrouping();
 								}}
 							>
