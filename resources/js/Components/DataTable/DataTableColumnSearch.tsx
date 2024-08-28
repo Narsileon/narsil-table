@@ -194,7 +194,9 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 						</TooltipWrapper>
 					) : null}
 					{header.column.getCanGroup() ? (
-						<TooltipWrapper tooltip={trans("Group")}>
+						<TooltipWrapper
+							tooltip={trans(header.column.getIsGrouped() ? "Disable grouping" : "Enable grouping")}
+						>
 							<Button
 								size='icon'
 								variant='ghost'

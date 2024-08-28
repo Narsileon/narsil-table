@@ -33,14 +33,13 @@ class DataTableCollection extends ResourceCollection
     {
         $this->table = $table;
 
+        $this->groupings = $this->getGroupings();
         $this->pageIndex = $this->getPageIndex();
         $this->pageSize = $this->getPageSize();
+        $this->sortings = $this->getSortings();
 
         if ($resource->count() > 0)
         {
-            $this->groupings = $this->getGroupings();
-            $this->sortings = $this->getSortings();
-
             $this->groupedCounts = $this->getGroupedCounts($resource);
 
             if (count($this->sortings) > 0)
