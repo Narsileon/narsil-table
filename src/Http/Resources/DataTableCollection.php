@@ -147,7 +147,7 @@ class DataTableCollection extends ResourceCollection
     protected function getMeta(): array
     {
         return [
-            'groupingCounts' => $this->getGroupedCounts($this->resource),
+            'grouping_counts' => $this->getGroupingCounts($this->resource),
         ];
     }
 
@@ -160,7 +160,7 @@ class DataTableCollection extends ResourceCollection
      *
      * @return array
      */
-    private function getGroupedCounts(mixed $resource): array
+    private function getGroupingCounts(mixed $resource): array
     {
         $groupingCounts = [];
 

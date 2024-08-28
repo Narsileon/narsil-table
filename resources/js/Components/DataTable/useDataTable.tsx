@@ -1,3 +1,4 @@
+import { DataTableCollectionMeta } from "@narsil-table/Types";
 import { debounce, isString, sortBy } from "lodash";
 import { router } from "@inertiajs/react";
 import { TableCellType } from "@narsil-table/Components/Table/TableCellRenderer";
@@ -50,16 +51,26 @@ declare module "@tanstack/table-core" {
 
 export interface createDataTableProps extends Partial<TableOptions<any>> {
 	columns: ColumnDef<any, any>[];
+	groupingCounts: DataTableCollectionMeta["grouping_counts"];
 	id: string;
 	menu?: (props: CellContext<any, any>) => any;
 }
 
-const useDataTable = ({ columns, data, enableRowSelection = true, id, menu, ...props }: createDataTableProps) => {
+const useDataTable = ({
+	columns,
+	data,
+	enableRowSelection = true,
+	groupingCounts,
+	id,
+	menu,
+	...props
+}: createDataTableProps) => {
 	const useTableStore = React.useMemo(
 		() =>
 			createDataTableStore({
 				id: id,
 				initialState: {
+					groupingCounts: groupingCounts,
 					pageSize: 10,
 				},
 			}),
