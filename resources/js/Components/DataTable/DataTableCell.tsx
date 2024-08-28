@@ -52,7 +52,7 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 	let count = cell ? getCount() : 0;
 
 	if (cell && (cell.getIsPlaceholder() || cell.getIsAggregated())) {
-		return null;
+		<TableCell />;
 	}
 
 	return (
