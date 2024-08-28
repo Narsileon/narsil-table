@@ -40,30 +40,10 @@ class DataTableCollection extends ResourceCollection
 
         if ($resource->count() > 0)
         {
-            $this->groupedCounts = $this->getGroupedCounts($resource);
-
             if (count($this->sortings) > 0)
             {
                 $resource = $resource->sortBy($this->sortings);
             }
-
-            if (count($this->groupings) > 0)
-            {
-                $groupedResource = $this->groupResource($resource);
-
-                $this->groupedMeta = $this->getGroupedMeta($resource->toArray(), $groupedResource->toArray());
-
-                $resource = $groupedResource;
-            }
-            else
-            {
-                $this->groupedMeta = $this->getGroupedMeta($resource->toArray(), []);
-            }
-        }
-        else
-        {
-            $this->groupedCounts = [];
-            $this->groupedMeta = $this->getGroupedMeta($resource->toArray(), []);
         }
 
         parent::__construct($this->paginate($resource));
@@ -94,14 +74,6 @@ class DataTableCollection extends ResourceCollection
 
     #region PROPERTIES
 
-    /**
-     * @var array
-     */
-    private readonly array $groupedCounts;
-    /**
-     * @var array
-     */
-    private readonly array $groupedMeta;
     /**
      * @var array
      */
@@ -174,9 +146,9 @@ class DataTableCollection extends ResourceCollection
      */
     protected function getMeta(): array
     {
-        return array_merge($this->groupedMeta, [
-            'groupingCounts' => $this->groupedCounts,
-        ]);
+        return [
+            'groupingCounts' => $this->getGroupedCounts($this->resource),
+        ];
     }
 
     #endregion
@@ -245,41 +217,6 @@ class DataTableCollection extends ResourceCollection
     }
 
     /**
-     * @param mixed $resource
-     *
-     * @return mixed
-     */
-    private function groupResource(mixed $resource): mixed
-    {
-        $groupedResource = clone $resource;
-
-        foreach ($this->groupings as $grouping)
-        {
-            $index = 0;
-
-            $previousItem = null;
-
-            foreach ($resource as $item)
-            {
-                $currentItem = $item[$grouping];
-
-                if ($currentItem !== $previousItem)
-                {
-                    $groupedResource->splice($index, 0, array($grouping));
-
-                    $index += 1;
-                }
-
-                $previousItem = $currentItem;
-
-                $index += 1;
-            }
-        }
-
-        return $groupedResource;
-    }
-
-    /**
      * @param mixed $items
      *
      * @return LengthAwarePaginator
@@ -296,43 +233,7 @@ class DataTableCollection extends ResourceCollection
             [self::PATH => LengthAwarePaginator::resolveCurrentPath()],
         );
 
-        if (count($this->groupings) > 0)
-        {
-            $groupedItems = $paginator->getCollection();
-
-            $groupedItems = $groupedItems->whereNotNull(self::ID);
-
-            $paginator->setCollection($groupedItems->values());
-        }
-
         return $paginator;
-    }
-
-    private function getGroupedMeta(mixed $initialResource, mixed $groupedResource): array
-    {
-        $groupedFrom = null;
-        $groupedTo = null;
-        $groupedTotal = null;
-
-        $groupedResource = array_slice($groupedResource, ($this->pageIndex - 1) * $this->pageSize, $this->pageSize, true);
-
-        $groupedResource = array_filter($groupedResource, fn($x) => isset($x[self::ID]));
-
-        if (count($groupedResource) > 0)
-        {
-            $firstId = current($groupedResource)[self::ID];
-            $lastId = end($groupedResource)[self::ID];
-
-            $groupedFrom = array_search($firstId, array_column($initialResource, self::ID)) + 1;
-            $groupedTo = array_search($lastId, array_column($initialResource, self::ID)) + 1;
-            $groupedTotal = count($initialResource);
-        }
-
-        return compact(
-            'groupedFrom',
-            'groupedTo',
-            'groupedTotal'
-        );
     }
 
     #endregion
