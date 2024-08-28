@@ -62,6 +62,7 @@ class DataTableCollection extends ResourceCollection
         }
         else
         {
+            $this->groupedCounts = [];
             $this->groupedMeta = $this->getGroupedMeta($resource->toArray(), []);
         }
 
