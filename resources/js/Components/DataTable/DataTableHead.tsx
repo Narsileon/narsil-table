@@ -82,7 +82,8 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 											className={cn("block grow truncate px-2 text-left", {
 												"text-primary":
 													(header.column.getFilterValue() as any)?.firstFilter ||
-													(header.column.getFilterValue() as any)?.secondFilter,
+													(header.column.getFilterValue() as any)?.secondFilter ||
+													header.column.getIsGrouped,
 											})}
 											variant='ghost'
 										>

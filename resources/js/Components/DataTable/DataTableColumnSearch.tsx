@@ -187,9 +187,9 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 								}}
 							>
 								{header.column.getIsSorted() === "asc" ? (
-									<ChevronUp className='h-6 w-6' />
+									<ChevronUp className='text-primary-highlight h-6 w-6' />
 								) : header.column.getIsSorted() === "desc" ? (
-									<ChevronDown className='h-6 w-6' />
+									<ChevronDown className='text-primary-highlight h-6 w-6' />
 								) : (
 									<ChevronsUpDown className='h-6 w-6' />
 								)}
@@ -206,7 +206,7 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 								onClick={header.column.getToggleGroupingHandler()}
 							>
 								{header.column.getIsGrouped() ? (
-									<Ungroup className='h-6 w-6' />
+									<Ungroup className='text-primary-highlight h-6 w-6' />
 								) : (
 									<Group className='h-6 w-6' />
 								)}
