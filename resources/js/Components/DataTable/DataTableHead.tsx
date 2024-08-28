@@ -73,7 +73,10 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 						</Button>
 						<Popover>
 							<TooltipWrapper tooltip={flexRender(header.column.columnDef.header, header.getContext())}>
-								<PopoverTrigger asChild={true}>
+								<PopoverTrigger
+									disabled={!header.column.getCanFilter()}
+									asChild={true}
+								>
 									{!header.isPlaceholder && header.column.id !== "_menu" ? (
 										<Button
 											className={cn("block grow truncate px-2 text-left", {
@@ -116,23 +119,25 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 						) : null}
 					</div>
 
-					<TooltipWrapper tooltip={trans("Resize")}>
-						<div
-							className={cn(
-								"bg-border absolute bottom-0 right-0 top-0 z-10 hidden w-1 cursor-col-resize group-hover:block",
-								{
-									"bg-primary pointer-events-none block": header.column.getIsResizing(),
-								}
-							)}
-							onMouseDown={header.getResizeHandler()}
-							onTouchStart={header.getResizeHandler()}
-							style={{
-								transform: header.column.getIsResizing()
-									? `translateX(${1 * (table.getState().columnSizingInfo.deltaOffset ?? 0)}px)`
-									: "",
-							}}
-						/>
-					</TooltipWrapper>
+					{header.column.getCanResize() ? (
+						<TooltipWrapper tooltip={trans("Resize")}>
+							<div
+								className={cn(
+									"bg-border absolute bottom-0 right-0 top-0 z-10 hidden w-1 cursor-col-resize group-hover:block",
+									{
+										"bg-primary pointer-events-none block": header.column.getIsResizing(),
+									}
+								)}
+								onMouseDown={header.getResizeHandler()}
+								onTouchStart={header.getResizeHandler()}
+								style={{
+									transform: header.column.getIsResizing()
+										? `translateX(${1 * (table.getState().columnSizingInfo.deltaOffset ?? 0)}px)`
+										: "",
+								}}
+							/>
+						</TooltipWrapper>
+					) : null}
 				</>
 			) : null}
 		</TableHead>

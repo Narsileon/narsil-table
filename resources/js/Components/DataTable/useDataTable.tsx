@@ -53,6 +53,7 @@ const useDataTable = ({ columns, data, enableRowSelection = true, id, menu, ...p
 				? [
 						{
 							id: "_select",
+							enableColumnFilter: false,
 							enableHiding: false,
 							enableResizing: false,
 							enableSorting: false,
@@ -63,6 +64,7 @@ const useDataTable = ({ columns, data, enableRowSelection = true, id, menu, ...p
 			...columns,
 			{
 				id: "_menu",
+				enableColumnFilter: false,
 				enableHiding: false,
 				enableResizing: false,
 				enableSorting: false,
@@ -158,7 +160,15 @@ const useDataTable = ({ columns, data, enableRowSelection = true, id, menu, ...p
 				return true;
 			},
 		},
+		enableColumnFilters: true,
+		enableColumnResizing: true,
+		enableGlobalFilter: true,
+		enableGrouping: true,
+		enableHiding: true,
+		enableMultiRowSelection: true,
+		enableMultiSort: true,
 		enableRowSelection: enableRowSelection,
+		enableSorting: true,
 		groupedColumnMode: false,
 		manualFiltering: true,
 		manualGrouping: true,
