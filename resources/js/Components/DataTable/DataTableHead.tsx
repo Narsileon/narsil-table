@@ -83,7 +83,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 												"text-primary":
 													(header.column.getFilterValue() as any)?.firstFilter ||
 													(header.column.getFilterValue() as any)?.secondFilter ||
-													header.column.getIsGrouped,
+													header.column.getIsGrouped(),
 											})}
 											variant='ghost'
 										>
