@@ -8,10 +8,10 @@ import TableCellRenderer from "@narsil-table/Components/Table/TableCellRenderer"
 
 export interface DataTableCellProps {
 	cell: Cell<any, any>;
-	grouping?: Record<string, any>;
+	groupingCounts?: Record<string, any>;
 }
 
-const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
+const DataTableCell = ({ cell, groupingCounts }: DataTableCellProps) => {
 	const { isDragging, setNodeRef, transform } = useSortable({
 		id: cell.column.id,
 	});
@@ -30,25 +30,11 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 		zIndex: isDragging ? 1 : 0,
 	};
 
-	const { id, meta } = cell.column.columnDef;
+	const { meta } = cell.column.columnDef;
 
 	const value = cell.getValue();
 
-	function getCount() {
-		let values = grouping?.[id ?? ""];
-
-		if (!values) {
-			return 0;
-		}
-
-		if (meta?.type === "boolean") {
-			return values[+value];
-		} else {
-			return values[value];
-		}
-	}
-
-	if (cell && cell.getValue() !== undefined && (cell.getIsPlaceholder() || cell.getIsAggregated())) {
+	if (cell && value !== undefined && (cell.getIsPlaceholder() || cell.getIsAggregated())) {
 		return <TableCell />;
 	}
 
@@ -62,8 +48,9 @@ const DataTableCell = ({ cell, grouping }: DataTableCellProps) => {
 				className='h-10'
 				defaultValue={flexRender(cell.column.columnDef.cell, cell.getContext())}
 				type={meta?.type ?? "string"}
-				value={cell.getValue()}
+				value={value}
 			/>
+			{cell.getIsGrouped() ? <span>{` (${groupingCounts?.[value]})`}</span> : null}
 		</TableCell>
 	);
 };

@@ -70,7 +70,6 @@ const useDataTable = ({
 			createDataTableStore({
 				id: id,
 				initialState: {
-					groupingCounts: groupingCounts,
 					pageSize: 10,
 				},
 			}),
@@ -233,6 +232,10 @@ const useDataTable = ({
 	);
 
 	React.useEffect(() => {
+		tableStore.setGroupingCounts(groupingCounts);
+	}, [groupingCounts]);
+
+	React.useEffect(() => {
 		let columnOrder = columns.reduce((array: string[], column) => {
 			if (!isString(column.id) || array.includes(column.id)) {
 				return array;
@@ -251,7 +254,7 @@ const useDataTable = ({
 			return tableStore.grouping.includes(column) ? -1 : 1;
 		});
 
-		table.setColumnOrder(columnOrder);
+		tableStore.setColumnOrder(columnOrder);
 	}, [tableStore.grouping]);
 
 	React.useEffect(() => {

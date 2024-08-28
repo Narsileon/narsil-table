@@ -44,6 +44,7 @@ export type DataTableStoreActions = {
 	setExpanded: (expanded: ExpandedState) => void;
 	setGlobalFilter: (globalFilter: string) => void;
 	setGrouping: (grouping: GroupingState) => void;
+	setGroupingCounts: (groupingCounts: DataTableCollectionMeta["grouping_counts"]) => void;
 	setPageIndex: (pageIndex: number) => void;
 	setPageSize: (pageSige: number) => void;
 	setPagination: (pagination: PaginationState) => void;
@@ -184,6 +185,10 @@ const createDataTableStore = ({ id, initialState }: CreateDataTableStoreProps) =
 				setGrouping: (grouping) =>
 					set({
 						grouping: grouping,
+					}),
+				setGroupingCounts: (groupingCounts) =>
+					set({
+						groupingCounts: groupingCounts,
 					}),
 				setPageIndex: (pageIndex) =>
 					set({
