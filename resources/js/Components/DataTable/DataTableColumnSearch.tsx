@@ -24,7 +24,7 @@ export interface DataTableColumnSearchProps {
 const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	const { trans } = useTranslationsStore();
 
-	const { tableStore } = useDataTableContext();
+	const { table, tableStore } = useDataTableContext();
 
 	const { options, type } = (() => {
 		let options: SelectOption[] = [];
@@ -176,7 +176,7 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 			<CardHeader>
 				<CardTitle>{trans("Filters")}</CardTitle>
 				<div className='flex items-center gap-x-2'>
-					{header.column.getCanSort() ? (
+					{table.options.enableSorting && header.column.getCanSort() ? (
 						<TooltipWrapper tooltip={trans("Sort")}>
 							<Button
 								size='icon'
@@ -193,7 +193,7 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 							</Button>
 						</TooltipWrapper>
 					) : null}
-					{header.column.getCanGroup() ? (
+					{table.options.enableGrouping && header.column.getCanGroup() ? (
 						<TooltipWrapper
 							tooltip={trans(header.column.getIsGrouped() ? "Disable grouping" : "Enable grouping")}
 						>
