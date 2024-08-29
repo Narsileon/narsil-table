@@ -35,13 +35,13 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 	const isSelect = header.column.id === "_select";
 
 	const style: React.CSSProperties = {
-		maxWidth: isMenu || isSelect ? "49px" : header.column.getSize(),
+		maxWidth: isMenu || isSelect ? "3rem" : header.column.getSize(),
 		opacity: isDragging ? 0.8 : 1,
 		position: isMenu ? "sticky" : "relative",
 		right: 0,
 		transform: CSS.Translate.toString(transform),
 		transition: "width transform 0.2s ease-in-out",
-		width: isMenu || isSelect ? "49px" : header.column.getSize(),
+		width: isMenu || isSelect ? "3rem" : header.column.getSize(),
 		zIndex: isDragging ? 1 : 0,
 	};
 

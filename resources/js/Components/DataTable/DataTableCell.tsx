@@ -20,13 +20,13 @@ const DataTableCell = ({ cell, groupingCounts }: DataTableCellProps) => {
 	const isSelect = cell.column.id === "_select";
 
 	const style: React.CSSProperties = {
-		maxWidth: isMenu || isSelect ? "49px" : cell.column.getSize(),
+		maxWidth: isMenu || isSelect ? "3rem" : cell.column.getSize(),
 		opacity: isDragging ? 0.8 : 1,
 		position: isMenu ? "sticky" : "relative",
 		right: 0,
 		transform: CSS.Translate.toString(transform),
 		transition: "width transform 0.2s ease-in-out",
-		width: isMenu || isSelect ? "49px" : cell.column.getSize(),
+		width: isMenu || isSelect ? "3rem" : cell.column.getSize(),
 		zIndex: isDragging ? 1 : 0,
 	};
 
