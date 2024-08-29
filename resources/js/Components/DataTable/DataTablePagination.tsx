@@ -1,4 +1,4 @@
-import { DataTableCollection } from "@narsil-table/Types";
+import { DataTableCollection } from "@narsil-tables/Types";
 import { useDataTableContext } from "./DataTableProvider";
 import * as React from "react";
 import Pagination, { PaginationProps } from "@narsil-ui/Components/Pagination/Pagination";

@@ -1,6 +1,6 @@
 import { arrayMove } from "@dnd-kit/sortable";
 import { createContext, useContext } from "react";
-import { DataTableStoreType } from "@narsil-table/Stores/dataTableStore";
+import { DataTableStoreType } from "@narsil-tables/Stores/dataTableStore";
 import { debounce } from "lodash";
 import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 import { router } from "@inertiajs/react";

@@ -1,6 +1,6 @@
 {
-	"name": "narsil/table",
-	"description": "Narsil table",
+	"name": "narsil/tables",
+	"description": "Narsil tables",
 	"license": "MIT",
 	"keywords": [
 		"inertia",
@@ -8,7 +8,8 @@
 		"narsil",
 		"php",
 		"react",
-		"table"
+		"table",
+		"tables"
 	],
 	"authors": [
 		{
@@ -63,13 +64,13 @@
 	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
-			"Narsil\\Table\\": "src/"
+			"Narsil\\Tables\\": "src/"
 		}
 	},
 	"extra": {
 		"laravel": {
 			"providers": [
-				"Narsil\\Table\\NarsilTableServiceProvider"
+				"Narsil\\Tables\\NarsilTablesServiceProvider"
 			]
 		}
 	},

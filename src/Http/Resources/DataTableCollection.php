@@ -1,6 +1,6 @@
 <?php
 
-namespace Narsil\Table\Http\Resources;
+namespace Narsil\Tables\Http\Resources;
 
 #region USE
 
@@ -9,8 +9,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use JsonSerializable;
-use Narsil\Table\Models\TableTemplate;
-use Narsil\Table\Services\TableService;
+use Narsil\Tables\Models\TableTemplate;
+use Narsil\Tables\Services\TableService;
 
 #endregion
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Narsil\Table;
+namespace Narsil\Tables;
 
 #region USE
 
@@ -13,7 +13,7 @@ use Illuminate\Support\ServiceProvider;
  *
  * @author Jonathan Rigaux
  */
-final class NarsilTableServiceProvider extends ServiceProvider
+final class NarsilTablesServiceProvider extends ServiceProvider
 {
     #region PUBLIC METHODS
 

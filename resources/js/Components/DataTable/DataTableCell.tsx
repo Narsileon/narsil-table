@@ -4,7 +4,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
 import * as React from "react";
 import TableCell from "@narsil-ui/Components/Table/TableCell";
-import TableCellRenderer from "@narsil-table/Components/Table/TableCellRenderer";
+import TableCellRenderer from "@narsil-tables/Components/Table/TableCellRenderer";
 
 export interface DataTableCellProps {
 	cell: Cell<any, any>;

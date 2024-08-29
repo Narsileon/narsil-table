@@ -1,13 +1,13 @@
 <?php
 
-namespace Narsil\Table\Structures;
+namespace Narsil\Tables\Structures;
 
 #region USE
 
 use Illuminate\Support\Facades\Log;
 use Narsil\Localization\Models\Translation;
-use Narsil\Table\Constants\DBTypes;
-use Narsil\Table\Constants\Types;
+use Narsil\Tables\Constants\DBTypes;
+use Narsil\Tables\Constants\Types;
 
 #endregion
 

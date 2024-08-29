@@ -2,7 +2,7 @@ import { cn } from "@narsil-ui/Components";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
-import ShowRow from "@narsil-table/Components/ShowTable/ShowRow";
+import ShowRow from "@narsil-tables/Components/ShowTable/ShowRow";
 import Table, { TableProps } from "@narsil-ui/Components/Table/Table";
 import TableBody from "@narsil-ui/Components/Table/TableBody";
 import TableHead from "@narsil-ui/Components/Table/TableHead";

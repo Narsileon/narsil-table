@@ -1,9 +1,9 @@
-import { DataTableCollectionMeta } from "@narsil-table/Types";
+import { DataTableCollectionMeta } from "@narsil-tables/Types";
 import { debounce, isString, sortBy } from "lodash";
 import { router } from "@inertiajs/react";
-import { TableCellType } from "@narsil-table/Components/Table/TableCellRenderer";
+import { TableCellType } from "@narsil-tables/Components/Table/TableCellRenderer";
 import * as React from "react";
-import createDataTableStore from "@narsil-table/Stores/dataTableStore";
+import createDataTableStore from "@narsil-tables/Stores/dataTableStore";
 import DataTableRowAction from "./DataTableRowAction";
 
 import {

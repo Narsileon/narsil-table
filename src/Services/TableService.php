@@ -1,6 +1,6 @@
 <?php
 
-namespace Narsil\Table\Services;
+namespace Narsil\Tables\Services;
 
 #region USE
 
@@ -8,9 +8,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Narsil\Localization\Services\LocalizationService;
-use Narsil\Table\Structures\ModelColumn;
-use Narsil\Table\Structures\ModelColumnMeta;
-use Narsil\Table\Structures\TableColumn;
+use Narsil\Tables\Structures\ModelColumn;
+use Narsil\Tables\Structures\ModelColumnMeta;
+use Narsil\Tables\Structures\TableColumn;
 
 #endregion
 

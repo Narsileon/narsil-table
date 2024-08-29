@@ -1,6 +1,6 @@
 <?php
 
-namespace Narsil\Table\Constants;
+namespace Narsil\Tables\Constants;
 
 /**
  * @version 1.0.0

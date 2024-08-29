@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { DataTableCollectionMeta } from "@narsil-table/Types";
+import { DataTableCollectionMeta } from "@narsil-tables/Types";
 import { DataTableColumnStoreState } from "./dataTableColumnStore";
 import { isEmpty, omitBy } from "lodash";
 

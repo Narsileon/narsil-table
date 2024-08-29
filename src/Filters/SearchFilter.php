@@ -1,6 +1,6 @@
 <?php
 
-namespace Narsil\Table\Filters;
+namespace Narsil\Tables\Filters;
 
 #region USE
 
@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Narsil\Table\Constants\SQL;
-use Narsil\Table\Constants\Types;
-use Narsil\Table\Services\TableService;
-use Narsil\Table\Structures\ModelColumn;
+use Narsil\Tables\Constants\SQL;
+use Narsil\Tables\Constants\Types;
+use Narsil\Tables\Services\TableService;
+use Narsil\Tables\Structures\ModelColumn;
 
 #endregion
 

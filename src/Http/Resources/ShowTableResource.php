@@ -1,13 +1,13 @@
 <?php
 
-namespace Narsil\Table\Http\Resources;
+namespace Narsil\Tables\Http\Resources;
 
 #region USE
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
-use Narsil\Table\Services\TableService;
+use Narsil\Tables\Services\TableService;
 
 #endregion
 
