@@ -37,7 +37,7 @@ const Index = ({ collection }: Props) => {
 	});
 
 	return (
-		<AppPage title={""}>
+		<AppPage title={trans(collection.title)}>
 			<DataTableProvider
 				table={table}
 				tableStore={tableStore}
@@ -47,7 +47,7 @@ const Index = ({ collection }: Props) => {
 						<SectionHeader className='flex-col'>
 							<div className='flex w-full items-center justify-between'>
 								<SectionTitle>
-									{"" +
+									{trans(collection.title) +
 										(table.getSelectedRowModel().rows.length > 0
 											? ` (${table.getSelectedRowModel().rows.length})`
 											: "")}
@@ -63,7 +63,7 @@ const Index = ({ collection }: Props) => {
 									<DataTableUnselectedActions>
 										<TooltipWrapper tooltip={trans("create")}>
 											<Button size='icon'>
-												<Link href={route("backend.products.create")}>
+												<Link href={route(`backend.${collection.slug}.create`)}>
 													<Plus className='h-6 w-6' />
 												</Link>
 											</Button>

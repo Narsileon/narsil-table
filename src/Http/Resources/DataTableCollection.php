@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use JsonSerializable;
 use Narsil\Tables\Models\TableTemplate;
 use Narsil\Tables\Services\TableService;
@@ -128,10 +129,14 @@ class DataTableCollection extends ResourceCollection
     {
         $columns = array_values($this->getColumns()->toArray());
         $meta = $this->getMeta();
+        $slug = $this->getSlug();
+        $title = $this->getTitle();
 
         return compact(
             'columns',
             'meta',
+            'slug',
+            'title',
         );
     }
 
@@ -220,6 +225,22 @@ class DataTableCollection extends ResourceCollection
         }
 
         return $sortings;
+    }
+
+    /**
+     * @return string
+     */
+    private function getSlug(): string
+    {
+        return Str::slug($this->table);
+    }
+
+    /**
+     * @return string
+     */
+    private function getTitle(): string
+    {
+        return ucfirst(str_replace('_', ' ', $this->table));
     }
 
     /**
