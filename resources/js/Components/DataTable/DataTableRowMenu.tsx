@@ -41,7 +41,6 @@ export interface DataTableRowMenuProps {
 }
 
 const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => {
-	const { table } = useDataTableContext();
 	const { trans } = useTranslationsStore();
 
 	const [href, setHref] = React.useState<InertiaLinkProps["href"]>("");
