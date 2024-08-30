@@ -62,15 +62,19 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 			) : !isMenu ? (
 				<>
 					<div className='flex items-center justify-between pl-1 pr-2'>
-						<Button
-							className='w-6 min-w-6'
-							size='icon'
-							variant='ghost'
-							{...attributes}
-							{...listeners}
-						>
-							<GripVertical className='h-4 w-4' />
-						</Button>
+						<TooltipWrapper tooltip={trans("Move column")}>
+							<Button
+								className='w-6 min-w-6'
+								size='icon'
+								variant='ghost'
+								{...attributes}
+								{...listeners}
+							>
+								<GripVertical className='h-4 w-4' />
+								<span className='sr-only'>{trans("Move column")}</span>
+							</Button>
+						</TooltipWrapper>
+
 						<Popover>
 							<TooltipWrapper tooltip={flexRender(header.column.columnDef.header, header.getContext())}>
 								<PopoverTrigger
@@ -115,13 +119,14 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 									) : (
 										<ChevronsUpDown className='h-4 w-4' />
 									)}
+									<span className='sr-only'>{trans("Sort")}</span>
 								</Button>
 							</TooltipWrapper>
 						) : null}
 					</div>
 
 					{header.column.getCanResize() ? (
-						<TooltipWrapper tooltip={trans("Resize")}>
+						<TooltipWrapper tooltip={trans("Resize column")}>
 							<div
 								className={cn(
 									"bg-border absolute bottom-0 right-0 top-0 z-10 hidden w-1 cursor-col-resize group-hover:block",

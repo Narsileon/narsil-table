@@ -211,9 +211,15 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 								}}
 							>
 								{header.column.getIsGrouped() ? (
-									<Ungroup className='text-primary-highlight h-6 w-6' />
+									<>
+										<Ungroup className='text-primary-highlight h-6 w-6' />
+										<span className='sr-only'>{trans("Disable grouping")}</span>
+									</>
 								) : (
-									<Group className='h-6 w-6' />
+									<>
+										<Group className='h-6 w-6' />
+										<span className='sr-only'>{trans("Enable grouping")}</span>
+									</>
 								)}
 							</Button>
 						</TooltipWrapper>

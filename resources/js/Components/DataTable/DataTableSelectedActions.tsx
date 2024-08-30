@@ -26,6 +26,7 @@ const DataTableSelectedActions = React.forwardRef<HTMLDivElement, DataTableSelec
 						onClick={() => table.resetRowSelection()}
 					>
 						<X className='h-6 w-6' />
+						<span className='sr-only'>{trans("Clear selection")}</span>
 					</Button>
 				</TooltipWrapper>
 			</div>

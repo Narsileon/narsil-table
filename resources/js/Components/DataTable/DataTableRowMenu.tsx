@@ -96,6 +96,7 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 							variant='ghost'
 						>
 							<Ellipsis className='h-6 w-6' />
+							<span className='sr-only'>{trans("Menu")}</span>
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align='end'>

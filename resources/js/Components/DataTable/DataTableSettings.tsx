@@ -8,6 +8,7 @@ import Heading from "@narsil-ui/Components/Heading/Heading";
 import Popover, { PopoverProps } from "@narsil-ui/Components/Popover/Popover";
 import PopoverContent from "@narsil-ui/Components/Popover/PopoverContent";
 import PopoverTrigger from "@narsil-ui/Components/Popover/PopoverTrigger";
+import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
 
 export interface DataTableSettingsProps extends PopoverProps {}
 
@@ -16,11 +17,15 @@ const DataTableSettings = ({ ...props }: DataTableSettingsProps) => {
 
 	return (
 		<Popover {...props}>
-			<PopoverTrigger asChild={true}>
-				<Button size='icon'>
-					<Settings className='h-6 w-6' />
-				</Button>
-			</PopoverTrigger>
+			<TooltipWrapper tooltip={trans("Settings")}>
+				<PopoverTrigger asChild={true}>
+					<Button size='icon'>
+						<Settings className='h-6 w-6' />
+						<span className='sr-only'>{trans("Settings")}</span>
+					</Button>
+				</PopoverTrigger>
+			</TooltipWrapper>
+
 			<PopoverContent align='end'>
 				<Card variant='inline'>
 					<CardContent>
