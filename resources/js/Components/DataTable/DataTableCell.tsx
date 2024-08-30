@@ -45,7 +45,7 @@ const DataTableCell = ({ cell, groupingCounts }: DataTableCellProps) => {
 			style={style}
 		>
 			<TableCellRenderer
-				className='h-10'
+				className='max-h-10'
 				defaultValue={flexRender(cell.column.columnDef.cell, cell.getContext())}
 				type={meta?.type ?? "string"}
 				value={value}

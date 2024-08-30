@@ -53,7 +53,9 @@ const TableCellRenderer = ({ className, defaultValue, formatString, type, value 
 		case "text":
 			return (
 				<ScrollArea>
-					<div className={cn("prose text-foreground max-w-none", className)}>{parse(`${value ?? ""}`)}</div>
+					<div className={cn("prose text-foreground text sm max-w-none", className)}>
+						{parse(`${value ?? ""}`)}
+					</div>
 				</ScrollArea>
 			);
 		case "time":
