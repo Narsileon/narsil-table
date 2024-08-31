@@ -33,7 +33,7 @@ final class ResourceStoreController extends Controller
 
         $this->authorize('create', $model);
 
-        $formRequest = new DynamicFormRequest($model, true);
+        $formRequest = new DynamicFormRequest($table, true);
 
         $data = $request->all();
         $rules = $formRequest->rules();

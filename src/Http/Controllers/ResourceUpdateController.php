@@ -41,7 +41,7 @@ final class ResourceUpdateController extends Controller
             abort(403);
         };
 
-        $formRequest = new DynamicFormRequest($model, true);
+        $formRequest = new DynamicFormRequest($table, true);
 
         $data = $request->all();
         $rules = $formRequest->rules();
