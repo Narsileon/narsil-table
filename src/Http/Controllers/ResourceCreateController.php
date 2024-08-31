@@ -40,7 +40,7 @@ final class ResourceCreateController extends Controller
 
         $resource = new $formClass(
             model: $model,
-            resource: null,
+            resource: new $model(),
             table: $table,
         );
 
