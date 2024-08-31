@@ -34,6 +34,6 @@ Route::prefix('backend')->name('backend.')->middleware([
         ->name('resources.show');
     Route::post('{slug}/store', ResourceStoreController::class)
         ->name('resources.store');
-    Route::patch('{slug}/update', ResourceUpdateController::class)
+    Route::patch('{slug}/{id}/update', ResourceUpdateController::class)
         ->name('resources.update');
 });
