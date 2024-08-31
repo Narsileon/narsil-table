@@ -38,11 +38,7 @@ final class ResourceCreateController extends Controller
 
         $formClass = $this->getFormClass($model);
 
-        $resource = new $formClass(
-            model: $model,
-            resource: new $model(),
-            table: $table,
-        );
+        $resource = new $formClass(new $model());
 
         return Inertia::render('narsil/tables::Resources/Create/Index', compact(
             'resource',

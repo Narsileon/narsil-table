@@ -6,11 +6,11 @@ namespace Narsil\Tables\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Config;
 use Inertia\Inertia;
 use Inertia\Response;
-use Narsil\Framework\Services\ModelService;
+use Narsil\Forms\Constants\FormsConfig;
+use Narsil\Forms\Http\Resources\FormResource;
 
 #endregion
 
@@ -37,24 +37,38 @@ final class ResourceEditController extends Controller
 
         $this->authorize('edit', $model);
 
-        $resource = $model::find($id);
+        $instance = $model::find($id);
 
-        if (!$resource)
+        if (!$instance)
         {
             abort(404);
         };
 
-        $formResource = $model::getFormResource();
+        $formClass = $this->getFormClass($model);
 
-        // $resource = (new $formResource(
-        //     model: $model,
-        //     resource: $resource,
-        //     table: $table,
-        // ));
+        $resource = new $formClass($instance);
 
         return Inertia::render('narsil/tables::Resources/Edit/Index', compact(
             'resource',
         ));
+    }
+
+    #endregion
+
+    #region PRIVATE METHODS
+
+    /**
+     * @param string $model
+     *
+     * @return string
+     */
+    private function getFormClass(string $model): string
+    {
+        $formClasses = Config::get(FormsConfig::FORMS, []);
+
+        $formClass = $formClasses[$model] ?? FormResource::class;
+
+        return $formClass;
     }
 
     #endregion
