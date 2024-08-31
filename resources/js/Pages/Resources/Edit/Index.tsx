@@ -34,7 +34,7 @@ const Index = ({ resource }: Props) => {
 
 	const footer = (
 		<>
-			<Button type='submit'>{trans("common.create")}</Button>
+			<Button type='submit'>{trans("common.update")}</Button>
 			<BackButton href={backRoute} />
 		</>
 	);
