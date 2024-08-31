@@ -17,8 +17,3 @@ export type ShowTableResource<T = { [key: string]: any }> = Resource<T> & {
 	slug: string;
 	title: string;
 };
-
-export type FormResource<T = { [key: string]: any }> = Resource<T> & {
-	slug: string;
-	title: string;
-};

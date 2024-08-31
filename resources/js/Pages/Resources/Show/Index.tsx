@@ -20,14 +20,12 @@ interface Props {
 const Index = ({ resource }: Props) => {
 	const { trans } = useTranslationsStore();
 
-	const title = `${trans("common.product") + trans(":")} ${resource.data.id}`;
-
 	return (
 		<AppPage title={resource.title}>
 			<Fullscreen>
 				<Section>
 					<SectionHeader>
-						<SectionTitle>{resource.title}</SectionTitle>
+						<SectionTitle>{`${resource.title + trans(":")} ${resource.data.id}`}</SectionTitle>
 						<FullscreenToggle />
 					</SectionHeader>
 					<SectionContent>
@@ -38,9 +36,20 @@ const Index = ({ resource }: Props) => {
 					</SectionContent>
 					<SectionFooter>
 						<Button asChild={true}>
-							<Link href={route(`backend.${resource.slug}.edit`, resource.data.id)}>{trans("Edit")}</Link>
+							<Link
+								href={route("backend.resource.edit", {
+									id: resource.data.id,
+									slug: resource.slug,
+								})}
+							>
+								{trans("Edit")}
+							</Link>
 						</Button>
-						<BackButton href={route(`backend.${resource.slug}.index`)} />
+						<BackButton
+							href={route("backend.resource.index", {
+								slug: resource.slug,
+							})}
+						/>
 					</SectionFooter>
 				</Section>
 			</Fullscreen>
