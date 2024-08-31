@@ -14,12 +14,12 @@ use Illuminate\Http\Request;
  *
  * @author Jonathan Rigaux
  */
-final class ResourceDestroyController extends Controller
+final class ResourceDeleteController extends Controller
 {
     #region PUBLIC METHODS
 
     /**
-     * @param Request $request
+     * @param DestroyRequest $request
      * @param string $slug
      * @param integer $id
      *
