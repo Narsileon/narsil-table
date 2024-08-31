@@ -29,7 +29,7 @@ const Index = ({ collection }: Props) => {
 	const { trans } = useTranslationsStore();
 
 	const { table, tableStore } = useDataTable({
-		id: "backend.products",
+		id: `backend-${collection.slug}`,
 		columns: collection.columns,
 		data: collection.data,
 		groupingCounts: collection.meta.grouping_counts,
@@ -63,7 +63,11 @@ const Index = ({ collection }: Props) => {
 									<DataTableUnselectedActions>
 										<TooltipWrapper tooltip={trans("create")}>
 											<Button size='icon'>
-												<Link href={route(`backend.${collection.slug}.create`)}>
+												<Link
+													href={route("backend.resource.create", {
+														slug: collection.slug,
+													})}
+												>
 													<Plus className='h-6 w-6' />
 												</Link>
 											</Button>

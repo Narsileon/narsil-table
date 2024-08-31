@@ -22,12 +22,21 @@ final class NarsilTablesServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->bootRoutes();
         $this->bootTranslations();
     }
 
     #endregion
 
     #region PRIVATE METHODS
+
+    /**
+     * @return void
+     */
+    private function bootRoutes(): void
+    {
+        $this->loadRoutesFrom(__DIR__ . '/../routes/backend.php');
+    }
 
     /**
      * @return void
