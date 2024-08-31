@@ -35,6 +35,8 @@ final class ResourceShowController extends Controller
         $table = $this->getTableFromSlug($slug);
         $model = $this->getModelFromTable($table);
 
+        $this->authorize('view', $model);
+
         $instance = $model::find($id);
 
         if (!$instance)
