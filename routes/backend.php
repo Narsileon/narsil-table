@@ -21,19 +21,19 @@ Route::prefix('backend')->name('backend.')->middleware([
 ])->group(function ()
 {
     Route::get('{slug}/create', ResourceCreateController::class)
-        ->name('resource.create');
+        ->name('resources.create');
     Route::delete('{slug}/delete', ResourceDestroyController::class)
-        ->name('resource.delete');
+        ->name('resources.delete');
     Route::get('{slug}/{id}/destroy', ResourceDestroyController::class)
-        ->name('resource.destroy');
+        ->name('resources.destroy');
     Route::get('{slug}/{id}/edit', ResourceEditController::class)
-        ->name('resource.edit');
+        ->name('resources.edit');
     Route::get('{slug}', ResourceIndexController::class)
-        ->name('resource.index');
+        ->name('resources.index');
     Route::get('{slug}/{id}', ResourceShowController::class)
-        ->name('resource.show');
+        ->name('resources.show');
     Route::post('{slug}/store', ResourceStoreController::class)
-        ->name('resource.store');
+        ->name('resources.store');
     Route::patch('{slug}/update', ResourceUpdateController::class)
-        ->name('resource.update');
+        ->name('resources.update');
 });

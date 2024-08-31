@@ -35,7 +35,7 @@ final class ResourceEditController extends Controller
         $table = $this->getTableFromSlug($slug);
         $model = $this->getModelFromTable($table);
 
-        $this->authorize('edit', $model);
+        $this->authorize('update', $model);
 
         $instance = $model::find($id);
 

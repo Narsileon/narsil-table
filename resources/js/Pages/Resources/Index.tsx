@@ -34,7 +34,7 @@ const Index = ({ collection }: Props) => {
 				options: [
 					{
 						label: trans("View"),
-						href: route("backend.resource.show", {
+						href: route("backend.resources.show", {
 							id: id,
 							slug: collection.slug,
 						}),
@@ -46,7 +46,7 @@ const Index = ({ collection }: Props) => {
 				options: [
 					{
 						label: trans("Edit"),
-						href: route("backend.resource.edit", {
+						href: route("backend.resources.edit", {
 							id: id,
 							slug: collection.slug,
 						}),
@@ -58,7 +58,7 @@ const Index = ({ collection }: Props) => {
 				options: [
 					{
 						label: trans("Delete"),
-						href: route("backend.resource.destroy", {
+						href: route("backend.resources.destroy", {
 							id: id,
 							slug: collection.slug,
 						}),
@@ -110,7 +110,7 @@ const Index = ({ collection }: Props) => {
 										<TooltipWrapper tooltip={trans("create")}>
 											<Button size='icon'>
 												<Link
-													href={route("backend.resource.create", {
+													href={route("backend.resources.create", {
 														slug: collection.slug,
 													})}
 												>

@@ -2167,18 +2167,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-forms.git",
-                "reference": "99f1797229537f4376d1dae0ed6a80fcfb2e4e58"
+                "reference": "8bd0c45c07ec1410a656e7863b7e48378bddcad4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-forms/zipball/99f1797229537f4376d1dae0ed6a80fcfb2e4e58",
-                "reference": "99f1797229537f4376d1dae0ed6a80fcfb2e4e58",
+                "url": "https://api.github.com/repos/Narsileon/narsil-forms/zipball/8bd0c45c07ec1410a656e7863b7e48378bddcad4",
+                "reference": "8bd0c45c07ec1410a656e7863b7e48378bddcad4",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^11.3",
                 "narsil/localization": "dev-main",
                 "narsil/policies": "dev-main",
+                "narsil/tables": "dev-main",
                 "narsil/ui": "dev-main",
                 "php": "^8.2"
             },
@@ -2221,7 +2222,7 @@
                 "source": "https://github.com/Narsileon/narsil-forms/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-forms/issues"
             },
-            "time": "2024-08-31T13:06:54+00:00"
+            "time": "2024-08-31T15:04:13+00:00"
         },
         {
             "name": "narsil/localization",

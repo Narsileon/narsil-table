@@ -37,7 +37,7 @@ const Index = ({ resource }: Props) => {
 					<SectionFooter>
 						<Button asChild={true}>
 							<Link
-								href={route("backend.resource.edit", {
+								href={route("backend.resources.edit", {
 									id: resource.data.id,
 									slug: resource.slug,
 								})}
@@ -46,7 +46,7 @@ const Index = ({ resource }: Props) => {
 							</Link>
 						</Button>
 						<BackButton
-							href={route("backend.resource.index", {
+							href={route("backend.resources.index", {
 								slug: resource.slug,
 							})}
 						/>

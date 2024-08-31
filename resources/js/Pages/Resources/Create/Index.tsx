@@ -30,7 +30,7 @@ const Index = ({ resource }: Props) => {
 		},
 	});
 
-	const backRoute = route("backend.resource.index", {
+	const backRoute = route("backend.resources.index", {
 		slug: resource.slug,
 	});
 
@@ -46,7 +46,7 @@ const Index = ({ resource }: Props) => {
 	return (
 		<AppPage title={resource.form.title}>
 			<FormProvider {...form}>
-				<Form route={route("backend.resource.store", resource.slug)}>
+				<Form route={route("backend.resources.store", resource.slug)}>
 					<Fullscreen>
 						<Section>
 							<SectionHeader>

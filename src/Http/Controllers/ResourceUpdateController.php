@@ -6,8 +6,8 @@ namespace Narsil\Tables\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
+use Narsil\Forms\Http\Requests\DynamicFormRequest;
+use Narsil\Localization\Support\NarsilValidator;
 
 #endregion
 
@@ -22,39 +22,45 @@ final class ResourceUpdateController extends Controller
 
     /**
      * @param Request $request
-     * @param string $table
+     * @param string $slug
      * @param integer $id
      *
      * @return RedirectResponse
      */
-    public function __invoke(Request $request, string $table, int $id): RedirectResponse
+    public function __invoke(Request $request, string $slug, int $id): RedirectResponse
     {
-        $model = ModelService::getModelFromTable($table);
+        $table = $this->getTableFromSlug($slug);
+        $model = $this->getModelFromTable($table);
 
-        $policy = Gate::getPolicyFor($model);
+        $this->authorize('update', $model);
 
         $resource = $model::find($id);
 
-        if (($policy && !$policy->update(Auth::user(), $model)) || !$resource)
+        if (!$resource)
         {
             abort(403);
         };
 
-        $attributes = ResourceService::resolveAttributes($request, $model, true);
+        $formRequest = new DynamicFormRequest($model, true);
+
+        $data = $request->all();
+        $rules = $formRequest->rules();
+
+        $validator = NarsilValidator::make($data, $rules);
+
+        $attributes = $validator->validated();
 
         $resource->update($attributes);
-
-        $message = Sessions::newModelMessage('item_updated', $model);
 
         if ($request->_back)
         {
             return back()
-                ->with(Sessions::SUCCESS, $message)
-                ->with(Sessions::RESPONSE, $resource);
+                ->with('success', 'messages.item_updated')
+                ->with('response', $resource);
         }
 
-        return redirect($request->_route ?? RouteService::getResourceUrl($table))
-            ->with(Sessions::SUCCESS, $message);
+        return redirect($request->_route ?? route('backend.resources.index', $slug))
+            ->with('success', 'messages.item_updated');
     }
 
     #endregion

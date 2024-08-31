@@ -4,12 +4,10 @@ namespace Narsil\Tables\Http\Controllers;
 
 #region USE
 
-use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
+use Narsil\Forms\Http\Requests\DynamicFormRequest;
+use Narsil\Localization\Support\NarsilValidator;
 
 #endregion
 
@@ -24,78 +22,37 @@ final class ResourceStoreController extends Controller
 
     /**
      * @param Request $request
-     * @param string $table
+     * @param string $slug
      *
      * @return RedirectResponse
      */
-    public function __invoke(Request $request, string $table): RedirectResponse
+    public function __invoke(Request $request, string $slug): RedirectResponse
     {
-        $model = ModelService::getModelFromTable($table);
+        $table = $this->getTableFromSlug($slug);
+        $model = $this->getModelFromTable($table);
 
-        $policy = Gate::getPolicyFor($model);
+        $this->authorize('create', $model);
 
-        if ($policy && !$policy->create(Auth::user(), $model))
-        {
-            abort(403);
-        };
+        $formRequest = new DynamicFormRequest($model, true);
 
-        $attributes = ResourceService::resolveAttributes($request, $model);
+        $data = $request->all();
+        $rules = $formRequest->rules();
 
-        DB::beginTransaction();
+        $validator = NarsilValidator::make($data, $rules);
 
-        try
-        {
-            $resource = $model::create($attributes);
+        $attributes = $validator->validated();
 
-            if (is_subclass_of($model, NodeTargetModel::class))
-            {
-                $this->createNode($request, $resource);
-            }
-
-            DB::commit();
-        }
-        catch (Exception $exception)
-        {
-            DB::rollBack();
-
-            return back()
-                ->with(Sessions::ERROR, Sessions::newMessage('error_occured'));
-        }
-
-        $message = Sessions::newModelMessage('item_created', $model);
+        $resource = $model::create($attributes);
 
         if ($request->_back)
         {
             return back()
-                ->with(Sessions::SUCCESS, $message)
-                ->with(Sessions::RESPONSE, $resource);
+                ->with('success', 'messages.item_created')
+                ->with('response', $resource);
         }
 
-        return redirect($request->_route ?? RouteService::getResourceUrl($table))
-            ->with(Sessions::SUCCESS, $message);
-    }
-
-    #endregion
-
-    #region PRIVATE METHODS
-
-    /**
-     * @param Request $request
-     * @param mixed $resource
-     *
-     * @return void
-     */
-    private function createNode(Request $request, mixed $resource): void
-    {
-        $model = get_class($resource);
-
-        $nodeModel = (new $model())->getNodeModel();
-
-        $nodeModel::create([
-            NodeModel::MODEL_ID => $resource->{NodeTargetModel::ID},
-            NodeModel::MODEL_TYPE => $model,
-            NodeModel::PARENT_ID => $request->get('parent_id', null),
-        ]);
+        return redirect($request->_route ?? route('backend.resources.index', $slug))
+            ->with('success', 'messages.item_created');
     }
 
     #endregion
