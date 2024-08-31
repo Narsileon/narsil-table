@@ -22,6 +22,7 @@ final class NarsilTablesServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->bootPublishes();
         $this->bootRoutes();
         $this->bootTranslations();
     }
@@ -29,6 +30,16 @@ final class NarsilTablesServiceProvider extends ServiceProvider
     #endregion
 
     #region PRIVATE METHODS
+
+    /**
+     * @return void
+     */
+    private function bootPublishes(): void
+    {
+        $this->publishes([
+            __DIR__ . '/Config' => config_path(),
+        ], 'config');
+    }
 
     /**
      * @return void

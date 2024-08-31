@@ -1,16 +1,36 @@
 <?php
 
 return [
-    /**
-     * DataTableCollections associated to the given models
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | DataTableCollections
+    |--------------------------------------------------------------------------
+    |
+    | List of DataTableCollections keyed by model.
+    |
+    */
+
     'collections' => [],
-    /**
-     * ShowTableResources associated to the given models
-     */
+
+    /*
+    |--------------------------------------------------------------------------
+    | ShowTableResources
+    |--------------------------------------------------------------------------
+    |
+    | List of ShowTableResources keyed by model.
+    |
+    */
+
     'resources' => [],
-    /**
-     * Models associated to the given tables.
-     */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Models
+    |--------------------------------------------------------------------------
+    |
+    | List of models keyed by table.
+    |
+    */
+
     'table_to_model' => [],
 ];
