@@ -6,11 +6,6 @@ namespace Narsil\Tables\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Narsil\Framework\Constants\Sessions;
-use Narsil\Framework\Models\Abstracts\NodeTargetModel;
-use Narsil\Framework\Services\ModelService;
 
 #endregion
 
