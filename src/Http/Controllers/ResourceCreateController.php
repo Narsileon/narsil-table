@@ -6,12 +6,11 @@ namespace Narsil\Tables\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Config;
 use Inertia\Inertia;
 use Inertia\Response;
-use Narsil\Framework\Http\Resources\FormResource;
-use Narsil\Framework\Services\ModelService;
+use Narsil\Forms\Constants\FormsConfig;
+use Narsil\Forms\Http\Resources\FormResource;
 
 #endregion
 
@@ -37,15 +36,35 @@ final class ResourceCreateController extends Controller
 
         $this->authorize('create', $model);
 
-        // $resource = (new FormResource(
-        //     model: $model,
-        //     resource: null,
-        //     table: $table,
-        // ));
+        $formClass = $this->getFormClass($model);
+
+        $resource = new $formClass(
+            model: $model,
+            resource: null,
+            table: $table,
+        );
 
         return Inertia::render('narsil/tables::Resources/Create/Index', compact(
             'resource',
         ));
+    }
+
+    #endregion
+
+    #region PRIVATE METHODS
+
+    /**
+     * @param string $model
+     *
+     * @return string
+     */
+    private function getFormClass(string $model): string
+    {
+        $formClasses = Config::get(FormsConfig::FORMS, []);
+
+        $formClass = $formClasses[$model] ?? FormResource::class;
+
+        return $formClass;
     }
 
     #endregion

@@ -28,12 +28,58 @@ interface Props {
 const Index = ({ collection }: Props) => {
 	const { trans } = useTranslationsStore();
 
+	function getActions(id: number) {
+		return [
+			{
+				options: [
+					{
+						label: trans("View"),
+						href: route("backend.resource.show", {
+							id: id,
+							slug: collection.slug,
+						}),
+						method: "get",
+					},
+				],
+			},
+			{
+				options: [
+					{
+						label: trans("Edit"),
+						href: route("backend.resource.edit", {
+							id: id,
+							slug: collection.slug,
+						}),
+						method: "get",
+					},
+				],
+			},
+			{
+				options: [
+					{
+						label: trans("Delete"),
+						href: route("backend.resource.destroy", {
+							id: id,
+							slug: collection.slug,
+						}),
+						method: "delete",
+					},
+				],
+			},
+		];
+	}
+
 	const { table, tableStore } = useDataTable({
 		id: `backend-${collection.slug}`,
 		columns: collection.columns,
 		data: collection.data,
 		groupingCounts: collection.meta.grouping_counts,
-		menu: ({ row }) => <DataTableRowMenu row={row} />,
+		menu: ({ row }) => (
+			<DataTableRowMenu
+				actions={getActions(row.original.id)}
+				row={row}
+			/>
+		),
 	});
 
 	return (
