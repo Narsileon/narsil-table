@@ -44,7 +44,12 @@ const Index = ({ resource }: Props) => {
 	return (
 		<AppPage title={resource.form.title}>
 			<FormProvider {...form}>
-				<Form route={route("backend.resources.store", resource.slug)}>
+				<Form
+					route={route("backend.resources.update", {
+						id: resource.data.id,
+						slug: resource.slug,
+					})}
+				>
 					<Fullscreen>
 						<Section>
 							<SectionHeader>
