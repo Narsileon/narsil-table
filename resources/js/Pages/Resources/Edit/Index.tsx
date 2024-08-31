@@ -45,6 +45,7 @@ const Index = ({ resource }: Props) => {
 		<AppPage title={resource.form.title}>
 			<FormProvider {...form}>
 				<Form
+					method='patch'
 					route={route("backend.resources.update", {
 						id: resource.data.id,
 						slug: resource.slug,
