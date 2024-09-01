@@ -139,6 +139,7 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 						<AlertDialogCancel>{trans("Cancel")}</AlertDialogCancel>
 						<AlertDialogAction asChild={true}>
 							<Link
+								as='button'
 								href={href}
 								method={method}
 							>

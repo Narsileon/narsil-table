@@ -7,13 +7,22 @@ export interface DataTableRowMenuItemProps extends DropdownMenuItemProps, Pick<I
 	alert?: boolean;
 }
 
-const DataTableRowMenuItem = ({ alert = false, children, href, method, ...props }: DataTableRowMenuItemProps) => {
+const DataTableRowMenuItem = ({
+	alert = false,
+	children,
+	href,
+	method,
+	onClick,
+	...props
+}: DataTableRowMenuItemProps) => {
 	const { setHref, setMethod } = useDataTableRowMenuContext();
 
 	return alert ? (
-		<AlertDialogTrigger asChild>
+		<AlertDialogTrigger asChild={true}>
 			<DropdownMenuItem
-				onClick={() => {
+				onClick={(event) => {
+					event.stopPropagation();
+
 					setHref(href);
 					setMethod(method);
 				}}
@@ -25,9 +34,11 @@ const DataTableRowMenuItem = ({ alert = false, children, href, method, ...props 
 	) : (
 		<DropdownMenuItem
 			asChild={true}
+			onClick={onClick}
 			{...props}
 		>
 			<Link
+				as='button'
 				href={href}
 				method={method}
 			>
