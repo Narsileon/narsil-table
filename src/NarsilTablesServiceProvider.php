@@ -60,8 +60,8 @@ final class NarsilTablesServiceProvider extends ServiceProvider
      */
     private function bootTranslations(): void
     {
-        $this->loadJsonTranslationsFrom(__DIR__ . '/../lang', 'table');
-        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'table');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../lang', 'tables');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'tables');
     }
 
     #endregion
