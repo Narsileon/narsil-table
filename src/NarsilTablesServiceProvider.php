@@ -4,7 +4,9 @@ namespace Narsil\Tables;
 
 #region USE
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use Narsil\Tables\Constants\TablesConfig;
 
 #endregion
 
@@ -23,8 +25,12 @@ final class NarsilTablesServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->bootPublishes();
-        $this->bootRoutes();
         $this->bootTranslations();
+
+        if (Config::get(TablesConfig::PROVIDER_ROUTES, true))
+        {
+            $this->bootRoutes();
+        }
     }
 
     #endregion

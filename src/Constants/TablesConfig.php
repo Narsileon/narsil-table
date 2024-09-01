@@ -12,15 +12,19 @@ abstract class TablesConfig
     #region CONSTANTS
 
     /**
-     * @var string List of DataTableCollections keyed by model.
+     * @var string
      */
     final public const COLLECTIONS = 'narsil-tables.collections';
     /**
-     * @var string List of ShowTableResources keyed by model.
+     * @var string
+     */
+    final public const PROVIDER_ROUTES = 'narsil-tables.provider.routes';
+    /**
+     * @var string
      */
     final public const RESOURCES = 'narsil-tables.resources';
     /**
-     * @var string List of models keyed by table.
+     * @var string
      */
     final public const TABLE_TO_MODEL = 'narsil-tables.table_to_model';
 
