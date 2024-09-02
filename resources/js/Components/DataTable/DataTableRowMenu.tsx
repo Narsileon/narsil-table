@@ -3,7 +3,6 @@ import { InertiaLinkProps, Link } from "@inertiajs/react";
 import { RouteList } from "ziggy-js";
 import { Row } from "@tanstack/react-table";
 import { SelectOption } from "@narsil-ui/Types";
-import { useDataTableContext } from "./DataTableProvider";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import AlertDialog from "@narsil-ui/Components/AlertDialog/AlertDialog";
@@ -108,7 +107,11 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 											alert={subAction.method === "delete"}
 											href={subAction.href as string}
 											method={subAction.method ?? "get"}
-											onClick={subAction.onClick}
+											onClick={(event) => {
+												event.stopPropagation();
+
+												subAction.onClick?.();
+											}}
 											key={subIndex}
 										>
 											{subAction.label}
@@ -120,7 +123,11 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 									alert={action.method === "delete"}
 									href={action.href as string}
 									method={action.method ?? "get"}
-									onClick={action.onClick}
+									onClick={(event) => {
+										event.stopPropagation();
+
+										action.onClick?.();
+									}}
 									key={index}
 								>
 									{action.label}
