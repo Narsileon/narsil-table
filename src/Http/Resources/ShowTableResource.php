@@ -7,6 +7,8 @@ namespace Narsil\Tables\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Narsil\Localization\Services\LocalizationService;
 use Narsil\Tables\Services\TableService;
 
 #endregion
@@ -39,10 +41,14 @@ class ShowTableResource extends JsonResource
     {
         $columns = array_values($this->getColumns()->toArray());
         $meta = $this->getMeta();
+        $slug = $this->getSlug();
+        $title = $this->getTitle();
 
         return compact(
             'columns',
             'meta',
+            'slug',
+            'title',
         );
     }
 
@@ -62,6 +68,30 @@ class ShowTableResource extends JsonResource
     protected function getMeta(): array
     {
         return [];
+    }
+
+    #endregion
+
+    #region PRIVATE METHODS
+
+    /**
+     * @return string
+     */
+    private function getSlug(): string
+    {
+        return Str::slug($this->resource->getTable());
+    }
+
+    /**
+     * @return string
+     */
+    private function getTitle(): string
+    {
+        $modelClassName = class_basename($this->resource::class);
+
+        $readableName = ucfirst(Str::title(Str::snake($modelClassName, ' ')));
+
+        return LocalizationService::trans($readableName);
     }
 
     #endregion
