@@ -89,7 +89,7 @@ class ShowTableResource extends JsonResource
     {
         $modelClassName = class_basename($this->resource::class);
 
-        $readableName = ucfirst(Str::title(Str::snake($modelClassName, ' ')));
+        $readableName = ucfirst(Str::lower(Str::snake($modelClassName, ' ')));
 
         return LocalizationService::trans($readableName);
     }
