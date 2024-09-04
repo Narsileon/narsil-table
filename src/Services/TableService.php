@@ -112,15 +112,10 @@ final class TableService
         $accessorKey = static::getAccessorKey($tableColumn);
         $header = static::getHeader($tableColumn);
 
+        $meta = new ModelColumnMeta($tableColumn->type);
+
         $foreignTable = $tableColumn->foreignTable;
         $relation = $foreignTable ? static::getRelation($tableColumn) : null;
-
-        $columns = $foreignTable ?  static::getModelColumns($foreignTable) : null;
-
-        $meta = new ModelColumnMeta(
-            columns: $columns,
-            type: $tableColumn->type
-        );
 
         return new ModelColumn(
             accessorKey: $accessorKey,

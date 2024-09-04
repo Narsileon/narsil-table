@@ -2,12 +2,6 @@
 
 namespace Narsil\Tables\Structures;
 
-#region USE
-
-use Illuminate\Support\Collection;
-
-#endregion
-
 /**
  * @version 1.0.0
  *
@@ -19,13 +13,11 @@ final class ModelColumnMeta
 
     /**
      * @param string $type
-     * @param Collection<ModelColumn> $columns
      *
      * @return void
      */
-    public function __construct(string $type, Collection|null $columns = null)
+    public function __construct(string $type)
     {
-        $this->columns = $columns;
         $this->type = $type;
     }
 
@@ -33,10 +25,6 @@ final class ModelColumnMeta
 
     #region PROPERTIES
 
-    /**
-     * @var Collection<ModelColumn>|null
-     */
-    public readonly Collection|null $columns;
     /**
      * @var string
      */
