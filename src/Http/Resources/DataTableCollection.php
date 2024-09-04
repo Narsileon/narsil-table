@@ -151,7 +151,7 @@ class DataTableCollection extends ResourceCollection
     {
         $modelColumns = TableService::getModelColumns($this->table);
 
-        return $modelColumns->toArray();
+        return json_decode(json_encode($modelColumns), true);
     }
 
     /**
