@@ -127,7 +127,7 @@ class DataTableCollection extends ResourceCollection
      */
     public function with($request): array
     {
-        $columns = array_values($this->getColumns()->toArray());
+        $columns = array_values($this->getColumns());
         $meta = $this->getMeta();
         $slug = $this->getSlug();
         $title = $this->getTitle();
@@ -145,11 +145,13 @@ class DataTableCollection extends ResourceCollection
     #region PROTECTED METHODS
 
     /**
-     * @return Collection
+     * @return array
      */
-    protected function getColumns(): Collection
+    protected function getColumns(): array
     {
-        return TableService::getModelColumns($this->table);
+        $modelColumns = TableService::getModelColumns($this->table);
+
+        return $modelColumns->toArray();
     }
 
     /**
