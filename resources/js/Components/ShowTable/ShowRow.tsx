@@ -1,17 +1,20 @@
+import { ColumnDef } from "@tanstack/react-table";
 import { isArray, isBoolean, isEmpty, isNil, isNumber, isObject } from "lodash";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
+import ShowTable from "./ShowTable";
 import TableCell from "@narsil-ui/Components/Table/TableCell";
 import TableCellRenderer, { TableCellRendererProps } from "@narsil-tables/Components/Table/TableCellRenderer";
 import TableRow, { TableRowProps } from "@narsil-ui/Components/Table/TableRow";
 
 export interface ShowRowProps extends TableRowProps, Omit<TableCellRendererProps, "defaultValue"> {
 	attribute: string;
+	columns?: ColumnDef<any, any>[];
 	label?: string;
 }
 
 const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
-	({ attribute, formatString, label, type, value, ...props }, ref) => {
+	({ attribute, columns, formatString, label, type, value, ...props }, ref) => {
 		const { trans } = useTranslationsStore();
 
 		if (isNil(value)) {
@@ -50,26 +53,33 @@ const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
 					{label}
 				</TableCell>
 				<TableCell className='px-4 py-1'>
-					{isArray(value) ? (
+					{isObject(value) ? (
+						columns ? (
+							<ShowTable
+								columns={columns}
+								data={value}
+							/>
+						) : (
+							<ul>
+								{Object.entries(value).map(([key, item], index) => {
+									label = `${key + trans(":")} ${item?.toString()}`;
+
+									return (
+										<li
+											className='truncate'
+											title={label}
+											key={index}
+										>
+											{label}
+										</li>
+									);
+								})}
+							</ul>
+						)
+					) : isArray(value) ? (
 						<ul>
 							{value.map((item: unknown, index: number) => {
 								label = item?.toString();
-
-								return (
-									<li
-										className='truncate'
-										title={label}
-										key={index}
-									>
-										{label}
-									</li>
-								);
-							})}
-						</ul>
-					) : isObject(value) ? (
-						<ul>
-							{Object.entries(value).map(([key, item], index) => {
-								label = `${key + trans(":")} ${item?.toString()}`;
 
 								return (
 									<li
