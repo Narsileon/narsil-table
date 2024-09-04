@@ -32,7 +32,7 @@ const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
 
 		if (!isNumber(value)) {
 			if (isBoolean(value)) {
-				value = trans(`filters.${value.toString()}`);
+				value = trans(value.toString());
 			} else if (isEmpty(value)) {
 				return null;
 			}
