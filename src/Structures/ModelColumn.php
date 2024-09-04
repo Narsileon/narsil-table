@@ -39,6 +39,35 @@ final class ModelColumn
 
     #endregion
 
+    #region CONSTANTS
+
+    /**
+     * @var string
+     */
+    final public const ACCESSOR_KEY = 'accessorKey';
+    /**
+     * @var string
+     */
+    final public const FOREIGN_TABLE = 'foreignTable';
+    /**
+     * @var string
+     */
+    final public const HEADER = 'header';
+    /**
+     * @var string
+     */
+    final public const ID = 'id';
+    /**
+     * @var string
+     */
+    final public const META = 'meta';
+    /**
+     * @var string
+     */
+    final public const RELATION = 'relation';
+
+    #endregion
+
     #region PROPERTIES
 
     /**
