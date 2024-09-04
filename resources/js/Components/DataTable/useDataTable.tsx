@@ -3,7 +3,7 @@ import { debounce, isString, sortBy } from "lodash";
 import { router } from "@inertiajs/react";
 import { TableCellType } from "@narsil-tables/Components/Table/TableCellRenderer";
 import * as React from "react";
-import createDataTableStore from "@narsil-tables/Stores/dataTableStore";
+import createDataTableStore, { DataTableStoreState } from "@narsil-tables/Stores/dataTableStore";
 import DataTableRowAction from "./DataTableRowAction";
 
 import {
@@ -53,6 +53,7 @@ export interface createDataTableProps extends Partial<TableOptions<any>> {
 	columns: ColumnDef<any, any>[];
 	groupingCounts?: DataTableCollectionMeta["grouping_counts"];
 	id: string;
+	initialStore?: Partial<DataTableStoreState>;
 	menu?: (props: CellContext<any, any>) => any;
 }
 
@@ -62,6 +63,7 @@ const useDataTable = ({
 	enableRowSelection = true,
 	groupingCounts = {},
 	id,
+	initialStore = {},
 	menu,
 	...props
 }: createDataTableProps) => {
@@ -71,6 +73,7 @@ const useDataTable = ({
 				id: id,
 				initialState: {
 					pageSize: 10,
+					...initialStore,
 				},
 			}),
 		[id]
