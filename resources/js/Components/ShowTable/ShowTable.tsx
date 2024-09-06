@@ -41,6 +41,7 @@ const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(({ classNam
 							<ShowRow
 								attribute={column.header as string}
 								formatString={column?.meta?.formatString}
+								nullable={true}
 								type={column?.meta?.type ?? "string"}
 								value={get(data, column.accessorKey)}
 								key={index}

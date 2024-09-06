@@ -8,13 +8,14 @@ import TableRow, { TableRowProps } from "@narsil-ui/Components/Table/TableRow";
 export interface ShowRowProps extends TableRowProps, Omit<TableCellRendererProps, "defaultValue"> {
 	attribute: string;
 	label?: string;
+	nullable?: boolean;
 }
 
 const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
-	({ attribute, formatString, label, type, value, ...props }, ref) => {
+	({ attribute, formatString, label, nullable = false, type, value, ...props }, ref) => {
 		const { trans } = useTranslationsStore();
 
-		if (isNil(value)) {
+		if (!nullable && isNil(value)) {
 			return null;
 		}
 
