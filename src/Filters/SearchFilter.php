@@ -12,6 +12,7 @@ use Narsil\Tables\Constants\SQL;
 use Narsil\Tables\Constants\Types;
 use Narsil\Tables\Services\TableService;
 use Narsil\Tables\Structures\ModelColumn;
+use Narsil\Tables\Structures\ModelColumnMeta;
 
 #endregion
 
@@ -129,7 +130,7 @@ class SearchFilter
 
         foreach ($this->modelColumns as $modelColumn)
         {
-            $key = $modelColumn->id;
+            $key = $modelColumn->get(ModelColumn::ID);
 
             if ($columnFilter = Arr::get($columnFilters, $key, null))
             {
@@ -179,28 +180,41 @@ class SearchFilter
 
         foreach ($this->modelColumns as $modelColumn)
         {
-            $key = $modelColumn->id;
+            $key = $modelColumn->get(ModelColumn::ID);
 
-            switch ($modelColumn->meta->type)
+            $foreignTable = $modelColumn->getMeta()->get(ModelColumnMeta::FOREIGN_TABLE);
+            $relation = $modelColumn->getMeta()->get(ModelColumnMeta::RELATION);
+
+            switch ($modelColumn->getMeta()->get(ModelColumnMeta::TYPE))
             {
                 case Types::ARRAY:
                 case Types::OBJECT:
-                    if ($modelColumn->foreignTable)
+                    if ($foreignTable)
                     {
-                        $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE, '%' . $globalFilter . '%');
+                        $query->orWhereRelation($relation, $key, SQL::LIKE, '%' . $globalFilter . '%');
+                        break;
                     }
-                    $query->orWhere($key, SQL::LIKE, '%' . $globalFilter . '%');
-                    break;
+                    else
+                    {
+                        $query->orWhere($key, SQL::LIKE, '%' . $globalFilter . '%');
+                        break;
+                    }
+
                 case Types::COLOR:
                 case Types::ICON:
                 case Types::STRING:
                 case Types::TEXT:
-                    if ($modelColumn->foreignTable)
+                    if ($foreignTable)
                     {
-                        $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE, '%' . $globalFilter . '%');
+                        $query->orWhereRelation($relation, $key, SQL::LIKE, '%' . $globalFilter . '%');
+                        break;
                     }
-                    $query->orWhere($key, SQL::LIKE, '%' . $globalFilter . '%');
-                    break;
+                    else
+                    {
+                        $query->orWhere($key, SQL::LIKE, '%' . $globalFilter . '%');
+                        break;
+                    }
+
                 case Types::DATE:
                 case Types::DATETIME_LOCAL:
                     $query->orWhereDate($key, SQL::LIKE, $globalFilter);
@@ -227,17 +241,23 @@ class SearchFilter
      */
     private function scopeWhere(Builder $query, ModelColumn $modelColumn, string $key, string $operator, mixed $value): void
     {
-        switch ($modelColumn->meta->type)
+        $foreignTable = $modelColumn->getMeta()->get(ModelColumnMeta::FOREIGN_TABLE);
+        $relation = $modelColumn->getMeta()->get(ModelColumnMeta::RELATION);
+
+        switch ($modelColumn->getMeta()->get(ModelColumnMeta::TYPE))
         {
             case Types::ARRAY:
             case Types::OBJECT:
-                if ($modelColumn->foreignTable)
+                if ($foreignTable)
                 {
-                    $query->whereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                    $query->whereRelation($relation, $key, $operator, '%' . $value . '%');
                     break;
                 }
-                $query->where($key, $operator, '%' . $value . '%');
-                break;
+                else
+                {
+                    $query->where($key, $operator, '%' . $value . '%');
+                    break;
+                }
             case Types::BOOLEAN:
                 $query->where($key, $operator, $value);
                 break;
@@ -245,24 +265,24 @@ class SearchFilter
             case Types::ICON:
             case Types::STRING:
             case Types::TEXT:
-                if ($modelColumn->foreignTable)
+                if ($foreignTable)
                 {
                     switch ($operator)
                     {
                         case 'start':
-                            $query->whereRelation($modelColumn->relation, $key, SQL::LIKE, $value . '%');
+                            $query->whereRelation($relation, $key, SQL::LIKE, $value . '%');
                             break;
                         case 'start binary':
-                            $query->whereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, $value . '%');
+                            $query->whereRelation($relation, $key, SQL::LIKE_BINARY, $value . '%');
                             break;
                         case 'end':
-                            $query->whereRelation($modelColumn->relation, $key, SQL::LIKE, '%' . $value);
+                            $query->whereRelation($relation, $key, SQL::LIKE, '%' . $value);
                             break;
                         case 'end binary':
-                            $query->whereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, '%' . $value);
+                            $query->whereRelation($relation, $key, SQL::LIKE_BINARY, '%' . $value);
                             break;
                         default:
-                            $query->whereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                            $query->whereRelation($relation, $key, $operator, '%' . $value . '%');
                             break;
                     }
                 }
@@ -313,39 +333,45 @@ class SearchFilter
      */
     private function scopeOrWhere(Builder $query, ModelColumn $modelColumn, string $key, string $operator, mixed $value): void
     {
-        switch ($modelColumn->meta->type)
+        $foreignTable = $modelColumn->getMeta()->get(ModelColumnMeta::FOREIGN_TABLE);
+        $relation = $modelColumn->getMeta()->get(ModelColumnMeta::RELATION);
+
+        switch ($modelColumn->getMeta()->get(ModelColumnMeta::TYPE))
         {
             case Types::ARRAY:
             case Types::OBJECT:
-                if ($modelColumn->foreignTable)
+                if ($foreignTable)
                 {
-                    $query->orWhereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                    $query->orWhereRelation($relation, $key, $operator, '%' . $value . '%');
                     break;
                 }
-                $query->orWhere($key, $operator, '%' . $value . '%');
-                break;
+                else
+                {
+                    $query->orWhere($key, $operator, '%' . $value . '%');
+                    break;
+                }
             case Types::COLOR:
             case Types::ICON:
             case Types::STRING:
             case Types::TEXT:
-                if ($modelColumn->foreignTable)
+                if ($foreignTable)
                 {
                     switch ($operator)
                     {
                         case 'start':
-                            $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE, $value . '%');
+                            $query->orWhereRelation($relation, $key, SQL::LIKE, $value . '%');
                             break;
                         case 'start binary':
-                            $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, $value . '%');
+                            $query->orWhereRelation($relation, $key, SQL::LIKE_BINARY, $value . '%');
                             break;
                         case 'end':
-                            $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE, '%' . $value);
+                            $query->orWhereRelation($relation, $key, SQL::LIKE, '%' . $value);
                             break;
                         case 'end binary':
-                            $query->orWhereRelation($modelColumn->relation, $key, SQL::LIKE_BINARY, '%' . $value);
+                            $query->orWhereRelation($relation, $key, SQL::LIKE_BINARY, '%' . $value);
                             break;
                         default:
-                            $query->orWhereRelation($modelColumn->relation, $key, $operator, '%' . $value . '%');
+                            $query->orWhereRelation($relation, $key, $operator, '%' . $value . '%');
                             break;
                     }
                 }

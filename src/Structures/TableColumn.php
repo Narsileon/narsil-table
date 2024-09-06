@@ -86,6 +86,10 @@ final class TableColumn
      * @var string
      */
     private const TYPE_NAME = 'type_name';
+    /**
+     * @var string
+     */
+    private const UNIQUE = 'unique';
 
     #endregion
 
@@ -266,9 +270,9 @@ final class TableColumn
 
         foreach ($indexes as $index)
         {
-            $columns = $index['columns'];
+            $columns = $index[self::COLUMNS];
 
-            if ($index['unique'] && in_array($this->name, $columns))
+            if ($index[self::UNIQUE] && in_array($this->name, $columns))
             {
                 $unique = true;
 

@@ -2,53 +2,25 @@
 
 namespace Narsil\Tables\Structures;
 
+#region USE
+
+use Illuminate\Support\Arr;
+
+#endregion
+
 /**
  * @version 1.0.0
  *
  * @author Jonathan Rigaux
  */
-final class ModelColumn
+class ModelColumn
 {
-    /**
-     * @param string $id
-     * @param string $accessorKey
-     * @param string $header
-     * @param ModelColumnMeta $meta
-     * @param string|null $foreignTable
-     * @param string|null $relation
-     *
-     * @return void
-     */
-    public function __construct(
-        string $id,
-        string $accessorKey,
-        string $header,
-        ModelColumnMeta $meta,
-        string|null $foreignTable = null,
-        string|null $relation = null,
-
-    )
-    {
-        $this->id = $id;
-        $this->accessorKey = $accessorKey;
-        $this->header = $header;
-        $this->meta = $meta;
-        $this->foreignTable = $foreignTable;
-        $this->relation = $relation;
-    }
-
-    #endregion
-
     #region CONSTANTS
 
     /**
      * @var string
      */
     final public const ACCESSOR_KEY = 'accessorKey';
-    /**
-     * @var string
-     */
-    final public const FOREIGN_TABLE = 'foreignTable';
     /**
      * @var string
      */
@@ -61,40 +33,89 @@ final class ModelColumn
      * @var string
      */
     final public const META = 'meta';
-    /**
-     * @var string
-     */
-    final public const RELATION = 'relation';
 
     #endregion
 
     #region PROPERTIES
 
     /**
-     * @var string
+     * @var array<string,mixed>
      */
-    public readonly string $accessorKey;
-    /**
-     * @var string|null
-     */
-    public readonly string|null $foreignTable;
-    /**
-     * @var string
-     */
-    public readonly string $header;
-    /**
-     * @var string
-     */
-    public readonly string $id;
-    /**
-     * @var string
-     */
-    public readonly string|null $relation;
+    protected array $column = [];
+
+    #endregion
+
+    #region PUBLIC METHODS
 
     /**
-     * @var ModelColumMeta
+     * Gets the model column.
+     *
+     * @param string|null $key
+     *
+     * @return mixed
      */
-    public readonly ModelColumnMeta $meta;
+    public function get(string|null $key = null): mixed
+    {
+        return Arr::get($this->column, $key);
+    }
+
+    /**
+     * Gets the model column meta object.
+     *
+     * @return ModelColumnMeta
+     */
+    final public function getMeta(): ModelColumnMeta
+    {
+        return Arr::get($this->column, self::META);
+    }
+
+    /**
+     * @param string $accessorKey
+     *
+     * @return static Returns the current object instance.
+     */
+    final public function setAccessorKey(string $accessorKey): static
+    {
+        $this->column[self::ACCESSOR_KEY] = $accessorKey;
+
+        return $this;
+    }
+
+    /**
+     * @param string $header
+     *
+     * @return static Returns the current object instance.
+     */
+    final public function setHeader(string $header): static
+    {
+        $this->column[self::HEADER] = $header;
+
+        return $this;
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return static Returns the current object instance.
+     */
+    final public function setId(string $id): static
+    {
+        $this->column[self::ID] = $id;
+
+        return $this;
+    }
+
+    /**
+     * @param string $meta
+     *
+     * @return static Returns the current object instance.
+     */
+    final public function setMeta(ModelColumnMeta $meta): static
+    {
+        $this->column[self::META] = $meta;
+
+        return $this;
+    }
 
     #endregion
 }

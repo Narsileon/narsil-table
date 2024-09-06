@@ -71,6 +71,30 @@ final class TableService
     /**
      * @param TableColumn $tableColumn
      *
+     * @return ModelColumn
+     */
+    private static function convertTableColumnToModelColumn(TableColumn $tableColumn): ModelColumn
+    {
+        $modelColumn = new ModelColumn();
+        $modelColumnMeta = new ModelColumnMeta();
+
+        $modelColumnMeta
+            ->setForeignTable($tableColumn->foreignTable)
+            ->setRelation($tableColumn->foreignTable ? static::getRelation($tableColumn) : null)
+            ->setType($tableColumn->type);
+
+        $modelColumn
+            ->setAccessorKey(static::getAccessorKey($tableColumn))
+            ->setHeader(static::getHeader($tableColumn))
+            ->setId($tableColumn->name)
+            ->setMeta($modelColumnMeta);
+
+        return $modelColumn;
+    }
+
+    /**
+     * @param TableColumn $tableColumn
+     *
      * @return string
      */
     private static function getAccessorKey(TableColumn $tableColumn): string
@@ -98,33 +122,6 @@ final class TableService
     private static function getRelation(TableColumn $tableColumn): string
     {
         return str_replace('_id', '', $tableColumn->name);
-    }
-
-    /**
-     * @param TableColumn $tableColumn
-     *
-     * @return ModelColumn
-     */
-    private static function convertTableColumnToModelColumn(TableColumn $tableColumn): ModelColumn
-    {
-        $id = $tableColumn->name;
-
-        $accessorKey = static::getAccessorKey($tableColumn);
-        $header = static::getHeader($tableColumn);
-
-        $meta = new ModelColumnMeta($tableColumn->type);
-
-        $foreignTable = $tableColumn->foreignTable;
-        $relation = $foreignTable ? static::getRelation($tableColumn) : null;
-
-        return new ModelColumn(
-            accessorKey: $accessorKey,
-            foreignTable: $foreignTable,
-            header: $header,
-            id: $id,
-            meta: $meta,
-            relation: $relation,
-        );
     }
 
     #endregion

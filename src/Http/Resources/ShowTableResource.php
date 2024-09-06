@@ -55,7 +55,7 @@ class ShowTableResource extends JsonResource
     #region PROTECTED METHODS
 
     /**
-     * @return Collection
+     * @return Collection<ModelColumn>
      */
     protected function getColumns(): Collection
     {

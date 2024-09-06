@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use JsonSerializable;
 use Narsil\Tables\Models\TableTemplate;
 use Narsil\Tables\Services\TableService;
+use Narsil\Tables\Structures\ModelColumn;
 
 #endregion
 
@@ -127,7 +128,7 @@ class DataTableCollection extends ResourceCollection
      */
     public function with($request): array
     {
-        $columns = array_values($this->getColumns());
+        $columns = array_values($this->getColumns()->toArray());
         $meta = $this->getMeta();
         $slug = $this->getSlug();
         $title = $this->getTitle();
@@ -145,13 +146,11 @@ class DataTableCollection extends ResourceCollection
     #region PROTECTED METHODS
 
     /**
-     * @return array
+     * @return Collection<ModelColumn>
      */
-    protected function getColumns(): array
+    protected function getColumns(): Collection
     {
-        $modelColumns = TableService::getModelColumns($this->table);
-
-        return json_decode(json_encode($modelColumns), true);
+        return TableService::getModelColumns($this->table);
     }
 
     /**
