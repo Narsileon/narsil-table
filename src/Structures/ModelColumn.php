@@ -24,6 +24,10 @@ class ModelColumn
     /**
      * @var string
      */
+    final public const FOREIGN_TABLE = 'meta.foreign_table';
+    /**
+     * @var string
+     */
     final public const HEADER = 'header';
     /**
      * @var string
@@ -33,6 +37,14 @@ class ModelColumn
      * @var string
      */
     final public const META = 'meta';
+    /**
+     * @var string
+     */
+    final public const RELATION = 'meta.relation';
+    /**
+     * @var string
+     */
+    final public const TYPE = 'meta.type';
 
     #endregion
 
@@ -41,7 +53,9 @@ class ModelColumn
     /**
      * @var array<string,mixed>
      */
-    protected array $column = [];
+    protected array $column = [
+        self::META => [],
+    ];
 
     #endregion
 
@@ -60,23 +74,25 @@ class ModelColumn
     }
 
     /**
-     * Gets the model column meta object.
-     *
-     * @return ModelColumnMeta
-     */
-    final public function getMeta(): ModelColumnMeta
-    {
-        return Arr::get($this->column, self::META);
-    }
-
-    /**
      * @param string $accessorKey
      *
      * @return static Returns the current object instance.
      */
     final public function setAccessorKey(string $accessorKey): static
     {
-        $this->column[self::ACCESSOR_KEY] = $accessorKey;
+        Arr::set($this->column, self::ACCESSOR_KEY, $accessorKey);
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $foreignTable
+     *
+     * @return static Returns the current object instance.
+     */
+    final public function setForeignTable(string|null $foreignTable = null): static
+    {
+        Arr::set($this->column, self::FOREIGN_TABLE, $foreignTable);
 
         return $this;
     }
@@ -88,7 +104,7 @@ class ModelColumn
      */
     final public function setHeader(string $header): static
     {
-        $this->column[self::HEADER] = $header;
+        Arr::set($this->column, self::HEADER, $header);
 
         return $this;
     }
@@ -100,19 +116,31 @@ class ModelColumn
      */
     final public function setId(string $id): static
     {
-        $this->column[self::ID] = $id;
+        Arr::set($this->column, self::ID, $id);
 
         return $this;
     }
 
     /**
-     * @param string $meta
+     * @param string|null $relation
      *
      * @return static Returns the current object instance.
      */
-    final public function setMeta(ModelColumnMeta $meta): static
+    final public function setRelation(string|null $relation = null): static
     {
-        $this->column[self::META] = $meta;
+        Arr::set($this->column, self::RELATION, $relation);
+
+        return $this;
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return static Returns the current object instance.
+     */
+    final public function setType(string $type): static
+    {
+        Arr::set($this->column, self::TYPE, $type);
 
         return $this;
     }

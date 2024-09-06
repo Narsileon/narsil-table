@@ -12,7 +12,6 @@ use Narsil\Tables\Constants\SQL;
 use Narsil\Tables\Constants\Types;
 use Narsil\Tables\Services\TableService;
 use Narsil\Tables\Structures\ModelColumn;
-use Narsil\Tables\Structures\ModelColumnMeta;
 
 #endregion
 
@@ -182,10 +181,10 @@ class SearchFilter
         {
             $key = $modelColumn->get(ModelColumn::ID);
 
-            $foreignTable = $modelColumn->getMeta()->get(ModelColumnMeta::FOREIGN_TABLE);
-            $relation = $modelColumn->getMeta()->get(ModelColumnMeta::RELATION);
+            $foreignTable = $modelColumn->get(ModelColumn::FOREIGN_TABLE);
+            $relation = $modelColumn->get(ModelColumn::RELATION);
 
-            switch ($modelColumn->getMeta()->get(ModelColumnMeta::TYPE))
+            switch ($modelColumn->getget(ModelColumn::TYPE))
             {
                 case Types::ARRAY:
                 case Types::OBJECT:
@@ -241,10 +240,10 @@ class SearchFilter
      */
     private function scopeWhere(Builder $query, ModelColumn $modelColumn, string $key, string $operator, mixed $value): void
     {
-        $foreignTable = $modelColumn->getMeta()->get(ModelColumnMeta::FOREIGN_TABLE);
-        $relation = $modelColumn->getMeta()->get(ModelColumnMeta::RELATION);
+        $foreignTable = $modelColumn->get(ModelColumn::FOREIGN_TABLE);
+        $relation = $modelColumn->get(ModelColumn::RELATION);
 
-        switch ($modelColumn->getMeta()->get(ModelColumnMeta::TYPE))
+        switch ($modelColumn->get(ModelColumn::TYPE))
         {
             case Types::ARRAY:
             case Types::OBJECT:
@@ -333,10 +332,10 @@ class SearchFilter
      */
     private function scopeOrWhere(Builder $query, ModelColumn $modelColumn, string $key, string $operator, mixed $value): void
     {
-        $foreignTable = $modelColumn->getMeta()->get(ModelColumnMeta::FOREIGN_TABLE);
-        $relation = $modelColumn->getMeta()->get(ModelColumnMeta::RELATION);
+        $foreignTable = $modelColumn->get(ModelColumn::FOREIGN_TABLE);
+        $relation = $modelColumn->get(ModelColumn::RELATION);
 
-        switch ($modelColumn->getMeta()->get(ModelColumnMeta::TYPE))
+        switch ($modelColumn->get(ModelColumn::TYPE))
         {
             case Types::ARRAY:
             case Types::OBJECT:
