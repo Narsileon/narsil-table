@@ -1,4 +1,4 @@
-import { isArray, isBoolean, isEmpty, isNil, isNumber, isObject } from "lodash";
+import { isArray, isBoolean, isEmpty, isNil, isNumber, isObject, upperFirst } from "lodash";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import TableCell from "@narsil-ui/Components/Table/TableCell";
@@ -32,7 +32,7 @@ const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
 
 		if (!isNumber(value)) {
 			if (isBoolean(value)) {
-				value = trans(value.toString());
+				value = trans(upperFirst(value.toString()));
 			} else if (isEmpty(value)) {
 				return null;
 			}
