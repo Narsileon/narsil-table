@@ -128,7 +128,7 @@ class DataTableCollection extends ResourceCollection
      */
     public function with($request): array
     {
-        $columns = array_values($this->getColumns()->toArray());
+        $columns = $this->getColumns()->map->get()->values();
         $meta = $this->getMeta();
         $slug = $this->getSlug();
         $title = $this->getTitle();
