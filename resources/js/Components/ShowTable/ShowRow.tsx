@@ -34,7 +34,7 @@ const ShowRow = React.forwardRef<HTMLTableRowElement, ShowRowProps>(
 		if (!isNumber(value)) {
 			if (isBoolean(value)) {
 				value = trans(upperFirst(value.toString()));
-			} else if (isEmpty(value)) {
+			} else if (!nullable && isEmpty(value)) {
 				return null;
 			}
 		}
