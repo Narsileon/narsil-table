@@ -29,7 +29,15 @@ const Index = ({ resource }: Props) => {
 			<Fullscreen>
 				<Section>
 					<SectionHeader>
-						<SectionTitle>{`${resource.title + trans(":")} ${resource.data.id}`}</SectionTitle>
+						<div className='flex items-center gap-x-2'>
+							<BackButton
+								asChild={true}
+								href={route("backend.resources.index", {
+									slug: resource.slug,
+								})}
+							/>
+							<SectionTitle>{`${resource.title + trans(":")} ${resource.data.id}`}</SectionTitle>
+						</div>
 						<FullscreenToggle />
 					</SectionHeader>
 					<SectionContent>

@@ -68,6 +68,13 @@ const Index = ({ resource }: Props) => {
 							<Section>
 								<SectionHeader>
 									<div className='flex items-center gap-x-2'>
+										<BackButton
+											asIcon={true}
+											href={route("backend.resources.index", {
+												slug: resource.slug,
+											})}
+											isDirty={form.formState.isDirty}
+										/>
 										<TooltipWrapper tooltip={trans("common.active")}>
 											<Button
 												size='sm'
