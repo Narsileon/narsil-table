@@ -18,6 +18,7 @@ import SectionHeader from "@narsil-ui/Components/Section/SectionHeader";
 import SectionTitle from "@narsil-ui/Components/Section/SectionTitle";
 import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
 import type { FormResource } from "@narsil-forms/Types";
+import type { LanguageModel } from "@narsil-localization/Types";
 import useForm from "@narsil-forms/Components/Form/useForm";
 
 interface Props {
@@ -57,7 +58,7 @@ const Index = ({ resource }: Props) => {
 				title={resource.form.title}
 			/>
 			<Fullscreen>
-				<LanguageProvider initialLocale={locale}>
+				<LanguageProvider initialLanguage={languages.find((x) => x.locale === locale) as LanguageModel}>
 					<FormProvider {...form}>
 						<Form
 							route={route("backend.resources.store", {
