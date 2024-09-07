@@ -1,6 +1,6 @@
 import { cn } from "@narsil-ui/Components";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
-import AppPage from "@narsil-ui/Components/App/AppPage";
+import AppHead from "@narsil-ui/Components/App/AppHead";
 import BackButton from "@narsil-ui/Components/Button/BackButton";
 import Button from "@narsil-ui/Components/Button/Button";
 import Form from "@narsil-forms/Components/Form/Form";
@@ -42,16 +42,20 @@ const Index = ({ resource }: Props) => {
 	const active = form.watch("active");
 
 	return (
-		<AppPage title={resource.form.title}>
-			<FormProvider {...form}>
-				<Form
-					method='patch'
-					route={route("backend.resources.update", {
-						id: resource.data.id,
-						slug: resource.slug,
-					})}
-				>
-					<Fullscreen>
+		<>
+			<AppHead
+				description={resource.form.title}
+				title={resource.form.title}
+			/>
+			<Fullscreen>
+				<FormProvider {...form}>
+					<Form
+						method='patch'
+						route={route("backend.resources.update", {
+							id: resource.data.id,
+							slug: resource.slug,
+						})}
+					>
 						<Section>
 							<SectionHeader>
 								<div className='flex items-center gap-x-2'>
@@ -85,10 +89,10 @@ const Index = ({ resource }: Props) => {
 								/>
 							</SectionContent>
 						</Section>
-					</Fullscreen>
-				</Form>
-			</FormProvider>
-		</AppPage>
+					</Form>
+				</FormProvider>
+			</Fullscreen>
+		</>
 	);
 };
 

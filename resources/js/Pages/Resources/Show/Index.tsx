@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import { ShowTableResource } from "@narsil-tables/Types";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
-import AppPage from "@narsil-ui/Components/App/AppPage";
+import AppHead from "@narsil-ui/Components/App/AppHead";
 import BackButton from "@narsil-ui/Components/Button/BackButton";
 import Button from "@narsil-ui/Components/Button/Button";
 import Fullscreen from "@narsil-ui/Components/Fullscreen/Fullscreen";
@@ -21,7 +21,11 @@ const Index = ({ resource }: Props) => {
 	const { trans } = useTranslationsStore();
 
 	return (
-		<AppPage title={resource.title}>
+		<>
+			<AppHead
+				description={resource.title}
+				title={resource.title}
+			/>
 			<Fullscreen>
 				<Section>
 					<SectionHeader>
@@ -53,7 +57,7 @@ const Index = ({ resource }: Props) => {
 					</SectionFooter>
 				</Section>
 			</Fullscreen>
-		</AppPage>
+		</>
 	);
 };
 

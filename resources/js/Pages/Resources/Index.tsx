@@ -2,7 +2,7 @@ import { DataTableCollection } from "@narsil-tables/Types";
 import { Link } from "@inertiajs/react";
 import { Plus } from "lucide-react";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
-import AppPage from "@narsil-ui/Components/App/AppPage";
+import AppHead from "@narsil-ui/Components/App/AppHead";
 import Button from "@narsil-ui/Components/Button/Button";
 import DataTable from "@narsil-tables/Components/DataTable/DataTable";
 import DataTablePagination from "@narsil-tables/Components/DataTable/DataTablePagination";
@@ -83,12 +83,16 @@ const Index = ({ collection }: Props) => {
 	});
 
 	return (
-		<AppPage title={trans(collection.title)}>
-			<DataTableProvider
-				table={table}
-				tableStore={tableStore}
-			>
-				<Fullscreen>
+		<>
+			<AppHead
+				description={trans(collection.title)}
+				title={trans(collection.title)}
+			/>
+			<Fullscreen>
+				<DataTableProvider
+					table={table}
+					tableStore={tableStore}
+				>
 					<Section className='flex min-h-full w-full flex-col overflow-hidden'>
 						<SectionHeader className='flex-col'>
 							<div className='flex w-full items-center justify-between'>
@@ -137,9 +141,9 @@ const Index = ({ collection }: Props) => {
 							<DataTablePagination collection={collection} />
 						</SectionFooter>
 					</Section>
-				</Fullscreen>
-			</DataTableProvider>
-		</AppPage>
+				</DataTableProvider>
+			</Fullscreen>
+		</>
 	);
 };
 
