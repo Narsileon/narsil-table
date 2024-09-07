@@ -1,4 +1,6 @@
 import { cn } from "@narsil-ui/Components";
+import { GlobalProps } from "@narsil-ui/Types";
+import { usePage } from "@inertiajs/react";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import AppHead from "@narsil-ui/Components/App/AppHead";
 import BackButton from "@narsil-ui/Components/Button/BackButton";
@@ -8,6 +10,8 @@ import FormProvider from "@narsil-forms/Components/Form/FormProvider";
 import FormRenderer from "@narsil-forms/Components/Form/FormRenderer";
 import Fullscreen from "@narsil-ui/Components/Fullscreen/Fullscreen";
 import FullscreenToggle from "@narsil-ui/Components/Fullscreen/FullscreenToggle";
+import LanguageDropdown from "@narsil-localization/Components/Language/LanguageDropdown";
+import LanguageProvider from "@narsil-localization/Components/Language/LanguageProvider";
 import Section from "@narsil-ui/Components/Section/Section";
 import SectionContent from "@narsil-ui/Components/Section/SectionContent";
 import SectionHeader from "@narsil-ui/Components/Section/SectionHeader";
@@ -21,7 +25,9 @@ interface Props {
 }
 
 const Index = ({ resource }: Props) => {
-	const { trans } = useTranslationsStore();
+	const { locale, trans } = useTranslationsStore();
+
+	const { languages } = usePage<GlobalProps>().props.shared.localization;
 
 	const form = useForm({
 		form: resource.form,
@@ -48,49 +54,54 @@ const Index = ({ resource }: Props) => {
 				title={resource.form.title}
 			/>
 			<Fullscreen>
-				<FormProvider {...form}>
-					<Form
-						method='patch'
-						route={route("backend.resources.update", {
-							id: resource.data.id,
-							slug: resource.slug,
-						})}
-					>
-						<Section>
-							<SectionHeader>
-								<div className='flex items-center gap-x-2'>
-									<TooltipWrapper tooltip={trans("common.active")}>
-										<Button
-											size='sm'
-											type='button'
-											variant='ghost'
-											onClick={() => {
-												form.setValue("active", !active);
-											}}
-										>
-											<span
-												className={cn(
-													"h-3 w-3 rounded-full",
-													active ? "bg-green-500" : "bg-red-500"
-												)}
-											/>
-										</Button>
-									</TooltipWrapper>
+				<LanguageProvider initialLocale={locale}>
+					<FormProvider {...form}>
+						<Form
+							method='patch'
+							route={route("backend.resources.update", {
+								id: resource.data.id,
+								slug: resource.slug,
+							})}
+						>
+							<Section>
+								<SectionHeader>
+									<div className='flex items-center gap-x-2'>
+										<TooltipWrapper tooltip={trans("common.active")}>
+											<Button
+												size='sm'
+												type='button'
+												variant='ghost'
+												onClick={() => {
+													form.setValue("active", !active);
+												}}
+											>
+												<span
+													className={cn(
+														"h-3 w-3 rounded-full",
+														active ? "bg-green-500" : "bg-red-500"
+													)}
+												/>
+											</Button>
+										</TooltipWrapper>
 
-									<SectionTitle>{resource.form.title + trans(":")}</SectionTitle>
-								</div>
-								<FullscreenToggle />
-							</SectionHeader>
-							<SectionContent>
-								<FormRenderer
-									footer={footer}
-									nodes={resource.form.nodes}
-									options={resource.form.options}
-								/>
-							</SectionContent>
-						</Section>
-					</Form>
-				</FormProvider>
+										<SectionTitle>{resource.form.title + trans(":")}</SectionTitle>
+									</div>
+									<div className='flex items-center gap-x-2'>
+										{resource.data.translations ? <LanguageDropdown languages={languages} /> : null}
+										<FullscreenToggle />
+									</div>
+								</SectionHeader>
+								<SectionContent>
+									<FormRenderer
+										footer={footer}
+										nodes={resource.form.nodes}
+										options={resource.form.options}
+									/>
+								</SectionContent>
+							</Section>
+						</Form>
+					</FormProvider>
+				</LanguageProvider>
 			</Fullscreen>
 		</>
 	);
