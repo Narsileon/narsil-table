@@ -26,9 +26,9 @@ interface Props {
 }
 
 const Index = ({ resource }: Props) => {
-	const { locale, trans } = useTranslationsStore();
+	const { trans } = useTranslationsStore();
 
-	const { languages } = usePage<GlobalProps>().props.shared.localization;
+	const { languages, locale } = usePage<GlobalProps>().props.shared.localization;
 
 	const form = useForm({
 		form: resource.form,
