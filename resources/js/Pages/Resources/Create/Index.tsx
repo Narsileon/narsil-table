@@ -31,6 +31,7 @@ const Index = ({ resource }: Props) => {
 
 	const form = useForm({
 		form: resource.form,
+		languages: languages,
 		data: {
 			active: true,
 		},
