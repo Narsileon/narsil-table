@@ -48,22 +48,26 @@ const ResourceFormSidebar = ({ data }: ResourceFormSidebarProps) => {
 						);
 					}}
 				/>
-				<Separator />
 				{data.created_at ? (
-					<div className='flex gap-x-1 text-sm lg:flex-col'>
-						<span className='whitespace-nowrap'>
-							{trans("validation.attributes.created_at") + trans(":")}
-						</span>
-						<span>{format(data.created_at, "PPPpp", { locale: datetimeLocale })}</span>
-					</div>
-				) : null}
-				{data.updated_at ? (
-					<div className='flex gap-x-1 text-sm lg:flex-col'>
-						<span className='whitespace-nowrap'>
-							{trans("validation.attributes.updated_at") + trans(":")}
-						</span>
-						<span>{format(data.updated_at, "PPPpp", { locale: datetimeLocale })}</span>
-					</div>
+					<>
+						<Separator />
+						{data.created_at ? (
+							<div className='flex gap-x-1 text-sm lg:flex-col'>
+								<span className='whitespace-nowrap'>
+									{trans("validation.attributes.created_at") + trans(":")}
+								</span>
+								<span>{format(data.created_at, "PPPpp", { locale: datetimeLocale })}</span>
+							</div>
+						) : null}
+						{data.updated_at ? (
+							<div className='flex gap-x-1 text-sm lg:flex-col'>
+								<span className='whitespace-nowrap'>
+									{trans("validation.attributes.updated_at") + trans(":")}
+								</span>
+								<span>{format(data.updated_at, "PPPpp", { locale: datetimeLocale })}</span>
+							</div>
+						) : null}
+					</>
 				) : null}
 			</CardContent>
 		</Card>
