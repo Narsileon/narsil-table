@@ -107,25 +107,28 @@ const Index = ({ collection }: Props) => {
 							/>
 							<div className='order-2 flex items-center gap-2 place-self-end sm:order-3'>
 								<DataTableSelectedActions>
-									<Button
-										asChild={true}
-										size='icon'
-									>
-										<Link
-											data={{
-												deleted: Object.keys(tableStore.rowSelection),
-											}}
-											href={route("backend.resources.delete", {
-												slug: collection.slug,
-											})}
-											method='delete'
+									<TooltipWrapper tooltip={trans("Delete")}>
+										<Button
+											asChild={true}
+											size='icon'
 										>
-											<Trash2 className='h-6 w-6' />
-										</Link>
-									</Button>
+											<Link
+												data={{
+													deleted: Object.keys(tableStore.rowSelection),
+												}}
+												href={route("backend.resources.delete", {
+													slug: collection.slug,
+												})}
+												method='delete'
+											>
+												<Trash2 className='h-6 w-6' />
+												<span className='sr-only'>{trans("Delete")}</span>
+											</Link>
+										</Button>
+									</TooltipWrapper>
 								</DataTableSelectedActions>
 								<DataTableUnselectedActions>
-									<TooltipWrapper tooltip={trans("create")}>
+									<TooltipWrapper tooltip={trans("Create")}>
 										<Button size='icon'>
 											<Link
 												href={route("backend.resources.create", {
