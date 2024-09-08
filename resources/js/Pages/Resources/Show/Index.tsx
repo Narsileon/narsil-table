@@ -31,7 +31,7 @@ const Index = ({ resource }: Props) => {
 					<SectionHeader>
 						<div className='flex items-center gap-x-2'>
 							<BackButton
-								asChild={true}
+								asIcon={true}
 								href={route("backend.resources.index", {
 									slug: resource.slug,
 								})}
