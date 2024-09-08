@@ -6,7 +6,10 @@ namespace Narsil\Tables\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Collection;
 use JsonSerializable;
+use Narsil\Tables\Models\ModelComment;
+use Narsil\Tables\Services\TableService;
 
 #endregion
 
@@ -44,6 +47,18 @@ class ModelCommentCollection extends ResourceCollection
         return compact(
             'columns',
         );
+    }
+
+    #endregion
+
+    #region PRIVATE METHODS
+
+    /**
+     * @return Collection<ModelColumn>
+     */
+    protected function getColumns(): Collection
+    {
+        return TableService::getModelColumns(ModelComment::TABLE);
     }
 
     #endregion
