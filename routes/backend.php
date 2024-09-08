@@ -4,6 +4,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Narsil\Tables\Http\Controllers\ResourceCreateController;
+use Narsil\Tables\Http\Controllers\ResourceDeleteController;
 use Narsil\Tables\Http\Controllers\ResourceDestroyController;
 use Narsil\Tables\Http\Controllers\ResourceEditController;
 use Narsil\Tables\Http\Controllers\ResourceIndexController;
@@ -22,7 +23,7 @@ Route::prefix('backend')->name('backend.')->middleware([
 {
     Route::get('{slug}/create', ResourceCreateController::class)
         ->name('resources.create');
-    Route::delete('{slug}/delete', ResourceDestroyController::class)
+    Route::delete('{slug}/delete', ResourceDeleteController::class)
         ->name('resources.delete');
     Route::delete('{slug}/{id}/destroy', ResourceDestroyController::class)
         ->name('resources.destroy');

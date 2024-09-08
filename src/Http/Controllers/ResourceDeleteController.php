@@ -21,23 +21,22 @@ final class ResourceDeleteController extends Controller
     /**
      * @param DestroyRequest $request
      * @param string $slug
-     * @param integer $id
      *
      * @return RedirectResponse
      */
-    public function __invoke(Request $request, string $slug, int $id): RedirectResponse
+    public function __invoke(Request $request, string $slug): RedirectResponse
     {
         $table = $this->getTableFromSlug($slug);
         $model = $this->getModelFromTable($table);
 
         $this->authorize('delete', $model);
 
-        $resource = $model::find($id);
+        $deleted = $request->input('deleted', []);
 
-        $resource?->delete();
+        $model::whereIn('id', $deleted)->delete();
 
         return back()
-            ->with('success', 'messages.item_deleted');
+            ->with('success', 'messages.items_deleted');
     }
 
     #endregion

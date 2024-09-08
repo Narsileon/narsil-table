@@ -1,6 +1,6 @@
 import { DataTableCollection } from "@narsil-tables/Types";
 import { Link } from "@inertiajs/react";
-import { Plus } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import AppHead from "@narsil-ui/Components/App/AppHead";
 import Button from "@narsil-ui/Components/Button/Button";
@@ -108,7 +108,22 @@ const Index = ({ collection }: Props) => {
 								/>
 								<div className='flex items-center gap-2'>
 									<DataTableSelectedActions>
-										<Button></Button>
+										<Button
+											asChild={true}
+											size='icon'
+										>
+											<Link
+												data={{
+													deleted: Object.keys(tableStore.rowSelection),
+												}}
+												href={route("backend.resources.delete", {
+													slug: collection.slug,
+												})}
+												method='delete'
+											>
+												<Trash2 className='h-6 w-6' />
+											</Link>
+										</Button>
 									</DataTableSelectedActions>
 									<DataTableUnselectedActions>
 										<TooltipWrapper tooltip={trans("create")}>
