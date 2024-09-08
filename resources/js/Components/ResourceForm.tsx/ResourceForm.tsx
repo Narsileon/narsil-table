@@ -9,6 +9,7 @@ import TabsTrigger from "@narsil-ui/Components/Tabs/TabsTrigger";
 import type { DataTableCollection, ModelCommentModel } from "@narsil-tables/Types";
 import type { FormResource } from "@narsil-forms/Types";
 import useScreenStore from "@narsil-ui/Stores/screenStore";
+import ResourceFormComments from "./ResourceFormComments";
 
 interface ResourceFormProps {
 	comments?: DataTableCollection<ModelCommentModel> | null;
@@ -75,7 +76,9 @@ const ResourceForm = ({ comments = null, footer, resource }: ResourceFormProps) 
 				<TabsContent
 					className='flex-row gap-x-4'
 					value='comments'
-				></TabsContent>
+				>
+					<ResourceFormComments comments={comments} />
+				</TabsContent>
 			) : null}
 
 			{isTablet ? (
