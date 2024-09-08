@@ -92,9 +92,19 @@ const Index = ({ resource }: Props) => {
 								</SectionHeader>
 								<SectionContent>
 									<Tabs defaultValue='main'>
-										<TabsList>
-											<TabsTrigger value='main'>{trans("Main")}</TabsTrigger>
-											<TabsTrigger value='sidebar'>{trans("Sidebar")}</TabsTrigger>
+										<TabsList className='w-full'>
+											<TabsTrigger
+												className='w-full'
+												value='main'
+											>
+												{trans("Main")}
+											</TabsTrigger>
+											<TabsTrigger
+												className='w-full'
+												value='sidebar'
+											>
+												{trans("Sidebar")}
+											</TabsTrigger>
 										</TabsList>
 										<TabsContent value='main'>
 											<FormRenderer
