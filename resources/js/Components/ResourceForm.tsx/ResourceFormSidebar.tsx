@@ -28,7 +28,7 @@ const ResourceFormSidebar = ({ data }: ResourceFormSidebarProps) => {
 
 	return (
 		<Card className='h-fit'>
-			<CardContent className='w-full lg:w-48'>
+			<CardContent className='w-full lg:w-64'>
 				<FormField
 					control={control}
 					name={"active"}
