@@ -19,8 +19,19 @@ const ResourceForm = ({ footer, resource }: ResourceFormProps) => {
 
 	const { isTablet } = useScreenStore();
 
+	const [tab, setTab] = React.useState("main");
+
+	React.useEffect(() => {
+		if (!isTablet && tab === "sidebar") {
+			setTab("main");
+		}
+	}, [isTablet]);
+
 	return (
-		<Tabs defaultValue='main'>
+		<Tabs
+			value={tab}
+			onValueChange={setTab}
+		>
 			<TabsList className='w-full'>
 				<TabsTrigger
 					className='w-full'
@@ -38,7 +49,7 @@ const ResourceForm = ({ footer, resource }: ResourceFormProps) => {
 				) : null}
 			</TabsList>
 			<TabsContent
-				className='flex-row'
+				className='flex-row gap-x-4'
 				value='main'
 			>
 				<div className='grow'>
