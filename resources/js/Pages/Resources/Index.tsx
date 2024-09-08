@@ -113,6 +113,7 @@ const Index = ({ collection }: Props) => {
 											size='icon'
 										>
 											<Link
+												as='button'
 												data={{
 													deleted: Object.keys(tableStore.rowSelection),
 												}}
@@ -131,11 +132,13 @@ const Index = ({ collection }: Props) => {
 									<TooltipWrapper tooltip={trans("Create")}>
 										<Button size='icon'>
 											<Link
+												as='button'
 												href={route("backend.resources.create", {
 													slug: collection.slug,
 												})}
 											>
 												<Plus className='h-6 w-6' />
+												<span className='sr-only'>{trans("Create")}</span>
 											</Link>
 										</Button>
 									</TooltipWrapper>
