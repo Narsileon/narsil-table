@@ -5,8 +5,6 @@ import Button from "@narsil-ui/Components/Button/Button";
 import DataTable from "@narsil-tables/Components/DataTable/DataTable";
 import DataTablePagination from "@narsil-tables/Components/DataTable/DataTablePagination";
 import DataTableProvider from "@narsil-tables/Components/DataTable/DataTableProvider";
-import DataTableRowMenu from "@narsil-tables/Components/DataTable/DataTableRowMenu";
-import DataTableUnselectedActions from "@narsil-tables/Components/DataTable/DataTableUnselectedActions";
 import Fullscreen from "@narsil-ui/Components/Fullscreen/Fullscreen";
 import FullscreenToggle from "@narsil-ui/Components/Fullscreen/FullscreenToggle";
 import Section from "@narsil-ui/Components/Section/Section";
@@ -68,9 +66,9 @@ const ResourceFormComments = ({ comments }: ResourceFormCommentsProps) => {
 						<DataTable />
 					</SectionContent>
 
-					{/* <SectionFooter>
-						<DataTablePagination collection={comments} />
-					</SectionFooter> */}
+					<SectionFooter>
+						<DataTablePagination />
+					</SectionFooter>
 				</Section>
 			</DataTableProvider>
 		</Fullscreen>
