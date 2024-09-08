@@ -37,7 +37,7 @@ final class ResourceDestroyController extends Controller
         $resource?->delete();
 
         return back()
-            ->with('success', 'item_deleted');
+            ->with('success', 'messages.item_deleted');
     }
 
     #endregion
