@@ -33,7 +33,6 @@ const ResourceFormSidebar = ({ data }: ResourceFormSidebarProps) => {
 					control={control}
 					name={"active"}
 					render={({ field }) => {
-						console.log(field);
 						return (
 							<FormItem orientation='horizontal'>
 								<FormLabel htmlFor={"active"}>{trans("Active") + trans(":")}</FormLabel>
