@@ -42,7 +42,7 @@ const Index = ({ resource }: Props) => {
 
 	const footer = (
 		<>
-			<Button type='submit'>{trans("common.update")}</Button>
+			<Button type='submit'>{trans("Update")}</Button>
 			<BackButton href={backRoute} />
 		</>
 	);
