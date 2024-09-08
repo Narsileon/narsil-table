@@ -130,7 +130,10 @@ const Index = ({ collection }: Props) => {
 								</DataTableSelectedActions>
 								<DataTableUnselectedActions>
 									<TooltipWrapper tooltip={trans("Create")}>
-										<Button size='icon'>
+										<Button
+											asChild={true}
+											size='icon'
+										>
 											<Link
 												as='button'
 												href={route("backend.resources.create", {
