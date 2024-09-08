@@ -24,7 +24,7 @@ Route::prefix('backend')->name('backend.')->middleware([
         ->name('resources.create');
     Route::delete('{slug}/delete', ResourceDestroyController::class)
         ->name('resources.delete');
-    Route::get('{slug}/{id}/destroy', ResourceDestroyController::class)
+    Route::delete('{slug}/{id}/destroy', ResourceDestroyController::class)
         ->name('resources.destroy');
     Route::get('{slug}/{id}/edit', ResourceEditController::class)
         ->name('resources.edit');
