@@ -5,8 +5,11 @@ namespace Narsil\Tables;
 #region USE
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Narsil\Tables\Constants\TablesConfig;
+use Narsil\Tables\Models\ModelComment;
+use Narsil\Tables\Policies\ModelCommentPolicy;
 
 #endregion
 
@@ -25,6 +28,7 @@ final class NarsilTablesServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->bootMigrations();
+        $this->bootPolicies();
         $this->bootPublishes();
         $this->bootTranslations();
 
@@ -46,6 +50,14 @@ final class NarsilTablesServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom([
             __DIR__ . '/../database/migrations',
         ]);
+    }
+
+    /**
+     * @return void
+     */
+    private function bootPolicies(): void
+    {
+        Gate::policy(ModelComment::class, ModelCommentPolicy::class);
     }
 
     /**
