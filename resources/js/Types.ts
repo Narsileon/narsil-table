@@ -1,5 +1,6 @@
-import { Collection, CollectionMeta, Resource } from "@narsil-ui/Types";
-import { ColumnDef } from "@tanstack/react-table";
+import type { Collection, CollectionMeta, Resource } from "@narsil-ui/Types";
+import type { ColumnDef } from "@tanstack/react-table";
+import type { UserModel } from "@narsil-auth/Types";
 
 export type DataTableCollection<T = { [key: string]: any }> = Collection<T> & {
 	columns: ColumnDef<any, any>[];
@@ -10,6 +11,20 @@ export type DataTableCollection<T = { [key: string]: any }> = Collection<T> & {
 
 export type DataTableCollectionMeta = CollectionMeta & {
 	grouping_counts: Record<string, Record<any, number>>;
+};
+
+export type ModelCommentModel = {
+	active: boolean;
+	author_id: number;
+	author: UserModel;
+	content: string;
+	created_at: string;
+	id: number;
+	last_editor_id: number;
+	last_editor: UserModel;
+	model_id: number;
+	model_type: string;
+	updated_at: string;
 };
 
 export type ShowTableResource<T = { [key: string]: any }> = Resource<T> & {

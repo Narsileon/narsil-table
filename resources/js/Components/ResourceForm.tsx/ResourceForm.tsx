@@ -7,14 +7,16 @@ import TabsContent from "@narsil-ui/Components/Tabs/TabsContent";
 import TabsList from "@narsil-ui/Components/Tabs/TabsList";
 import TabsTrigger from "@narsil-ui/Components/Tabs/TabsTrigger";
 import type { FormResource } from "@narsil-forms/Types";
+import type { ModelCommentModel } from "@narsil-tables/Types";
 import useScreenStore from "@narsil-ui/Stores/screenStore";
 
 interface ResourceFormProps {
+	comments: ModelCommentModel[] | undefined | null;
 	footer: React.ReactNode;
 	resource: FormResource<any>;
 }
 
-const ResourceForm = ({ footer, resource }: ResourceFormProps) => {
+const ResourceForm = ({ comments = null, footer, resource }: ResourceFormProps) => {
 	const { trans } = useTranslationsStore();
 
 	const { isTablet } = useScreenStore();
@@ -39,6 +41,14 @@ const ResourceForm = ({ footer, resource }: ResourceFormProps) => {
 				>
 					{trans("Main")}
 				</TabsTrigger>
+				{comments !== null ? (
+					<TabsTrigger
+						className='w-full'
+						value='main'
+					>
+						{trans("Comments")}
+					</TabsTrigger>
+				) : null}
 				{isTablet ? (
 					<TabsTrigger
 						className='w-full'
@@ -61,6 +71,13 @@ const ResourceForm = ({ footer, resource }: ResourceFormProps) => {
 				</div>
 				{!isTablet ? <ResourceFormSidebar data={resource.data} /> : null}
 			</TabsContent>
+			{comments ? (
+				<TabsContent
+					className='flex-row gap-x-4'
+					value='comments'
+				></TabsContent>
+			) : null}
+
 			{isTablet ? (
 				<TabsContent value='sidebar'>
 					<ResourceFormSidebar data={resource.data} />
