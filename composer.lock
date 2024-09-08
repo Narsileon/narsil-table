@@ -2234,12 +2234,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-forms.git",
-                "reference": "ae405f2afdb03f83a1ede5f65a2ef071e1e457db"
+                "reference": "6be193006ee1b21b6b2a391432e9d9e83a08341f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-forms/zipball/ae405f2afdb03f83a1ede5f65a2ef071e1e457db",
-                "reference": "ae405f2afdb03f83a1ede5f65a2ef071e1e457db",
+                "url": "https://api.github.com/repos/Narsileon/narsil-forms/zipball/6be193006ee1b21b6b2a391432e9d9e83a08341f",
+                "reference": "6be193006ee1b21b6b2a391432e9d9e83a08341f",
                 "shasum": ""
             },
             "require": {
@@ -2289,7 +2289,7 @@
                 "source": "https://github.com/Narsileon/narsil-forms/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-forms/issues"
             },
-            "time": "2024-09-08T09:17:06+00:00"
+            "time": "2024-09-08T12:42:15+00:00"
         },
         {
             "name": "narsil/localization",

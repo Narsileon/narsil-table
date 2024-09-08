@@ -3,6 +3,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { UserModel } from "@narsil-auth/Types";
 
 export type DataTableCollection<T = { [key: string]: any }> = Collection<T> & {
+	comments: ModelCommentModel[];
 	columns: ColumnDef<any, any>[];
 	meta: DataTableCollectionMeta;
 	slug: string;

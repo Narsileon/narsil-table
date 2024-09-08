@@ -88,6 +88,7 @@ const Index = ({ resource }: Props) => {
 								</SectionHeader>
 								<SectionContent>
 									<ResourceForm
+										comments={resource.comments}
 										footer={footer}
 										resource={resource}
 									/>

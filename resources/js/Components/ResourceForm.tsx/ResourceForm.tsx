@@ -11,7 +11,7 @@ import type { ModelCommentModel } from "@narsil-tables/Types";
 import useScreenStore from "@narsil-ui/Stores/screenStore";
 
 interface ResourceFormProps {
-	comments: ModelCommentModel[] | undefined | null;
+	comments?: ModelCommentModel[] | null;
 	footer: React.ReactNode;
 	resource: FormResource<any>;
 }
