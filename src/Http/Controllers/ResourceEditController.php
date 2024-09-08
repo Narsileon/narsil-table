@@ -11,6 +11,8 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Narsil\Forms\Constants\FormsConfig;
 use Narsil\Forms\Http\Resources\FormResource;
+use Narsil\Tables\Http\Resources\ModelCommentCollection;
+use Narsil\Tables\Models\ModelComment;
 
 #endregion
 
@@ -48,7 +50,10 @@ final class ResourceEditController extends Controller
 
         $resource = new $formClass($instance);
 
+        $comments = $this->getComments($model, $id);
+
         return Inertia::render('narsil/tables::Resources/Edit/Index', compact(
+            'comments',
             'resource',
         ));
     }
@@ -56,6 +61,22 @@ final class ResourceEditController extends Controller
     #endregion
 
     #region PRIVATE METHODS
+
+    /**
+     * @param string $model
+     * @param integer $id
+     *
+     * @return ModelCommentCollection
+     */
+    private function getComments(string $model, int $id): ModelCommentCollection
+    {
+        $comments = ModelComment::query()
+            ->where(ModelComment::MODEL_TYPE, '=', $model)
+            ->where(ModelComment::MODEL_ID, '=', $id)
+            ->get();
+
+        return new ModelCommentCollection($comments);
+    }
 
     /**
      * @param string $model

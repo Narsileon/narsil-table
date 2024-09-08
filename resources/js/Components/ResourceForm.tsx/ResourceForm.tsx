@@ -6,12 +6,12 @@ import Tabs from "@narsil-ui/Components/Tabs/Tabs";
 import TabsContent from "@narsil-ui/Components/Tabs/TabsContent";
 import TabsList from "@narsil-ui/Components/Tabs/TabsList";
 import TabsTrigger from "@narsil-ui/Components/Tabs/TabsTrigger";
+import type { DataTableCollection, ModelCommentModel } from "@narsil-tables/Types";
 import type { FormResource } from "@narsil-forms/Types";
-import type { ModelCommentModel } from "@narsil-tables/Types";
 import useScreenStore from "@narsil-ui/Stores/screenStore";
 
 interface ResourceFormProps {
-	comments?: ModelCommentModel[] | null;
+	comments?: DataTableCollection<ModelCommentModel> | null;
 	footer: React.ReactNode;
 	resource: FormResource<any>;
 }

@@ -17,14 +17,16 @@ import SectionContent from "@narsil-ui/Components/Section/SectionContent";
 import SectionHeader from "@narsil-ui/Components/Section/SectionHeader";
 import SectionTitle from "@narsil-ui/Components/Section/SectionTitle";
 import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
+import type { DataTableCollection, ModelCommentModel } from "@narsil-tables/Types";
 import type { FormResource } from "@narsil-forms/Types";
 import useForm from "@narsil-forms/Components/Form/useForm";
 
 interface Props {
+	comments: DataTableCollection<ModelCommentModel>;
 	resource: FormResource<any>;
 }
 
-const Index = ({ resource }: Props) => {
+const Index = ({ comments, resource }: Props) => {
 	const { trans } = useTranslationsStore();
 
 	const { languages } = usePage<GlobalProps>().props.shared.localization;
@@ -88,7 +90,7 @@ const Index = ({ resource }: Props) => {
 								</SectionHeader>
 								<SectionContent>
 									<ResourceForm
-										comments={resource.comments}
+										comments={comments}
 										footer={footer}
 										resource={resource}
 									/>
