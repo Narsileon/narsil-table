@@ -24,12 +24,20 @@ class TableMenu extends AbstractMenu
      */
     public static function getBackendMenu(): array
     {
-        return [[
-            MenuNode::LABEL => 'Table templates',
-            MenuNode::URL => '/backend/table-templates',
-            MenuNode::VISIBILITY => VisibilityEnum::AUTH->value,
-            MenuNode::RELATIONSHIP_ICON => 'lucide/table',
-        ]];
+        return [
+            [
+                MenuNode::LABEL => 'Model comments',
+                MenuNode::URL => '/backend/model-comments',
+                MenuNode::VISIBILITY => VisibilityEnum::AUTH->value,
+                MenuNode::RELATIONSHIP_ICON => 'lucide/message-circle-warning',
+            ],
+            // [
+            //     MenuNode::LABEL => 'Table templates',
+            //     MenuNode::URL => '/backend/table-templates',
+            //     MenuNode::VISIBILITY => VisibilityEnum::AUTH->value,
+            //     MenuNode::RELATIONSHIP_ICON => 'lucide/table',
+            // ]
+        ];
     }
 
     #endregion
