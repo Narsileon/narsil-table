@@ -5,6 +5,7 @@ import Button from "@narsil-ui/Components/Button/Button";
 import DataTable from "@narsil-tables/Components/DataTable/DataTable";
 import DataTablePagination from "@narsil-tables/Components/DataTable/DataTablePagination";
 import DataTableProvider from "@narsil-tables/Components/DataTable/DataTableProvider";
+import DataTableSettings from "@narsil-tables/Components/DataTable/DataTableSettings";
 import Fullscreen from "@narsil-ui/Components/Fullscreen/Fullscreen";
 import FullscreenToggle from "@narsil-ui/Components/Fullscreen/FullscreenToggle";
 import Section from "@narsil-ui/Components/Section/Section";
@@ -35,7 +36,13 @@ const ResourceFormComments = ({ comments }: ResourceFormCommentsProps) => {
 		enableMultiSort: false,
 		enableRowSelection: false,
 		enableSorting: false,
-		manualPagination: false,
+		manual: false,
+		initialStore: {
+			columnVisibility: {
+				model_type: false,
+				model_id: false,
+			},
+		},
 		// menu: ({ row }) => <DataTableRowMenu row={row} />,
 	});
 
@@ -55,7 +62,7 @@ const ResourceFormComments = ({ comments }: ResourceFormCommentsProps) => {
 									<span className='sr-only'>{trans("Create")}</span>
 								</Button>
 							</TooltipWrapper>
-
+							<DataTableSettings />
 							<FullscreenToggle />
 						</div>
 					</SectionHeader>

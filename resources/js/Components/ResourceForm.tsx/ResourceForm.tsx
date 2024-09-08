@@ -1,6 +1,9 @@
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
+import Card from "@narsil-ui/Components/Card/Card";
+import CardContent from "@narsil-ui/Components/Card/CardContent";
 import FormRenderer from "@narsil-forms/Components/Form/FormRenderer";
+import ResourceFormComments from "./ResourceFormComments";
 import ResourceFormSidebar from "@narsil-tables/Components/ResourceForm.tsx/ResourceFormSidebar";
 import Tabs from "@narsil-ui/Components/Tabs/Tabs";
 import TabsContent from "@narsil-ui/Components/Tabs/TabsContent";
@@ -9,7 +12,6 @@ import TabsTrigger from "@narsil-ui/Components/Tabs/TabsTrigger";
 import type { DataTableCollection, ModelCommentModel } from "@narsil-tables/Types";
 import type { FormResource } from "@narsil-forms/Types";
 import useScreenStore from "@narsil-ui/Stores/screenStore";
-import ResourceFormComments from "./ResourceFormComments";
 
 interface ResourceFormProps {
 	comments?: DataTableCollection<ModelCommentModel> | null;
@@ -47,7 +49,7 @@ const ResourceForm = ({ comments = null, footer, resource }: ResourceFormProps) 
 						className='w-full'
 						value='comments'
 					>
-						{trans("Comments")}
+						{`${trans("Comments")} (${comments.data.length})`}
 					</TabsTrigger>
 				) : null}
 				{isTablet ? (
@@ -77,7 +79,11 @@ const ResourceForm = ({ comments = null, footer, resource }: ResourceFormProps) 
 					className='flex-row gap-x-4'
 					value='comments'
 				>
-					<ResourceFormComments comments={comments} />
+					<Card className='w-full p-0'>
+						<CardContent className='w-full'>
+							<ResourceFormComments comments={comments} />
+						</CardContent>
+					</Card>
 				</TabsContent>
 			) : null}
 
