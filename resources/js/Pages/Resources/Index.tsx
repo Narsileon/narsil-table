@@ -95,7 +95,7 @@ const Index = ({ collection }: Props) => {
 				>
 					<Section className='flex min-h-full w-full flex-col overflow-hidden'>
 						<SectionHeader className='grid grid-cols-2 sm:grid-cols-3'>
-							<SectionTitle>
+							<SectionTitle className='truncate'>
 								{trans(collection.title) +
 									(table.getSelectedRowModel().rows.length > 0
 										? ` (${table.getSelectedRowModel().rows.length})`
