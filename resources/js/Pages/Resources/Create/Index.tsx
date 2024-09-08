@@ -76,7 +76,9 @@ const Index = ({ resource }: Props) => {
 										<SectionTitle>{resource.form.title + trans(":")}</SectionTitle>
 									</div>
 									<div className='flex items-center gap-x-2'>
-										{resource.data.translations ? <LanguageDropdown languages={languages} /> : null}
+										{resource.form.nodes.some((x) => x.node_type === "trans") ? (
+											<LanguageDropdown languages={languages} />
+										) : null}
 										<TooltipWrapper tooltip={trans("Create")}>
 											<Button size={"icon"}>
 												<Save className='h-6 w-6' />
