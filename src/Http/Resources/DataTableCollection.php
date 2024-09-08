@@ -10,6 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use JsonSerializable;
+use Narsil\Tables\Models\ModelComment;
 use Narsil\Tables\Models\TableTemplate;
 use Narsil\Tables\Services\TableService;
 use Narsil\Tables\Structures\ModelColumn;
@@ -129,12 +130,14 @@ class DataTableCollection extends ResourceCollection
     public function with($request): array
     {
         $columns = $this->getColumns()->map->get()->values();
+        $comments = $this->getComments();
         $meta = $this->getMeta();
         $slug = $this->getSlug();
         $title = $this->getTitle();
 
         return compact(
             'columns',
+            'comments',
             'meta',
             'slug',
             'title',
@@ -166,6 +169,18 @@ class DataTableCollection extends ResourceCollection
     #endregion
 
     #region PRIVATE METHODS
+
+    /**
+     * @return mixed
+     */
+    private function getComments(): mixed
+    {
+        $comments = ModelComment::query()
+            ->where(ModelComment::MODEL_TYPE, '=', $this->resource::class)
+            ->get();
+
+        return $comments;
+    }
 
     /**
      * @param mixed $resource
