@@ -94,58 +94,52 @@ const Index = ({ collection }: Props) => {
 					tableStore={tableStore}
 				>
 					<Section className='flex min-h-full w-full flex-col overflow-hidden'>
-						<SectionHeader className='flex-col'>
-							<div className='flex w-full items-center justify-between'>
-								<SectionTitle>
-									{trans(collection.title) +
-										(table.getSelectedRowModel().rows.length > 0
-											? ` (${table.getSelectedRowModel().rows.length})`
-											: "")}
-								</SectionTitle>
-								<DataTableSearch
-									id='search-desktop'
-									className='hidden sm:flex'
-								/>
-								<div className='flex items-center gap-2'>
-									<DataTableSelectedActions>
-										<Button
-											asChild={true}
-											size='icon'
+						<SectionHeader className='grid grid-cols-2 sm:grid-cols-3'>
+							<SectionTitle>
+								{trans(collection.title) +
+									(table.getSelectedRowModel().rows.length > 0
+										? ` (${table.getSelectedRowModel().rows.length})`
+										: "")}
+							</SectionTitle>
+							<DataTableSearch
+								id='search-desktop'
+								className='order-3 col-span-2 w-full max-w-full place-self-center sm:order-2 sm:col-span-1 sm:flex'
+							/>
+							<div className='order-2 flex items-center gap-2 place-self-end sm:order-3'>
+								<DataTableSelectedActions>
+									<Button
+										asChild={true}
+										size='icon'
+									>
+										<Link
+											data={{
+												deleted: Object.keys(tableStore.rowSelection),
+											}}
+											href={route("backend.resources.delete", {
+												slug: collection.slug,
+											})}
+											method='delete'
 										>
+											<Trash2 className='h-6 w-6' />
+										</Link>
+									</Button>
+								</DataTableSelectedActions>
+								<DataTableUnselectedActions>
+									<TooltipWrapper tooltip={trans("create")}>
+										<Button size='icon'>
 											<Link
-												data={{
-													deleted: Object.keys(tableStore.rowSelection),
-												}}
-												href={route("backend.resources.delete", {
+												href={route("backend.resources.create", {
 													slug: collection.slug,
 												})}
-												method='delete'
 											>
-												<Trash2 className='h-6 w-6' />
+												<Plus className='h-6 w-6' />
 											</Link>
 										</Button>
-									</DataTableSelectedActions>
-									<DataTableUnselectedActions>
-										<TooltipWrapper tooltip={trans("create")}>
-											<Button size='icon'>
-												<Link
-													href={route("backend.resources.create", {
-														slug: collection.slug,
-													})}
-												>
-													<Plus className='h-6 w-6' />
-												</Link>
-											</Button>
-										</TooltipWrapper>
-									</DataTableUnselectedActions>
+									</TooltipWrapper>
+								</DataTableUnselectedActions>
 
-									<FullscreenToggle />
-								</div>
+								<FullscreenToggle />
 							</div>
-							<DataTableSearch
-								id='search-mobile'
-								className='min-w-full sm:hidden'
-							/>
 						</SectionHeader>
 
 						<SectionContent>
