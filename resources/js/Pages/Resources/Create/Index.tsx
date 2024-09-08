@@ -28,7 +28,7 @@ interface Props {
 const Index = ({ resource }: Props) => {
 	const { trans } = useTranslationsStore();
 
-	const { languages, locale } = usePage<GlobalProps>().props.shared.localization;
+	const { languages } = usePage<GlobalProps>().props.shared.localization;
 
 	const form = useForm({
 		form: resource.form,
@@ -56,7 +56,7 @@ const Index = ({ resource }: Props) => {
 				title={resource.form.title}
 			/>
 			<Fullscreen>
-				<LanguageProvider initialLanguage={languages.find((x) => x.locale === locale) as LanguageModel}>
+				<LanguageProvider>
 					<FormProvider {...form}>
 						<Form
 							route={route("backend.resources.store", {
