@@ -44,7 +44,7 @@ const ResourceForm = ({ comments = null, footer, resource }: ResourceFormProps) 
 				{comments !== null ? (
 					<TabsTrigger
 						className='w-full'
-						value='main'
+						value='comments'
 					>
 						{trans("Comments")}
 					</TabsTrigger>
