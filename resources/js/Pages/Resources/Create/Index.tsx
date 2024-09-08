@@ -7,20 +7,15 @@ import BackButton from "@narsil-ui/Components/Button/BackButton";
 import Button from "@narsil-ui/Components/Button/Button";
 import Form from "@narsil-forms/Components/Form/Form";
 import FormProvider from "@narsil-forms/Components/Form/FormProvider";
-import FormRenderer from "@narsil-forms/Components/Form/FormRenderer";
 import Fullscreen from "@narsil-ui/Components/Fullscreen/Fullscreen";
 import FullscreenToggle from "@narsil-ui/Components/Fullscreen/FullscreenToggle";
 import LanguageDropdown from "@narsil-localization/Components/Language/LanguageDropdown";
 import LanguageProvider from "@narsil-localization/Components/Language/LanguageProvider";
-import ResourceFormSidebar from "@narsil-tables/Components/ResourceForm.tsx/ResourceFormSidebar";
+import ResourceForm from "@narsil-tables/Components/ResourceForm.tsx/ResourceForm";
 import Section from "@narsil-ui/Components/Section/Section";
 import SectionContent from "@narsil-ui/Components/Section/SectionContent";
 import SectionHeader from "@narsil-ui/Components/Section/SectionHeader";
 import SectionTitle from "@narsil-ui/Components/Section/SectionTitle";
-import Tabs from "@narsil-ui/Components/Tabs/Tabs";
-import TabsContent from "@narsil-ui/Components/Tabs/TabsContent";
-import TabsList from "@narsil-ui/Components/Tabs/TabsList";
-import TabsTrigger from "@narsil-ui/Components/Tabs/TabsTrigger";
 import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
 import type { FormResource } from "@narsil-forms/Types";
 import type { LanguageModel } from "@narsil-localization/Types";
@@ -91,32 +86,10 @@ const Index = ({ resource }: Props) => {
 									</div>
 								</SectionHeader>
 								<SectionContent>
-									<Tabs defaultValue='main'>
-										<TabsList className='w-full'>
-											<TabsTrigger
-												className='w-full'
-												value='main'
-											>
-												{trans("Main")}
-											</TabsTrigger>
-											<TabsTrigger
-												className='w-full'
-												value='sidebar'
-											>
-												{trans("Sidebar")}
-											</TabsTrigger>
-										</TabsList>
-										<TabsContent value='main'>
-											<FormRenderer
-												footer={footer}
-												nodes={resource.form.nodes}
-												options={resource.form.options}
-											/>
-										</TabsContent>
-										<TabsContent value='sidebar'>
-											<ResourceFormSidebar data={resource.data} />
-										</TabsContent>
-									</Tabs>
+									<ResourceForm
+										footer={footer}
+										resource={resource}
+									/>
 								</SectionContent>
 							</Section>
 						</Form>

@@ -5,15 +5,19 @@ import { useFormContext } from "react-hook-form";
 import { usePage } from "@inertiajs/react";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import Card from "@narsil-ui/Components/Card/Card";
+import CardContent from "@narsil-ui/Components/Card/CardContent";
 import FormControl from "@narsil-forms/Components/Form/FormControl";
 import FormField from "@narsil-forms/Components/Form/FormField";
 import FormItem from "@narsil-forms/Components/Form/FormItem";
 import FormLabel from "@narsil-forms/Components/Form/FormLabel";
 import Separator from "@narsil-ui/Components/Separator/Separator";
 import Switch from "@narsil-ui/Components/Switch/Switch";
-import CardContent from "@narsil-ui/Components/Card/CardContent";
 
-const ResourceFormSidebar = ({ data }) => {
+interface ResourceFormSidebarProps {
+	data: any;
+}
+
+const ResourceFormSidebar = ({ data }: ResourceFormSidebarProps) => {
 	const { trans } = useTranslationsStore();
 
 	const { locale } = usePage<GlobalProps>().props.shared.localization;
