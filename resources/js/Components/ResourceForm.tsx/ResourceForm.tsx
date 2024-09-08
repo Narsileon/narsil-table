@@ -37,12 +37,17 @@ const ResourceForm = ({ footer, resource }: ResourceFormProps) => {
 					</TabsTrigger>
 				) : null}
 			</TabsList>
-			<TabsContent value='main'>
-				<FormRenderer
-					footer={footer}
-					nodes={resource.form.nodes}
-					options={resource.form.options}
-				/>
+			<TabsContent
+				className='flex-row'
+				value='main'
+			>
+				<div className='grow'>
+					<FormRenderer
+						footer={footer}
+						nodes={resource.form.nodes}
+						options={resource.form.options}
+					/>
+				</div>
 				{!isTablet ? <ResourceFormSidebar data={resource.data} /> : null}
 			</TabsContent>
 			{isTablet ? (
