@@ -32,17 +32,22 @@ const ResourceFormSidebar = ({ data }: ResourceFormSidebarProps) => {
 				<FormField
 					control={control}
 					name={"active"}
-					render={({ field }) => (
-						<FormItem orientation='horizontal'>
-							<FormLabel htmlFor={"active"}>{trans("Active") + trans(":")}</FormLabel>
-							<FormControl>
-								<Switch
-									{...field}
-									id={"active"}
-								/>
-							</FormControl>
-						</FormItem>
-					)}
+					render={({ field }) => {
+						console.log(field);
+						return (
+							<FormItem orientation='horizontal'>
+								<FormLabel htmlFor={"active"}>{trans("Active") + trans(":")}</FormLabel>
+								<FormControl>
+									<Switch
+										{...field}
+										id={"active"}
+										checked={field.value}
+										onCheckedChange={field.onChange}
+									/>
+								</FormControl>
+							</FormItem>
+						);
+					}}
 				/>
 				<Separator />
 				{data.created_at ? (
