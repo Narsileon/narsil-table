@@ -52,7 +52,7 @@ const ResourceFormComments = ({ comments }: ResourceFormCommentsProps) => {
 				table={table}
 				tableStore={tableStore}
 			>
-				<Section className='flex min-h-full w-full flex-col overflow-hidden'>
+				<Section className='flex min-h-full w-full flex-col overflow-hidden p-0'>
 					<SectionHeader>
 						<SectionTitle>{trans("Comments") + trans(":")}</SectionTitle>
 						<div className='flex items-center gap-2'>
