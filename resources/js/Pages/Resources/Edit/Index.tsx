@@ -1,5 +1,5 @@
-import { cn } from "@narsil-ui/Components";
 import { GlobalProps } from "@narsil-ui/Types";
+import { Save } from "lucide-react";
 import { usePage } from "@inertiajs/react";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import AppHead from "@narsil-ui/Components/App/AppHead";
@@ -12,14 +12,20 @@ import Fullscreen from "@narsil-ui/Components/Fullscreen/Fullscreen";
 import FullscreenToggle from "@narsil-ui/Components/Fullscreen/FullscreenToggle";
 import LanguageDropdown from "@narsil-localization/Components/Language/LanguageDropdown";
 import LanguageProvider from "@narsil-localization/Components/Language/LanguageProvider";
+import ResourceFormSidebar from "@narsil-tables/Components/ResourceForm.tsx/ResourceFormSidebar";
 import Section from "@narsil-ui/Components/Section/Section";
 import SectionContent from "@narsil-ui/Components/Section/SectionContent";
 import SectionHeader from "@narsil-ui/Components/Section/SectionHeader";
 import SectionTitle from "@narsil-ui/Components/Section/SectionTitle";
+import Tabs from "@narsil-ui/Components/Tabs/Tabs";
+import TabsContent from "@narsil-ui/Components/Tabs/TabsContent";
+import TabsList from "@narsil-ui/Components/Tabs/TabsList";
+import TabsTrigger from "@narsil-ui/Components/Tabs/TabsTrigger";
 import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
 import type { FormResource } from "@narsil-forms/Types";
 import type { LanguageModel } from "@narsil-localization/Types";
 import useForm from "@narsil-forms/Components/Form/useForm";
+import useScreenStore from "@narsil-ui/Stores/screenStore";
 
 interface Props {
 	resource: FormResource<any>;
@@ -27,6 +33,8 @@ interface Props {
 
 const Index = ({ resource }: Props) => {
 	const { trans } = useTranslationsStore();
+
+	const { isMobile } = useScreenStore();
 
 	const { languages, locale } = usePage<GlobalProps>().props.shared.localization;
 
@@ -46,8 +54,6 @@ const Index = ({ resource }: Props) => {
 			<BackButton href={backRoute} />
 		</>
 	);
-
-	const active = form.watch("active");
 
 	return (
 		<>
@@ -75,37 +81,35 @@ const Index = ({ resource }: Props) => {
 											})}
 											isDirty={form.formState.isDirty}
 										/>
-										<TooltipWrapper tooltip={trans("common.active")}>
-											<Button
-												size='sm'
-												type='button'
-												variant='ghost'
-												onClick={() => {
-													form.setValue("active", !active);
-												}}
-											>
-												<span
-													className={cn(
-														"h-3 w-3 rounded-full",
-														active ? "bg-green-500" : "bg-red-500"
-													)}
-												/>
-											</Button>
-										</TooltipWrapper>
-
 										<SectionTitle>{resource.form.title + trans(":")}</SectionTitle>
 									</div>
 									<div className='flex items-center gap-x-2'>
 										{resource.data.translations ? <LanguageDropdown languages={languages} /> : null}
+										<TooltipWrapper tooltip={trans("Update")}>
+											<Button size={"icon"}>
+												<Save className='h-6 w-6' />
+											</Button>
+										</TooltipWrapper>
 										<FullscreenToggle />
 									</div>
 								</SectionHeader>
 								<SectionContent>
-									<FormRenderer
-										footer={footer}
-										nodes={resource.form.nodes}
-										options={resource.form.options}
-									/>
+									<Tabs defaultValue='main'>
+										<TabsList>
+											<TabsTrigger value='main'>{trans("Main")}</TabsTrigger>
+											<TabsTrigger value='sidebar'>{trans("Sidebar")}</TabsTrigger>
+										</TabsList>
+										<TabsContent value='main'>
+											<FormRenderer
+												footer={footer}
+												nodes={resource.form.nodes}
+												options={resource.form.options}
+											/>
+										</TabsContent>
+										<TabsContent value='sidebar'>
+											<ResourceFormSidebar data={resource.data} />
+										</TabsContent>
+									</Tabs>
 								</SectionContent>
 							</Section>
 						</Form>
