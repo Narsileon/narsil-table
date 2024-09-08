@@ -22,13 +22,25 @@ interface ResourceFormCommentsProps {
 }
 
 const ResourceFormComments = ({ comments }: ResourceFormCommentsProps) => {
+	console.log(comments);
+
 	const { trans } = useTranslationsStore();
 
 	const { table, tableStore } = useDataTable({
 		id: "backend-form-comments",
 		columns: comments.columns,
 		data: comments.data,
-		menu: ({ row }) => <DataTableRowMenu row={row} />,
+		enableColumnFilters: false,
+		enableExpanding: false,
+		enableFilters: false,
+		enableGlobalFilter: false,
+		enableGrouping: false,
+		enableMultiRowSelection: false,
+		enableMultiSort: false,
+		enableRowSelection: false,
+		enableSorting: false,
+		manualPagination: false,
+		// menu: ({ row }) => <DataTableRowMenu row={row} />,
 	});
 
 	return (
@@ -39,19 +51,14 @@ const ResourceFormComments = ({ comments }: ResourceFormCommentsProps) => {
 			>
 				<Section className='flex min-h-full w-full flex-col overflow-hidden'>
 					<SectionHeader>
-						<SectionTitle className='truncate'>{trans("Comments") + trans(":")}</SectionTitle>
+						<SectionTitle>{trans("Comments") + trans(":")}</SectionTitle>
 						<div className='flex items-center gap-2'>
-							<DataTableUnselectedActions>
-								<TooltipWrapper tooltip={trans("Create")}>
-									<Button
-										asChild={true}
-										size='icon'
-									>
-										<Plus className='h-6 w-6' />
-										<span className='sr-only'>{trans("Create")}</span>
-									</Button>
-								</TooltipWrapper>
-							</DataTableUnselectedActions>
+							<TooltipWrapper tooltip={trans("Create")}>
+								<Button size='icon'>
+									<Plus className='h-6 w-6' />
+									<span className='sr-only'>{trans("Create")}</span>
+								</Button>
+							</TooltipWrapper>
 
 							<FullscreenToggle />
 						</div>
@@ -61,9 +68,9 @@ const ResourceFormComments = ({ comments }: ResourceFormCommentsProps) => {
 						<DataTable />
 					</SectionContent>
 
-					<SectionFooter>
+					{/* <SectionFooter>
 						<DataTablePagination collection={comments} />
-					</SectionFooter>
+					</SectionFooter> */}
 				</Section>
 			</DataTableProvider>
 		</Fullscreen>

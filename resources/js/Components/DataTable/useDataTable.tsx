@@ -49,11 +49,12 @@ declare module "@tanstack/table-core" {
 	}
 }
 
-export interface createDataTableProps extends Partial<TableOptions<any>> {
+export interface useDataTableProps extends Partial<TableOptions<any>> {
 	columns: ColumnDef<any, any>[];
 	groupingCounts?: DataTableCollectionMeta["grouping_counts"];
 	id: string;
 	initialStore?: Partial<DataTableStoreState>;
+	manual?: boolean;
 	menu?: (props: CellContext<any, any>) => any;
 }
 
@@ -64,9 +65,10 @@ const useDataTable = ({
 	groupingCounts = {},
 	id,
 	initialStore = {},
+	manual = true,
 	menu,
 	...props
-}: createDataTableProps) => {
+}: useDataTableProps) => {
 	const useTableStore = React.useMemo(
 		() =>
 			createDataTableStore({
@@ -181,10 +183,10 @@ const useDataTable = ({
 		enableSorting: true,
 		groupedColumnMode: false,
 		manualExpanding: false,
-		manualFiltering: true,
+		manualFiltering: manual,
 		manualGrouping: false,
-		manualPagination: true,
-		manualSorting: true,
+		manualPagination: manual,
+		manualSorting: manual,
 		state: {
 			columnFilters: tableStore.columnFilters,
 			columnOperators: tableStore.columnOperators,
@@ -235,37 +237,43 @@ const useDataTable = ({
 	);
 
 	React.useEffect(() => {
-		tableStore.setGroupingCounts(groupingCounts);
+		if (table.options.enableGrouping) {
+			tableStore.setGroupingCounts(groupingCounts);
+		}
 	}, [groupingCounts]);
 
 	React.useEffect(() => {
-		let columnOrder = columns.reduce((array: string[], column) => {
-			if (!isString(column.id) || array.includes(column.id)) {
-				return array;
-			}
+		if (table.options.enableGrouping) {
+			let columnOrder = columns.reduce((array: string[], column) => {
+				if (!isString(column.id) || array.includes(column.id)) {
+					return array;
+				}
 
-			return array.concat(column.id);
-		}, []);
+				return array.concat(column.id);
+			}, []);
 
-		columnOrder = sortBy(columnOrder, (column) => {
-			if (column === "_select") {
-				return -2;
-			} else if (column === "_menu") {
-				return 2;
-			}
+			columnOrder = sortBy(columnOrder, (column) => {
+				if (column === "_select") {
+					return -2;
+				} else if (column === "_menu") {
+					return 2;
+				}
 
-			return tableStore.grouping.includes(column) ? -1 : 1;
-		});
+				return tableStore.grouping.includes(column) ? -1 : 1;
+			});
 
-		tableStore.setColumnOrder(columnOrder);
+			tableStore.setColumnOrder(columnOrder);
+		}
 	}, [tableStore.grouping]);
 
 	React.useEffect(() => {
-		const href = window.location.href.replace(location.search, "");
+		if (manual) {
+			const href = window.location.href.replace(location.search, "");
 
-		filter(href, tableStore.getParams());
+			filter(href, tableStore.getParams());
 
-		return () => filter.cancel();
+			return () => filter.cancel();
+		}
 	}, [
 		tableStore.filteredColumnFilters,
 		tableStore.globalFilter,
