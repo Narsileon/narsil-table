@@ -24,6 +24,7 @@ final class NarsilTablesServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->bootMigrations();
         $this->bootPublishes();
         $this->bootTranslations();
 
@@ -36,6 +37,16 @@ final class NarsilTablesServiceProvider extends ServiceProvider
     #endregion
 
     #region PRIVATE METHODS
+
+    /**
+     * @return void
+     */
+    private function bootMigrations(): void
+    {
+        $this->loadMigrationsFrom([
+            __DIR__ . '/../database/migrations',
+        ]);
+    }
 
     /**
      * @return void

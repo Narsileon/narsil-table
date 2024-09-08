@@ -19,6 +19,10 @@
 	"repositories": [
 		{
 			"type": "vcs",
+			"url": "git@github.com:Narsileon/narsil-auth.git"
+		},
+		{
+			"type": "vcs",
 			"url": "git@github.com:Narsileon/narsil-forms.git"
 		},
 		{
@@ -53,6 +57,7 @@
 	"require": {
 		"php": "^8.2",
 		"laravel/framework": "^11.3",
+		"narsil/auth": "dev-main",
 		"narsil/forms": "dev-main",
 		"narsil/localization": "dev-main",
 		"narsil/ui": "dev-main"
