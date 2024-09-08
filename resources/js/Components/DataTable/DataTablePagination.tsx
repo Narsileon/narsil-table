@@ -48,6 +48,7 @@ const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePagination
 					<TooltipWrapper tooltip={trans("First page")}>
 						<PaginationItem>
 							<PaginationButton
+								asChild={false}
 								onClick={() => table.firstPage()}
 								disabled={!table.getCanPreviousPage()}
 							>
@@ -59,6 +60,7 @@ const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePagination
 					<TooltipWrapper tooltip={trans("Previous page")}>
 						<PaginationItem>
 							<PaginationButton
+								asChild={false}
 								onClick={() => table.previousPage()}
 								disabled={!table.getCanPreviousPage()}
 							>
@@ -71,6 +73,7 @@ const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePagination
 					<TooltipWrapper tooltip={trans("Next page")}>
 						<PaginationItem>
 							<PaginationButton
+								asChild={false}
 								onClick={() => table.nextPage()}
 								disabled={!table.getCanNextPage()}
 							>
@@ -82,6 +85,7 @@ const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePagination
 					<TooltipWrapper tooltip={trans("Last page")}>
 						<PaginationItem>
 							<PaginationButton
+								asChild={false}
 								onClick={() => table.lastPage()}
 								disabled={!table.getCanNextPage()}
 							>

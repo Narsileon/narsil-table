@@ -20,8 +20,6 @@ interface ResourceFormCommentsProps {
 }
 
 const ResourceFormComments = ({ comments }: ResourceFormCommentsProps) => {
-	console.log(comments);
-
 	const { trans } = useTranslationsStore();
 
 	const { table, tableStore } = useDataTable({
