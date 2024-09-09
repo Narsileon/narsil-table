@@ -16,6 +16,7 @@ import createDataTableColumnStore from "@narsil-tables/Stores/dataTableColumnSto
 import Input from "@narsil-ui/Components/Input/Input";
 import Separator from "@narsil-ui/Components/Separator/Separator";
 import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
+import DataTableSortButton from "./Buttons/DataTableSortButton";
 
 export interface DataTableColumnSearchProps {
 	header: Header<any, any>;
@@ -177,21 +178,7 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 				<CardTitle>{trans("Filters")}</CardTitle>
 				<div className='flex items-center gap-x-2'>
 					{table.options.enableSorting && header.column.getCanSort() ? (
-						<TooltipWrapper tooltip={trans("Sort")}>
-							<Button
-								size='icon'
-								variant='ghost'
-								onClick={header.column.getToggleSortingHandler()}
-							>
-								{header.column.getIsSorted() === "asc" ? (
-									<ChevronUp className='text-primary-highlight h-6 w-6' />
-								) : header.column.getIsSorted() === "desc" ? (
-									<ChevronDown className='text-primary-highlight h-6 w-6' />
-								) : (
-									<ChevronsUpDown className='h-6 w-6' />
-								)}
-							</Button>
-						</TooltipWrapper>
+						<DataTableSortButton header={header} />
 					) : null}
 					{table.options.enableGrouping && header.column.getCanGroup() ? (
 						<TooltipWrapper

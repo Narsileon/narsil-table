@@ -9,21 +9,21 @@ import type { ButtonProps } from "@narsil-ui/Components/Button/Button";
 
 export interface DataTableSortButtonProps extends ButtonProps {
 	header: Header<any, any>;
+	iconClassName?: string;
 }
 
 const DataTableSortButton = React.forwardRef<HTMLButtonElement, DataTableSortButtonProps>(
-	({ className, header, ...props }, ref) => {
+	({ className, header, iconClassName, ...props }, ref) => {
 		const { trans } = useTranslationsStore();
 
-		const sort = header.column.getIsSorted();
-
 		const buttonLabel = trans("Sort");
+
+		const sort = header.column.getIsSorted();
 
 		return (
 			<TooltipWrapper tooltip={buttonLabel}>
 				<Button
 					ref={ref}
-					className={cn("w-6 min-w-6", className)}
 					aria-label={buttonLabel}
 					size='icon'
 					variant='ghost'
@@ -31,11 +31,11 @@ const DataTableSortButton = React.forwardRef<HTMLButtonElement, DataTableSortBut
 					{...props}
 				>
 					{sort === "asc" ? (
-						<ChevronUp className='h-4 w-4' />
+						<ChevronUp className={cn("text-primary-highlight h-6 w-6", iconClassName)} />
 					) : sort === "desc" ? (
-						<ChevronDown className='h-4 w-4' />
+						<ChevronDown className={cn("text-primary-highlight h-6 w-6", iconClassName)} />
 					) : (
-						<ChevronsUpDown className='h-4 w-4' />
+						<ChevronsUpDown className={cn("h-6 w-6", iconClassName)} />
 					)}
 				</Button>
 			</TooltipWrapper>

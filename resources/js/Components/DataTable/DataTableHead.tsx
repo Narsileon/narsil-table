@@ -99,7 +99,13 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 								</PopoverContent>
 							) : null}
 						</Popover>
-						{!isMobile && header.column.getCanSort() ? <DataTableSortButton header={header} /> : null}
+						{!isMobile && header.column.getCanSort() ? (
+							<DataTableSortButton
+								className='w-6 min-w-6'
+								iconClassName='w-4 h-4'
+								header={header}
+							/>
+						) : null}
 					</div>
 
 					{header.column.getCanResize() ? (
