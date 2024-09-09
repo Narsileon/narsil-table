@@ -17,14 +17,14 @@ const DataTableMoveColumnButton = React.forwardRef<HTMLButtonElement, DataTableM
 	({ attributes, className, listeners, ...props }, ref) => {
 		const { trans } = useTranslationsStore();
 
-		const buttonLabel = trans("Move column");
+		const moveColumnLabel = trans("Move column");
 
 		return (
-			<TooltipWrapper tooltip={buttonLabel}>
+			<TooltipWrapper tooltip={moveColumnLabel}>
 				<Button
 					ref={ref}
 					className={cn("w-6 min-w-6", className)}
-					aria-label={buttonLabel}
+					aria-label={moveColumnLabel}
 					size='icon'
 					variant='ghost'
 					{...props}

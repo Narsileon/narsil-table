@@ -1,4 +1,3 @@
-import { ChevronDown, ChevronsUpDown, ChevronUp, Group, Ungroup } from "lucide-react";
 import { Header } from "@tanstack/react-table";
 import { SelectOption } from "@narsil-ui/Types";
 import { TableCellType } from "@narsil-tables/Components/Table/TableCellRenderer";
@@ -13,10 +12,10 @@ import CardHeader from "@narsil-ui/Components/Card/CardHeader";
 import CardTitle from "@narsil-ui/Components/Card/CardTitle";
 import Combobox from "@narsil-ui/Components/Combobox/Combobox";
 import createDataTableColumnStore from "@narsil-tables/Stores/dataTableColumnStore";
+import DataTableGroupButton from "./Buttons/DataTableGroupButton";
+import DataTableSortButton from "./Buttons/DataTableSortButton";
 import Input from "@narsil-ui/Components/Input/Input";
 import Separator from "@narsil-ui/Components/Separator/Separator";
-import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
-import DataTableSortButton from "./Buttons/DataTableSortButton";
 
 export interface DataTableColumnSearchProps {
 	header: Header<any, any>;
@@ -175,41 +174,13 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 	return (
 		<Card variant='inline'>
 			<CardHeader>
-				<CardTitle>{trans("Filters")}</CardTitle>
+				<CardTitle variant='h5'>{trans("Filters")}</CardTitle>
 				<div className='flex items-center gap-x-2'>
 					{table.options.enableSorting && header.column.getCanSort() ? (
 						<DataTableSortButton header={header} />
 					) : null}
 					{table.options.enableGrouping && header.column.getCanGroup() ? (
-						<TooltipWrapper
-							tooltip={trans(header.column.getIsGrouped() ? "Disable grouping" : "Enable grouping")}
-						>
-							<Button
-								size='icon'
-								variant='ghost'
-								onClick={() => {
-									if (header.column.getIsGrouped()) {
-										header.column.clearSorting();
-									} else {
-										header.column.toggleSorting(false);
-									}
-
-									header.column.toggleGrouping();
-								}}
-							>
-								{header.column.getIsGrouped() ? (
-									<>
-										<Ungroup className='text-primary-highlight h-6 w-6' />
-										<span className='sr-only'>{trans("Disable grouping")}</span>
-									</>
-								) : (
-									<>
-										<Group className='h-6 w-6' />
-										<span className='sr-only'>{trans("Enable grouping")}</span>
-									</>
-								)}
-							</Button>
-						</TooltipWrapper>
+						<DataTableGroupButton header={header} />
 					) : null}
 				</div>
 			</CardHeader>

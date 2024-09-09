@@ -16,23 +16,23 @@ const DataTableSortButton = React.forwardRef<HTMLButtonElement, DataTableSortBut
 	({ header, iconClassName, ...props }, ref) => {
 		const { trans } = useTranslationsStore();
 
-		const buttonLabel = trans("Sort");
+		const sortLabel = trans("Sort");
 
-		const sort = header.column.getIsSorted();
+		const isSorted = header.column.getIsSorted();
 
 		return (
-			<TooltipWrapper tooltip={buttonLabel}>
+			<TooltipWrapper tooltip={sortLabel}>
 				<Button
 					ref={ref}
-					aria-label={buttonLabel}
+					aria-label={sortLabel}
 					size='icon'
 					variant='ghost'
 					onClick={header.column.getToggleSortingHandler()}
 					{...props}
 				>
-					{sort === "asc" ? (
+					{isSorted === "asc" ? (
 						<ChevronUp className={cn("text-primary-highlight h-6 w-6", iconClassName)} />
-					) : sort === "desc" ? (
+					) : isSorted === "desc" ? (
 						<ChevronDown className={cn("text-primary-highlight h-6 w-6", iconClassName)} />
 					) : (
 						<ChevronsUpDown className={cn("h-6 w-6", iconClassName)} />

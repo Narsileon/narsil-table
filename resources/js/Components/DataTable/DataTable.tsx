@@ -14,8 +14,9 @@ import TableRow from "@narsil-ui/Components/Table/TableRow";
 export interface DataTableProps extends ScrollAreaProps {}
 
 const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }, ref) => {
-	const { table, tableStore } = useDataTableContext();
 	const { trans } = useTranslationsStore();
+
+	const { table, tableStore } = useDataTableContext();
 
 	return (
 		<ScrollArea
@@ -23,7 +24,7 @@ const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }
 			orientation='horizontal'
 			{...props}
 		>
-			<Table>
+			<Table aria-colcount={table.options.columns.length}>
 				<TableHeader>
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow key={headerGroup.id}>
