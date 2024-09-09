@@ -73,6 +73,7 @@ final class ResourceEditController extends Controller
         $comments = ModelComment::query()
             ->where(ModelComment::MODEL_TYPE, '=', $model)
             ->where(ModelComment::MODEL_ID, '=', $id)
+            ->orderBy(ModelComment::UPDATED_AT, 'desc')
             ->get();
 
         return new ModelCommentCollection($comments);

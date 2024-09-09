@@ -1,4 +1,3 @@
-import { ChevronDown, ChevronsUpDown, ChevronUp, GripVertical } from "lucide-react";
 import { cn } from "@narsil-ui/Components";
 import { CSS } from "@dnd-kit/utilities";
 import { flexRender } from "@tanstack/react-table";
@@ -10,6 +9,8 @@ import * as React from "react";
 import Button from "@narsil-ui/Components/Button/Button";
 import Checkbox from "@narsil-ui/Components/Checkbox/Checkbox";
 import DataTableColumnSearch from "./DataTableColumnSearch";
+import DataTableMoveColumnButton from "./Buttons/DataTableMoveColumnButton";
+import DataTableSortButton from "./Buttons/DataTableSortButton";
 import Popover from "@narsil-ui/Components/Popover/Popover";
 import PopoverContent from "@narsil-ui/Components/Popover/PopoverContent";
 import PopoverTrigger from "@narsil-ui/Components/Popover/PopoverTrigger";
@@ -45,10 +46,13 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 		zIndex: isDragging ? 1 : 0,
 	};
 
+	const sort = header.column.getIsSorted();
+
 	return (
 		<TableHead
 			ref={setNodeRef}
 			className={cn("group whitespace-nowrap px-0", { "bg-background rounded-md": isMenu })}
+			aria-sort={sort === "asc" ? "ascending" : sort === "desc" ? "descending" : "none"}
 			style={style}
 			{...props}
 		>
@@ -62,19 +66,10 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 			) : !isMenu ? (
 				<>
 					<div className='flex items-center justify-between pl-1 pr-2'>
-						<TooltipWrapper tooltip={trans("Move column")}>
-							<Button
-								className='w-6 min-w-6'
-								size='icon'
-								variant='ghost'
-								{...attributes}
-								{...listeners}
-							>
-								<GripVertical className='h-4 w-4' />
-								<span className='sr-only'>{trans("Move column")}</span>
-							</Button>
-						</TooltipWrapper>
-
+						<DataTableMoveColumnButton
+							attributes={attributes}
+							listeners={listeners}
+						/>
 						<Popover>
 							<TooltipWrapper tooltip={flexRender(header.column.columnDef.header, header.getContext())}>
 								<PopoverTrigger
@@ -104,25 +99,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 								</PopoverContent>
 							) : null}
 						</Popover>
-						{!isMobile && header.column.getCanSort() ? (
-							<TooltipWrapper tooltip={trans("Sort")}>
-								<Button
-									className='w-6 min-w-6'
-									size='icon'
-									variant='ghost'
-									onClick={header.column.getToggleSortingHandler()}
-								>
-									{header.column.getIsSorted() === "asc" ? (
-										<ChevronUp className='h-4 w-4' />
-									) : header.column.getIsSorted() === "desc" ? (
-										<ChevronDown className='h-4 w-4' />
-									) : (
-										<ChevronsUpDown className='h-4 w-4' />
-									)}
-									<span className='sr-only'>{trans("Sort")}</span>
-								</Button>
-							</TooltipWrapper>
-						) : null}
+						{!isMobile && header.column.getCanSort() ? <DataTableSortButton header={header} /> : null}
 					</div>
 
 					{header.column.getCanResize() ? (
