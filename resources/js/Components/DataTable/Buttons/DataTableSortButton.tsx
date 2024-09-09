@@ -13,7 +13,7 @@ export interface DataTableSortButtonProps extends ButtonProps {
 }
 
 const DataTableSortButton = React.forwardRef<HTMLButtonElement, DataTableSortButtonProps>(
-	({ className, header, iconClassName, ...props }, ref) => {
+	({ header, iconClassName, ...props }, ref) => {
 		const { trans } = useTranslationsStore();
 
 		const buttonLabel = trans("Sort");
