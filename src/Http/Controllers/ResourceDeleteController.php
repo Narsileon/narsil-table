@@ -35,7 +35,7 @@ final class ResourceDeleteController extends Controller
 
         $model::whereIn('id', $deleted)->delete();
 
-        return back()
+        return redirect(route('backend.resources.index', $slug))
             ->with('success', 'messages.items_deleted');
     }
 

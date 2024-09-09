@@ -82,7 +82,7 @@ const ResourceFormSidebar = ({ data, slug }: ResourceFormSidebarProps) => {
 					</>
 				) : null}
 			</CardContent>
-			{data ? (
+			{data.id ? (
 				<CardFooter>
 					<AlertDialog>
 						<AlertDialogTrigger asChild={true}>
