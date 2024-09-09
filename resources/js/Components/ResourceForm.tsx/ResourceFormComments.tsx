@@ -39,6 +39,7 @@ const ResourceFormComments = ({ comments }: ResourceFormCommentsProps) => {
 
 				<SectionContent>
 					<TextBox
+						placeholder={trans("Enter a comment...")}
 						value={comment}
 						onChange={(value) => setComment(value)}
 					/>
