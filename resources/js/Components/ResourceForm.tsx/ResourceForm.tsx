@@ -72,7 +72,12 @@ const ResourceForm = ({ comments = null, footer, resource }: ResourceFormProps) 
 						options={resource.form.options}
 					/>
 				</div>
-				{!isTablet ? <ResourceFormSidebar data={resource.data} /> : null}
+				{!isTablet ? (
+					<ResourceFormSidebar
+						data={resource.data}
+						slug={resource.slug}
+					/>
+				) : null}
 			</TabsContent>
 			{comments ? (
 				<TabsContent
@@ -89,7 +94,10 @@ const ResourceForm = ({ comments = null, footer, resource }: ResourceFormProps) 
 
 			{isTablet ? (
 				<TabsContent value='sidebar'>
-					<ResourceFormSidebar data={resource.data} />
+					<ResourceFormSidebar
+						data={resource.data}
+						slug={resource.slug}
+					/>
 				</TabsContent>
 			) : null}
 		</Tabs>

@@ -1,11 +1,22 @@
 import { format } from "date-fns";
 import { GlobalProps } from "@narsil-ui/Types";
+import { Link, usePage } from "@inertiajs/react";
 import { useDatetimeLocale } from "@narsil-ui/Components/Input/Datetime/datetimeUtils";
 import { useFormContext } from "react-hook-form";
-import { usePage } from "@inertiajs/react";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
+import AlertDialog from "@narsil-ui/Components/AlertDialog/AlertDialog";
+import AlertDialogAction from "@narsil-ui/Components/AlertDialog/AlertDialogAction";
+import AlertDialogCancel from "@narsil-ui/Components/AlertDialog/AlertDialogCancel";
+import AlertDialogContent from "@narsil-ui/Components/AlertDialog/AlertDialogContent";
+import AlertDialogDescription from "@narsil-ui/Components/AlertDialog/AlertDialogDescription";
+import AlertDialogFooter from "@narsil-ui/Components/AlertDialog/AlertDialogFooter";
+import AlertDialogHeader from "@narsil-ui/Components/AlertDialog/AlertDialogHeader";
+import AlertDialogTitle from "@narsil-ui/Components/AlertDialog/AlertDialogTitle";
+import AlertDialogTrigger from "@narsil-ui/Components/AlertDialog/AlertDialogTrigger";
+import Button from "@narsil-ui/Components/Button/Button";
 import Card from "@narsil-ui/Components/Card/Card";
 import CardContent from "@narsil-ui/Components/Card/CardContent";
+import CardFooter from "@narsil-ui/Components/Card/CardFooter";
 import FormControl from "@narsil-forms/Components/Form/FormControl";
 import FormField from "@narsil-forms/Components/Form/FormField";
 import FormItem from "@narsil-forms/Components/Form/FormItem";
@@ -15,9 +26,10 @@ import Switch from "@narsil-ui/Components/Switch/Switch";
 
 interface ResourceFormSidebarProps {
 	data: any;
+	slug: string;
 }
 
-const ResourceFormSidebar = ({ data }: ResourceFormSidebarProps) => {
+const ResourceFormSidebar = ({ data, slug }: ResourceFormSidebarProps) => {
 	const { trans } = useTranslationsStore();
 
 	const { locale } = usePage<GlobalProps>().props.shared.localization;
@@ -70,6 +82,40 @@ const ResourceFormSidebar = ({ data }: ResourceFormSidebarProps) => {
 					</>
 				) : null}
 			</CardContent>
+			{data ? (
+				<CardFooter>
+					<AlertDialog>
+						<AlertDialogTrigger asChild={true}>
+							<Button>{trans("Delete")}</Button>
+						</AlertDialogTrigger>
+						<AlertDialogContent>
+							<AlertDialogHeader>
+								<AlertDialogTitle>
+									{trans("Are you sure you want to perform this action?")}
+								</AlertDialogTitle>
+								<AlertDialogDescription>
+									{trans("This action cannot be undone.")}
+								</AlertDialogDescription>
+							</AlertDialogHeader>
+							<AlertDialogFooter>
+								<AlertDialogCancel>{trans("Cancel")}</AlertDialogCancel>
+								<AlertDialogAction asChild={true}>
+									<Link
+										as='button'
+										href={route("backend.resources.destroy", {
+											id: data.id,
+											slug: slug,
+										})}
+										method='delete'
+									>
+										{trans("Continue")}
+									</Link>
+								</AlertDialogAction>
+							</AlertDialogFooter>
+						</AlertDialogContent>
+					</AlertDialog>
+				</CardFooter>
+			) : null}
 		</Card>
 	);
 };
