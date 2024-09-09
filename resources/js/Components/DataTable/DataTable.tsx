@@ -18,13 +18,15 @@ const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }
 
 	const { table, tableStore } = useDataTableContext();
 
+	const columns = table.getAllColumns();
+
 	return (
 		<ScrollArea
 			ref={ref}
 			orientation='horizontal'
 			{...props}
 		>
-			<Table aria-colcount={table.options.columns.length}>
+			<Table aria-colcount={columns.length}>
 				<TableHeader>
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow key={headerGroup.id}>
@@ -33,10 +35,14 @@ const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }
 								strategy={horizontalListSortingStrategy}
 							>
 								{headerGroup.headers.map((header) => {
+									const columnIndex = columns.findIndex((column) => column.id === header.column.id);
+
 									return (
 										<DataTableHead
+											aria-colindex={columnIndex + 1}
 											header={header}
 											key={header.id}
+											scope='col'
 										/>
 									);
 								})}
