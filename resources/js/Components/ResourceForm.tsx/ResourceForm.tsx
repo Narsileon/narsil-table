@@ -1,5 +1,6 @@
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
+import Badge from "@narsil-ui/Components/Badge/Badge";
 import Card from "@narsil-ui/Components/Card/Card";
 import CardContent from "@narsil-ui/Components/Card/CardContent";
 import FormRenderer from "@narsil-forms/Components/Form/FormRenderer";
@@ -46,10 +47,11 @@ const ResourceForm = ({ comments = null, footer, resource }: ResourceFormProps) 
 				</TabsTrigger>
 				{comments !== null ? (
 					<TabsTrigger
-						className='w-full'
+						className='w-full gap-x-2'
 						value='comments'
 					>
-						{`${trans("Comments")} (${comments.data.length})`}
+						{trans("Comments")}
+						<Badge>{comments.data.length}</Badge>
 					</TabsTrigger>
 				) : null}
 				{isTablet ? (
