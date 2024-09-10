@@ -21,8 +21,6 @@ export type ModelCommentModel = {
 	content: string;
 	created_at: string;
 	id: number;
-	last_editor_id: number;
-	last_editor: UserModel;
 	model_id: number;
 	model_type: string;
 	updated_at: string;

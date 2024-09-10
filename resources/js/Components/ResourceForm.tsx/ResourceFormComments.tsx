@@ -1,12 +1,18 @@
+import { EllipsisVertical } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { useDatetimeLocale } from "@narsil-ui/Components/Input/Datetime/datetimeUtils";
 import { useForm } from "react-hook-form";
-import { usePage } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Avatar from "@narsil-ui/Components/Avatar/Avatar";
 import AvatarFallback from "@narsil-ui/Components/Avatar/AvatarFallback";
+import Button from "@narsil-ui/Components/Button/Button";
+import DropdownMenu from "@narsil-ui/Components/DropdownMenu/DropdownMenu";
+import DropdownMenuContent from "@narsil-ui/Components/DropdownMenu/DropdownMenuContent";
+import DropdownMenuItem from "@narsil-ui/Components/DropdownMenu/DropdownMenuItem";
+import DropdownMenuTrigger from "@narsil-ui/Components/DropdownMenu/DropdownMenuTrigger";
 import Form from "@narsil-forms/Components/Form/Form";
 import FormControl from "@narsil-forms/Components/Form/FormControl";
 import FormDescription from "@narsil-forms/Components/Form/FormDescription";
@@ -26,7 +32,9 @@ import type { Collection, GlobalProps } from "@narsil-ui/Types";
 import type { ModelCommentModel } from "@narsil-tables/Types";
 
 interface ResourceFormCommentsProps {
-	comments: Collection<ModelCommentModel>;
+	comments: Collection<ModelCommentModel> & {
+		slug: string;
+	};
 	modelType: string;
 	modelId: number;
 }
@@ -99,7 +107,10 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 						</FormProvider>
 					</div>
 					{comments.data.map((comment) => (
-						<div className='flex items-start gap-x-4'>
+						<div
+							className='flex items-start gap-x-4'
+							key={comment.id}
+						>
 							<Avatar>
 								<AvatarFallback className='text-primary bg-white'>
 									{comment.author.first_name.charAt(0)}
@@ -118,6 +129,27 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 								</div>
 								<div className='prose text-foreground max-w-none'>{parse(comment.content)}</div>
 							</div>
+							{comment.author_id === shared.auth.id ? (
+								<DropdownMenu>
+									<DropdownMenuTrigger asChild={true}>
+										<Button aria-label={trans("Menu")}>
+											<EllipsisVertical className='h-6 w-6' />
+										</Button>
+									</DropdownMenuTrigger>
+									<DropdownMenuContent>
+										<DropdownMenuItem asChild={true}>
+											<Link
+												href={route("backend.resources.destroy", {
+													id: comment.id,
+													slug: comments.slug,
+												})}
+											>
+												{trans("Delete")}
+											</Link>
+										</DropdownMenuItem>
+									</DropdownMenuContent>
+								</DropdownMenu>
+							) : null}
 						</div>
 					))}
 				</SectionContent>

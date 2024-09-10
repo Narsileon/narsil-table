@@ -41,8 +41,6 @@ class ModelCommentCollection extends ResourceCollection
                 User::LAST_NAME => $author?->{User::LAST_NAME},
             ];
 
-            $attributes[ModelComment::AUTHOR_ID] = null;
-
             return array_filter($attributes);
         });
     }
