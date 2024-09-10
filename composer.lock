@@ -2662,12 +2662,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-ui.git",
-                "reference": "cc9853c70e4b3fb78252ce9d0f24cd44ffb91e09"
+                "reference": "6ab00db6b102acb5ddc2cbff3a0c74adc39a336f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-ui/zipball/cc9853c70e4b3fb78252ce9d0f24cd44ffb91e09",
-                "reference": "cc9853c70e4b3fb78252ce9d0f24cd44ffb91e09",
+                "url": "https://api.github.com/repos/Narsileon/narsil-ui/zipball/6ab00db6b102acb5ddc2cbff3a0c74adc39a336f",
+                "reference": "6ab00db6b102acb5ddc2cbff3a0c74adc39a336f",
                 "shasum": ""
             },
             "require": {
@@ -2715,7 +2715,7 @@
                 "source": "https://github.com/Narsileon/narsil-ui/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-ui/issues"
             },
-            "time": "2024-09-09T15:44:24+00:00"
+            "time": "2024-09-10T05:53:03+00:00"
         },
         {
             "name": "nesbot/carbon",

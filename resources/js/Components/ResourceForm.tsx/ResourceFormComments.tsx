@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { usePage } from "@inertiajs/react";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,12 +14,13 @@ import FormMessage from "@narsil-forms/Components/Form/FormMessage";
 import FormProvider from "@narsil-forms/Components/Form/FormProvider";
 import Fullscreen from "@narsil-ui/Components/Fullscreen/Fullscreen";
 import FullscreenToggle from "@narsil-ui/Components/Fullscreen/FullscreenToggle";
+import parse from "html-react-parser";
 import Section from "@narsil-ui/Components/Section/Section";
 import SectionContent from "@narsil-ui/Components/Section/SectionContent";
 import SectionHeader from "@narsil-ui/Components/Section/SectionHeader";
 import SectionTitle from "@narsil-ui/Components/Section/SectionTitle";
 import TextBox from "@narsil-forms/Components/TextBox/TextBox";
-import type { Collection } from "@narsil-ui/Types";
+import type { Collection, GlobalProps } from "@narsil-ui/Types";
 import type { ModelCommentModel } from "@narsil-tables/Types";
 
 interface ResourceFormCommentsProps {
@@ -29,6 +31,8 @@ interface ResourceFormCommentsProps {
 
 const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormCommentsProps) => {
 	const { trans } = useTranslationsStore();
+
+	const shared = usePage<GlobalProps>().props.shared;
 
 	const formSchema = z.object({
 		_back: z.boolean(),
@@ -56,39 +60,52 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 				</SectionHeader>
 
 				<SectionContent>
-					<FormProvider {...form}>
-						<Form
-							method='post'
-							route={route("backend.resources.store", {
-								slug: "model-comments",
-							})}
-						>
-							<FormField
-								control={form.control}
-								name={"content"}
-								render={({ field }) => (
-									<FormItem>
-										<FormControl>
-											<TextBox
-												{...field}
-												placeholder={trans("Enter a comment...")}
-											/>
-										</FormControl>
-										<FormDescription />
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</Form>
-					</FormProvider>
+					<div className='flex items-start gap-x-4'>
+						<Avatar>
+							<AvatarFallback className='text-primary bg-white'>
+								{shared.auth.first_name.charAt(0)}
+								{shared.auth.last_name.charAt(0)}
+							</AvatarFallback>
+						</Avatar>
+						<FormProvider {...form}>
+							<Form
+								method='post'
+								route={route("backend.resources.store", {
+									slug: "model-comments",
+								})}
+							>
+								<FormField
+									control={form.control}
+									name={"content"}
+									render={({ field }) => (
+										<FormItem>
+											<FormControl>
+												<TextBox
+													className='rounded-none border-b border-l-0 border-r-0 border-t-0 p-0 pb-4'
+													{...field}
+													placeholder={trans("Enter a comment...")}
+												/>
+											</FormControl>
+											<FormDescription />
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</Form>
+						</FormProvider>
+					</div>
 					{comments.data.map((comment) => (
-						<div>
+						<div className='flex items-start gap-x-4'>
 							<Avatar>
 								<AvatarFallback className='text-primary bg-white'>
 									{comment.author.first_name.charAt(0)}
 									{comment.author.last_name.charAt(0)}
 								</AvatarFallback>
 							</Avatar>
+							<div>
+								<small>{comment.author.full_name}</small>
+								<div className='prose text-foreground max-w-none'>{parse(comment.content)}</div>
+							</div>
 						</div>
 					))}
 				</SectionContent>
