@@ -1,8 +1,11 @@
+import { UseFormReturn } from "react-hook-form";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import Badge from "@narsil-ui/Components/Badge/Badge";
 import Card from "@narsil-ui/Components/Card/Card";
 import CardContent from "@narsil-ui/Components/Card/CardContent";
+import Form from "@narsil-forms/Components/Form/Form";
+import FormProvider from "@narsil-forms/Components/Form/FormProvider";
 import FormRenderer from "@narsil-forms/Components/Form/FormRenderer";
 import ResourceFormComments from "./ResourceFormComments";
 import ResourceFormSidebar from "@narsil-tables/Components/ResourceForm.tsx/ResourceFormSidebar";
@@ -17,10 +20,13 @@ import useScreenStore from "@narsil-ui/Stores/screenStore";
 interface ResourceFormProps {
 	comments?: DataTableCollection<ModelCommentModel> | null;
 	footer: React.ReactNode;
+	form: UseFormReturn<any>;
+	method: "patch" | "post";
 	resource: FormResource<any>;
+	route: string;
 }
 
-const ResourceForm = ({ comments = null, footer, resource }: ResourceFormProps) => {
+const ResourceForm = ({ comments = null, footer, form, method, resource, route }: ResourceFormProps) => {
 	const { trans } = useTranslationsStore();
 
 	const { isTablet } = useScreenStore();
@@ -63,24 +69,31 @@ const ResourceForm = ({ comments = null, footer, resource }: ResourceFormProps) 
 					</TabsTrigger>
 				) : null}
 			</TabsList>
-			<TabsContent
-				className='flex-row gap-x-4'
-				value='main'
-			>
-				<div className='grow'>
-					<FormRenderer
-						footer={footer}
-						nodes={resource.form.nodes}
-						options={resource.form.options}
-					/>
-				</div>
-				{!isTablet ? (
-					<ResourceFormSidebar
-						data={resource.data}
-						slug={resource.slug}
-					/>
-				) : null}
-			</TabsContent>
+			<FormProvider {...form}>
+				<Form
+					method={method}
+					route={route}
+				>
+					<TabsContent
+						className='flex-row gap-x-4'
+						value='main'
+					>
+						<div className='grow'>
+							<FormRenderer
+								footer={footer}
+								nodes={resource.form.nodes}
+								options={resource.form.options}
+							/>
+						</div>
+						{!isTablet ? (
+							<ResourceFormSidebar
+								data={resource.data}
+								slug={resource.slug}
+							/>
+						) : null}
+					</TabsContent>
+				</Form>
+			</FormProvider>
 			{comments ? (
 				<TabsContent
 					className='flex-row gap-x-4'
@@ -88,7 +101,11 @@ const ResourceForm = ({ comments = null, footer, resource }: ResourceFormProps) 
 				>
 					<Card className='w-full'>
 						<CardContent className='w-full'>
-							<ResourceFormComments comments={comments} />
+							<ResourceFormComments
+								comments={comments}
+								modelId={resource.data.id}
+								modelType={resource.model}
+							/>
 						</CardContent>
 					</Card>
 				</TabsContent>

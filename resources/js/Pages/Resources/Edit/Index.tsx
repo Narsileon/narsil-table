@@ -5,8 +5,6 @@ import { useTranslationsStore } from "@narsil-localization/Stores/translationSto
 import AppHead from "@narsil-ui/Components/App/AppHead";
 import BackButton from "@narsil-ui/Components/Button/BackButton";
 import Button from "@narsil-ui/Components/Button/Button";
-import Form from "@narsil-forms/Components/Form/Form";
-import FormProvider from "@narsil-forms/Components/Form/FormProvider";
 import Fullscreen from "@narsil-ui/Components/Fullscreen/Fullscreen";
 import FullscreenToggle from "@narsil-ui/Components/Fullscreen/FullscreenToggle";
 import LanguageDropdown from "@narsil-localization/Components/Language/LanguageDropdown";
@@ -56,48 +54,44 @@ const Index = ({ comments, resource }: Props) => {
 			/>
 			<Fullscreen>
 				<LanguageProvider>
-					<FormProvider {...form}>
-						<Form
-							method='patch'
-							route={route("backend.resources.update", {
-								id: resource.data.id,
-								slug: resource.slug,
-							})}
-						>
-							<Section>
-								<SectionHeader>
-									<div className='flex items-center gap-x-2'>
-										<BackButton
-											asIcon={true}
-											href={route("backend.resources.index", {
-												slug: resource.slug,
-											})}
-											isDirty={form.formState.isDirty}
-										/>
-										<SectionTitle>{resource.form.title + trans(":")}</SectionTitle>
-									</div>
-									<div className='flex items-center gap-x-2'>
-										{resource.form.nodes.some((x) => x.node_type === "trans") ? (
-											<LanguageDropdown languages={languages} />
-										) : null}
-										<TooltipWrapper tooltip={trans("Update")}>
-											<Button size={"icon"}>
-												<Save className='h-6 w-6' />
-											</Button>
-										</TooltipWrapper>
-										<FullscreenToggle />
-									</div>
-								</SectionHeader>
-								<SectionContent>
-									<ResourceForm
-										comments={comments}
-										footer={footer}
-										resource={resource}
-									/>
-								</SectionContent>
-							</Section>
-						</Form>
-					</FormProvider>
+					<Section>
+						<SectionHeader>
+							<div className='flex items-center gap-x-2'>
+								<BackButton
+									asIcon={true}
+									href={route("backend.resources.index", {
+										slug: resource.slug,
+									})}
+									isDirty={form.formState.isDirty}
+								/>
+								<SectionTitle>{resource.form.title + trans(":")}</SectionTitle>
+							</div>
+							<div className='flex items-center gap-x-2'>
+								{resource.form.nodes.some((x) => x.node_type === "trans") ? (
+									<LanguageDropdown languages={languages} />
+								) : null}
+								<TooltipWrapper tooltip={trans("Update")}>
+									<Button size={"icon"}>
+										<Save className='h-6 w-6' />
+									</Button>
+								</TooltipWrapper>
+								<FullscreenToggle />
+							</div>
+						</SectionHeader>
+						<SectionContent>
+							<ResourceForm
+								comments={comments}
+								footer={footer}
+								form={form}
+								method='patch'
+								resource={resource}
+								route={route("backend.resources.update", {
+									id: resource.data.id,
+									slug: resource.slug,
+								})}
+							/>
+						</SectionContent>
+					</Section>
 				</LanguageProvider>
 			</Fullscreen>
 		</>

@@ -32,6 +32,10 @@ class ModelComment extends Model
     {
         $this->table = self::TABLE;
 
+        $this->guarded = [
+            self::ID,
+        ];
+
         $this->with = [
             self::RELATIONSHIP_AUTHOR,
         ];
