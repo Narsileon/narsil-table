@@ -4,6 +4,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import * as React from "react";
 import TableCell from "@narsil-ui/Components/Table/TableCell";
 import TableCellRenderer from "@narsil-tables/Components/Table/TableCellRenderer";
+import { cn } from "@narsil-ui/Components";
 
 export interface DataTableCellProps {
 	cell: Cell<any, any>;
@@ -40,7 +41,10 @@ const DataTableCell = ({ cell, groupingCounts }: DataTableCellProps) => {
 	return (
 		<TableCell
 			ref={setNodeRef}
-			className={isMenu ? "bg-background rounded-md px-1" : isSelect ? "px-1" : "truncate"}
+			className={cn(
+				"[&:has([role=checkbox])]:pl-2",
+				isMenu ? "bg-background rounded-md px-1" : isSelect ? "px-1" : "truncate"
+			)}
 			style={style}
 		>
 			<TableCellRenderer
