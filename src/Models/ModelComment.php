@@ -4,13 +4,16 @@ namespace Narsil\Tables\Models;
 
 #region USE
 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Narsil\Auth\Models\User;
+use Narsil\Tables\Observers\ModelCommentObserver;
 
 #endregion
 
+#[ObservedBy([ModelCommentObserver::class])]
 /**
  * @version 1.0.0
  *
@@ -31,7 +34,6 @@ class ModelComment extends Model
 
         $this->with = [
             self::RELATIONSHIP_AUTHOR,
-            self::RELATIONSHIP_LAST_EDITOR,
         ];
 
         parent::__construct($attributes);
@@ -56,10 +58,6 @@ class ModelComment extends Model
     /**
      * @var string
      */
-    final public const LAST_EDITOR_ID = 'last_editor_id';
-    /**
-     * @var string
-     */
     final public const MODEL_ID = 'model_id';
     /**
      * @var string
@@ -74,10 +72,6 @@ class ModelComment extends Model
      * @var string
      */
     final public const RELATIONSHIP_MODEL = 'model';
-    /**
-     * @var string
-     */
-    final public const RELATIONSHIP_LAST_EDITOR = 'last_editor';
 
     /**
      * @var string
@@ -96,18 +90,6 @@ class ModelComment extends Model
         return $this->belongsTo(
             User::class,
             self::AUTHOR_ID,
-            User::ID
-        );
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    final public function last_editor(): BelongsTo
-    {
-        return $this->belongsTo(
-            User::class,
-            self::LAST_EDITOR_ID,
             User::ID
         );
     }

@@ -57,11 +57,6 @@ return new class extends Migration
                 ->constrained(User::TABLE, User::ID)
                 ->cascadeOnDelete();
             $table
-                ->foreignId(ModelComment::LAST_EDITOR_ID)
-                ->nullable()
-                ->constrained(User::TABLE, User::ID)
-                ->nullOnDelete();
-            $table
                 ->timestamps();
         });
     }

@@ -1,8 +1,17 @@
 import { DataTableCollection, ModelCommentModel } from "@narsil-tables/Types";
 import { Plus } from "lucide-react";
+import { useForm } from "react-hook-form";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
-import * as React from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "@narsil-ui/Components/Button/Button";
+import Form from "@narsil-forms/Components/Form/Form";
+import FormControl from "@narsil-forms/Components/Form/FormControl";
+import FormDescription from "@narsil-forms/Components/Form/FormDescription";
+import FormField from "@narsil-forms/Components/Form/FormField";
+import FormItem from "@narsil-forms/Components/Form/FormItem";
+import FormMessage from "@narsil-forms/Components/Form/FormMessage";
+import FormProvider from "@narsil-forms/Components/Form/FormProvider";
 import Fullscreen from "@narsil-ui/Components/Fullscreen/Fullscreen";
 import FullscreenToggle from "@narsil-ui/Components/Fullscreen/FullscreenToggle";
 import Section from "@narsil-ui/Components/Section/Section";
@@ -14,12 +23,27 @@ import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
 
 interface ResourceFormCommentsProps {
 	comments: DataTableCollection<ModelCommentModel>;
+	modelType: string;
+	modelId: number;
 }
 
-const ResourceFormComments = ({ comments }: ResourceFormCommentsProps) => {
+const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormCommentsProps) => {
 	const { trans } = useTranslationsStore();
 
-	const [comment, setComment] = React.useState<string>("");
+	const formSchema = z.object({
+		content: z.string().min(1),
+		model_id: z.number(),
+		model_type: z.string(),
+	});
+
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			content: "",
+			model_id: modelId,
+			model_type: modelType,
+		},
+	});
 
 	return (
 		<Fullscreen>
@@ -38,11 +62,31 @@ const ResourceFormComments = ({ comments }: ResourceFormCommentsProps) => {
 				</SectionHeader>
 
 				<SectionContent>
-					<TextBox
-						placeholder={trans("Enter a comment...")}
-						value={comment}
-						onChange={(value) => setComment(value)}
-					/>
+					<FormProvider {...form}>
+						<Form
+							method='post'
+							route={route("backend.resources.post", {
+								slug: "model-comments",
+							})}
+						>
+							<FormField
+								control={form.control}
+								name={"content"}
+								render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<TextBox
+												{...field}
+												placeholder={trans("Enter a comment...")}
+											/>
+										</FormControl>
+										<FormDescription />
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</Form>
+					</FormProvider>
 				</SectionContent>
 			</Section>
 		</Fullscreen>
