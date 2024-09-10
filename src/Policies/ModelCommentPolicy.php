@@ -26,6 +26,7 @@ final class ModelCommentPolicy extends AbstractPolicy
         parent::__construct(
             ModelComment::class,
             canCreate: false,
+            canUpdate: false,
         );
     }
 

@@ -15,6 +15,7 @@
 			"@narsil-auth/*": ["./vendor/narsil/auth/resources/js/*"],
 			"@narsil-forms/*": ["./vendor/narsil/forms/resources/js/*"],
 			"@narsil-localization/*": ["./vendor/narsil/localization/resources/js/*"],
+			"@narsil-policies/*": ["./vendor/narsil/policies/resources/js/*"],
 			"@narsil-tables/*": ["./resources/js/*"],
 			"@narsil-ui/*": ["./vendor/narsil/ui/resources/js/*"]
 		},

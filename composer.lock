@@ -2297,12 +2297,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-localization.git",
-                "reference": "b707c42ef8603fa79bf46cccbd3e6091c339c479"
+                "reference": "f397fdcc07fc4b68050138cc94e2a25307fd3380"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-localization/zipball/b707c42ef8603fa79bf46cccbd3e6091c339c479",
-                "reference": "b707c42ef8603fa79bf46cccbd3e6091c339c479",
+                "url": "https://api.github.com/repos/Narsileon/narsil-localization/zipball/f397fdcc07fc4b68050138cc94e2a25307fd3380",
+                "reference": "f397fdcc07fc4b68050138cc94e2a25307fd3380",
                 "shasum": ""
             },
             "require": {
@@ -2352,7 +2352,7 @@
                 "source": "https://github.com/Narsileon/narsil-localization/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-localization/issues"
             },
-            "time": "2024-09-09T08:24:53+00:00"
+            "time": "2024-09-10T08:03:19+00:00"
         },
         {
             "name": "narsil/menus",
@@ -2423,12 +2423,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-policies.git",
-                "reference": "6e1da213f793daa51ad835a8e4328aafb01d9b4f"
+                "reference": "f77a7c04dd2f2bae37c8dc6289bdd3a171434524"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-policies/zipball/6e1da213f793daa51ad835a8e4328aafb01d9b4f",
-                "reference": "6e1da213f793daa51ad835a8e4328aafb01d9b4f",
+                "url": "https://api.github.com/repos/Narsileon/narsil-policies/zipball/f77a7c04dd2f2bae37c8dc6289bdd3a171434524",
+                "reference": "f77a7c04dd2f2bae37c8dc6289bdd3a171434524",
                 "shasum": ""
             },
             "require": {
@@ -2476,7 +2476,7 @@
                 "source": "https://github.com/Narsileon/narsil-policies/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-policies/issues"
             },
-            "time": "2024-09-09T08:28:19+00:00"
+            "time": "2024-09-10T08:43:37+00:00"
         },
         {
             "name": "narsil/settings",

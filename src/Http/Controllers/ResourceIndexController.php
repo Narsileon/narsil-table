@@ -6,6 +6,7 @@ namespace Narsil\Tables\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 use Narsil\Tables\Constants\TablesConfig;
@@ -47,7 +48,10 @@ final class ResourceIndexController extends Controller
 
         $collection = (new $collectionClass($resource, $table));
 
+        $abilities = Gate::getPolicyFor($model)->getAbilities();
+
         return Inertia::render('narsil/tables::Resources/Index', compact(
+            'abilities',
             'collection',
         ));
     }

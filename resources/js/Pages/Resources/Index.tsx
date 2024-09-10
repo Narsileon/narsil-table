@@ -28,17 +28,19 @@ import SectionFooter from "@narsil-ui/Components/Section/SectionFooter";
 import SectionHeader from "@narsil-ui/Components/Section/SectionHeader";
 import SectionTitle from "@narsil-ui/Components/Section/SectionTitle";
 import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
+import type { AbilitiesType } from "@narsil-policies/Types";
 import useDataTable from "@narsil-tables/Components/DataTable/useDataTable";
 
 interface Props {
+	abilities: AbilitiesType;
 	collection: DataTableCollection<any>;
 }
 
-const Index = ({ collection }: Props) => {
+const Index = ({ abilities, collection }: Props) => {
 	const { trans } = useTranslationsStore();
 
-	const createLabel = trans("Create");
-	const deleteLabel = trans("Delete");
+	const createLabel = abilities.create ? trans("Create") : "";
+	const deleteLabel = abilities.delete ? trans("Delete") : "";
 
 	function getActions(id: number) {
 		return [
@@ -119,63 +121,67 @@ const Index = ({ collection }: Props) => {
 							/>
 							<div className='order-2 flex items-center gap-2 place-self-end sm:order-3'>
 								<DataTableSelectedActions>
-									<AlertDialog>
-										<TooltipWrapper tooltip={deleteLabel}>
-											<AlertDialogTrigger asChild={true}>
-												<Button
-													aria-label={deleteLabel}
-													size='icon'
-												>
-													<Trash2 className='h-6 w-6' />
-												</Button>
-											</AlertDialogTrigger>
-										</TooltipWrapper>
-										<AlertDialogContent>
-											<AlertDialogHeader>
-												<AlertDialogTitle>
-													{trans("Are you sure you want to perform this action?")}
-												</AlertDialogTitle>
-												<AlertDialogDescription>
-													{trans("This action cannot be undone.")}
-												</AlertDialogDescription>
-											</AlertDialogHeader>
-											<AlertDialogFooter>
-												<AlertDialogCancel>{trans("Cancel")}</AlertDialogCancel>
-												<AlertDialogAction asChild={true}>
-													<Link
-														as='button'
-														data={{
-															deleted: Object.keys(tableStore.rowSelection),
-														}}
-														href={route("backend.resources.delete", {
-															slug: collection.slug,
-														})}
-														method='delete'
+									{abilities.delete ? (
+										<AlertDialog>
+											<TooltipWrapper tooltip={deleteLabel}>
+												<AlertDialogTrigger asChild={true}>
+													<Button
+														aria-label={deleteLabel}
+														size='icon'
 													>
-														{trans("Continue")}
-													</Link>
-												</AlertDialogAction>
-											</AlertDialogFooter>
-										</AlertDialogContent>
-									</AlertDialog>
+														<Trash2 className='h-6 w-6' />
+													</Button>
+												</AlertDialogTrigger>
+											</TooltipWrapper>
+											<AlertDialogContent>
+												<AlertDialogHeader>
+													<AlertDialogTitle>
+														{trans("Are you sure you want to perform this action?")}
+													</AlertDialogTitle>
+													<AlertDialogDescription>
+														{trans("This action cannot be undone.")}
+													</AlertDialogDescription>
+												</AlertDialogHeader>
+												<AlertDialogFooter>
+													<AlertDialogCancel>{trans("Cancel")}</AlertDialogCancel>
+													<AlertDialogAction asChild={true}>
+														<Link
+															as='button'
+															data={{
+																deleted: Object.keys(tableStore.rowSelection),
+															}}
+															href={route("backend.resources.delete", {
+																slug: collection.slug,
+															})}
+															method='delete'
+														>
+															{trans("Continue")}
+														</Link>
+													</AlertDialogAction>
+												</AlertDialogFooter>
+											</AlertDialogContent>
+										</AlertDialog>
+									) : null}
 								</DataTableSelectedActions>
 								<DataTableUnselectedActions>
-									<TooltipWrapper tooltip={createLabel}>
-										<Button
-											asChild={true}
-											size='icon'
-										>
-											<Link
-												aria-label={createLabel}
-												as='button'
-												href={route("backend.resources.create", {
-													slug: collection.slug,
-												})}
+									{abilities.create ? (
+										<TooltipWrapper tooltip={createLabel}>
+											<Button
+												asChild={true}
+												size='icon'
 											>
-												<Plus className='h-6 w-6' />
-											</Link>
-										</Button>
-									</TooltipWrapper>
+												<Link
+													aria-label={createLabel}
+													as='button'
+													href={route("backend.resources.create", {
+														slug: collection.slug,
+													})}
+												>
+													<Plus className='h-6 w-6' />
+												</Link>
+											</Button>
+										</TooltipWrapper>
+									) : null}
 								</DataTableUnselectedActions>
 
 								<FullscreenToggle />
