@@ -74,7 +74,7 @@ abstract class Controller
     {
         $policy = Gate::getPolicyFor($model);
 
-        if ($policy && is_subclass_of($model, AbstractPolicy::class))
+        if ($policy && is_subclass_of($policy, AbstractPolicy::class))
         {
             if (!$policy->hasAbility($ability))
             {
