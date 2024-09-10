@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Inertia\Inertia;
 use Inertia\Response;
+use Narsil\Policies\Policies\AbstractPolicy;
 use Narsil\Tables\Constants\TablesConfig;
 use Narsil\Tables\Http\Resources\ShowTableResource;
 
@@ -35,7 +36,8 @@ final class ResourceShowController extends Controller
         $table = $this->getTableFromSlug($slug);
         $model = $this->getModelFromTable($table);
 
-        $this->authorize('view', $model);
+        $this->isAuthorizable(AbstractPolicy::VIEW, $model);
+        $this->authorize(AbstractPolicy::VIEW, $model);
 
         $instance = $model::find($id);
 

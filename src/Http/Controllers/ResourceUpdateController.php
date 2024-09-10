@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Narsil\Forms\Http\Requests\DynamicFormRequest;
 use Narsil\Localization\Support\NarsilValidator;
+use Narsil\Policies\Policies\AbstractPolicy;
 
 #endregion
 
@@ -32,7 +33,7 @@ final class ResourceUpdateController extends Controller
         $table = $this->getTableFromSlug($slug);
         $model = $this->getModelFromTable($table);
 
-        $this->authorize('update', $model);
+        $this->authorize(AbstractPolicy::UPDATE, $model);
 
         $resource = $model::find($id);
 

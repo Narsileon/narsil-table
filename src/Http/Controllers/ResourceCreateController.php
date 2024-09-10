@@ -11,6 +11,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Narsil\Forms\Constants\FormsConfig;
 use Narsil\Forms\Http\Resources\FormResource;
+use Narsil\Policies\Policies\AbstractPolicy;
 
 #endregion
 
@@ -34,7 +35,8 @@ final class ResourceCreateController extends Controller
         $table = $this->getTableFromSlug($slug);
         $model = $this->getModelFromTable($table);
 
-        $this->authorize('create', $model);
+        $this->isAuthorizable(AbstractPolicy::CREATE, $model);
+        $this->authorize(AbstractPolicy::CREATE, $model);
 
         $formClass = $this->getFormClass($model);
 

@@ -6,6 +6,7 @@ namespace Narsil\Tables\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Narsil\Policies\Policies\AbstractPolicy;
 
 #endregion
 
@@ -30,7 +31,7 @@ final class ResourceDestroyController extends Controller
         $table = $this->getTableFromSlug($slug);
         $model = $this->getModelFromTable($table);
 
-        $this->authorize('delete', $model);
+        $this->authorize(AbstractPolicy::DELETE, $model);
 
         $resource = $model::find($id);
 

@@ -11,6 +11,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Narsil\Forms\Constants\FormsConfig;
 use Narsil\Forms\Http\Resources\FormResource;
+use Narsil\Policies\Policies\AbstractPolicy;
 use Narsil\Tables\Http\Resources\ModelCommentCollection;
 use Narsil\Tables\Models\ModelComment;
 
@@ -37,7 +38,8 @@ final class ResourceEditController extends Controller
         $table = $this->getTableFromSlug($slug);
         $model = $this->getModelFromTable($table);
 
-        $this->authorize('update', $model);
+        $this->isAuthorizable(AbstractPolicy::UPDATE, $model);
+        $this->authorize(AbstractPolicy::UPDATE, $model);
 
         $instance = $model::find($id);
 

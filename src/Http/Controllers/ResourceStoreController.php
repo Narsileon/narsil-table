@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Narsil\Forms\Http\Requests\DynamicFormRequest;
 use Narsil\Localization\Support\NarsilValidator;
+use Narsil\Policies\Policies\AbstractPolicy;
 
 #endregion
 
@@ -31,7 +32,7 @@ final class ResourceStoreController extends Controller
         $table = $this->getTableFromSlug($slug);
         $model = $this->getModelFromTable($table);
 
-        $this->authorize('create', $model);
+        $this->authorize(AbstractPolicy::CREATE, $model);
 
         $formRequest = new DynamicFormRequest($table, true);
 

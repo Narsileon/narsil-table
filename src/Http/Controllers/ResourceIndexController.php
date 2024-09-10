@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
+use Narsil\Policies\Policies\AbstractPolicy;
 use Narsil\Tables\Constants\TablesConfig;
 use Narsil\Tables\Filters\SearchFilter;
 use Narsil\Tables\Http\Controllers\Controller;
@@ -36,7 +37,8 @@ final class ResourceIndexController extends Controller
         $table = $this->getTableFromSlug($slug);
         $model = $this->getModelFromTable($table);
 
-        $this->authorize('view', $model);
+        $this->isAuthorizable(AbstractPolicy::VIEW, $model);
+        $this->authorize(AbstractPolicy::VIEW, $model);
 
         $query = $model::query();
 
