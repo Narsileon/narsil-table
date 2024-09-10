@@ -7,13 +7,12 @@ import Button from "@narsil-ui/Components/Button/Button";
 import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
 import type { ButtonProps } from "@narsil-ui/Components/Button/Button";
 
-export interface DataTableRowExtandButton extends ButtonProps {
+export interface DataTableRowExtandButtonProps extends ButtonProps {
 	row: Row<any>;
-	iconClassName?: string;
 }
 
 const DataTableRowExtandButton = React.forwardRef<HTMLButtonElement, DataTableRowExtandButtonProps>(
-	({ row, iconClassName, ...props }, ref) => {
+	({ row, ...props }, ref) => {
 		const { trans } = useTranslationsStore();
 
 		const expandRowLabel = trans("Expand row");
@@ -39,7 +38,7 @@ const DataTableRowExtandButton = React.forwardRef<HTMLButtonElement, DataTableRo
 					{...props}
 				>
 					<ChevronDown
-						className={cn("h-4 w-4 transition duration-200", {
+						className={cn("h-5 w-5 transition duration-200", {
 							"rotate-180": isExpanded,
 						})}
 					/>

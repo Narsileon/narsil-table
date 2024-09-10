@@ -1,5 +1,4 @@
 import { Cell, flexRender } from "@tanstack/react-table";
-import { cn } from "@narsil-ui/Components";
 import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
 import * as React from "react";
@@ -41,7 +40,7 @@ const DataTableCell = ({ cell, groupingCounts }: DataTableCellProps) => {
 	return (
 		<TableCell
 			ref={setNodeRef}
-			className={cn("truncate", { "bg-background rounded-md px-1": isMenu }, { "pl-2": isSelect })}
+			className={isMenu ? "bg-background rounded-md px-1" : isSelect ? "pl-2" : "truncate"}
 			style={style}
 		>
 			<TableCellRenderer
