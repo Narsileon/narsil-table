@@ -1,3 +1,4 @@
+import { cn } from "@narsil-ui/Components";
 import { EllipsisVertical } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { useDatetimeLocale } from "@narsil-ui/Components/Input/Datetime/datetimeUtils";
@@ -72,7 +73,7 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 				</SectionHeader>
 
 				<SectionContent>
-					<div className='flex items-start gap-x-4'>
+					<div className='group flex items-start gap-x-4'>
 						<Avatar>
 							<AvatarFallback className='text-primary bg-white'>
 								{shared.auth.first_name.charAt(0)}
@@ -106,39 +107,51 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 							</Form>
 						</FormProvider>
 					</div>
-					{comments.data.map((comment) => (
-						<div
-							className='flex items-start gap-x-4'
-							key={comment.id}
-						>
-							<Avatar>
-								<AvatarFallback className='text-primary bg-white'>
-									{comment.author.first_name.charAt(0)}
-									{comment.author.last_name.charAt(0)}
-								</AvatarFallback>
-							</Avatar>
-							<div>
-								<div className='flex items-center gap-x-1'>
-									<small>{comment.author.full_name}</small>
-									<small className='text-muted-foreground'>
-										{formatDistanceToNow(comment.updated_at, {
-											addSuffix: true,
-											locale: datetimeLocale,
-										})}
-									</small>
+					{comments.data.map((comment) => {
+						const isAuth = comment.author_id === shared.auth.id;
+
+						return (
+							<div
+								className='flex items-start gap-x-4'
+								key={comment.id}
+							>
+								<Avatar>
+									<AvatarFallback className='text-primary bg-white'>
+										{comment.author.first_name.charAt(0)}
+										{comment.author.last_name.charAt(0)}
+									</AvatarFallback>
+								</Avatar>
+								<div className='grow'>
+									<div className='flex items-center gap-x-1'>
+										<small>{comment.author.full_name}</small>
+										<small className='text-muted-foreground'>
+											{formatDistanceToNow(comment.updated_at, {
+												addSuffix: true,
+												locale: datetimeLocale,
+											})}
+										</small>
+									</div>
+									<div className='prose text-foreground max-w-none'>{parse(comment.content)}</div>
 								</div>
-								<div className='prose text-foreground max-w-none'>{parse(comment.content)}</div>
-							</div>
-							{comment.author_id === shared.auth.id ? (
 								<DropdownMenu>
 									<DropdownMenuTrigger asChild={true}>
-										<Button aria-label={trans("Menu")}>
+										<Button
+											className={cn({ "!opacity-0": !isAuth })}
+											aria-label={trans("Menu")}
+											disabled={!isAuth}
+											size='icon'
+											variant='ghost'
+										>
 											<EllipsisVertical className='h-6 w-6' />
 										</Button>
 									</DropdownMenuTrigger>
 									<DropdownMenuContent>
 										<DropdownMenuItem asChild={true}>
 											<Link
+												method='delete'
+												data={{
+													_back: true,
+												}}
 												href={route("backend.resources.destroy", {
 													id: comment.id,
 													slug: comments.slug,
@@ -149,9 +162,9 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 										</DropdownMenuItem>
 									</DropdownMenuContent>
 								</DropdownMenu>
-							) : null}
-						</div>
-					))}
+							</div>
+						);
+					})}
 				</SectionContent>
 			</Section>
 		</Fullscreen>

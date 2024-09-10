@@ -36,6 +36,12 @@ final class ResourceDestroyController extends Controller
 
         $resource?->delete();
 
+        if ($request->_back)
+        {
+            return back()
+                ->with('success', 'messages.item_deleted');
+        }
+
         return redirect(route('backend.resources.index', $slug))
             ->with('success', 'messages.item_deleted');
     }
