@@ -86,6 +86,11 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 								route={route("backend.resources.store", {
 									slug: "model-comments",
 								})}
+								submitParameters={{
+									onSuccess: () => {
+										form.resetField("content");
+									},
+								}}
 							>
 								<FormField
 									control={form.control}
