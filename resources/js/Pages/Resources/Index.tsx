@@ -43,7 +43,7 @@ const Index = ({ abilities, collection }: Props) => {
 	const deleteLabel = abilities.delete ? trans("Delete") : "";
 
 	function getActions(id: number) {
-		return [
+		const actions = [
 			{
 				options: [
 					{
@@ -56,7 +56,10 @@ const Index = ({ abilities, collection }: Props) => {
 					},
 				],
 			},
-			{
+		];
+
+		if (abilities.update) {
+			actions.push({
 				options: [
 					{
 						label: trans("Edit"),
@@ -67,8 +70,11 @@ const Index = ({ abilities, collection }: Props) => {
 						method: "get",
 					},
 				],
-			},
-			{
+			});
+		}
+
+		if (abilities.delete) {
+			actions.push({
 				options: [
 					{
 						label: trans("Delete"),
@@ -79,8 +85,10 @@ const Index = ({ abilities, collection }: Props) => {
 						method: "delete",
 					},
 				],
-			},
-		];
+			});
+		}
+
+		return actions;
 	}
 
 	const { table, tableStore } = useDataTable({
