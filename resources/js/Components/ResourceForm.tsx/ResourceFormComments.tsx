@@ -1,10 +1,8 @@
 import { DataTableCollection, ModelCommentModel } from "@narsil-tables/Types";
-import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Button from "@narsil-ui/Components/Button/Button";
 import Form from "@narsil-forms/Components/Form/Form";
 import FormControl from "@narsil-forms/Components/Form/FormControl";
 import FormDescription from "@narsil-forms/Components/Form/FormDescription";
@@ -19,7 +17,6 @@ import SectionContent from "@narsil-ui/Components/Section/SectionContent";
 import SectionHeader from "@narsil-ui/Components/Section/SectionHeader";
 import SectionTitle from "@narsil-ui/Components/Section/SectionTitle";
 import TextBox from "@narsil-forms/Components/TextBox/TextBox";
-import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
 
 interface ResourceFormCommentsProps {
 	comments: DataTableCollection<ModelCommentModel>;
@@ -50,22 +47,14 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 			<Section className='flex min-h-full w-full flex-col overflow-hidden p-0'>
 				<SectionHeader>
 					<SectionTitle>{trans("Comments") + trans(":")}</SectionTitle>
-					<div className='flex items-center gap-2'>
-						<TooltipWrapper tooltip={trans("Create")}>
-							<Button size='icon'>
-								<Plus className='h-6 w-6' />
-								<span className='sr-only'>{trans("Create")}</span>
-							</Button>
-						</TooltipWrapper>
-						<FullscreenToggle />
-					</div>
+					<FullscreenToggle />
 				</SectionHeader>
 
 				<SectionContent>
 					<FormProvider {...form}>
 						<Form
 							method='post'
-							route={route("backend.resources.post", {
+							route={route("backend.resources.store", {
 								slug: "model-comments",
 							})}
 						>
