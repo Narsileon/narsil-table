@@ -26,7 +26,6 @@ const DataTableRowExtandButton = React.forwardRef<HTMLButtonElement, DataTableRo
 			>
 				<Button
 					ref={ref}
-					className='h-8 min-h-8 w-8 min-w-8'
 					aria-label={expandRowLabel}
 					size='icon'
 					variant='ghost'

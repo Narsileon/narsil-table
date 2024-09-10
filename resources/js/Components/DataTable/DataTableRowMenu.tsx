@@ -98,7 +98,7 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 								size='icon'
 								variant='ghost'
 							>
-								<Ellipsis className='h-6 w-6' />
+								<Ellipsis className='h-5 w-5' />
 							</Button>
 						</DropdownMenuTrigger>
 					</TooltipWrapper>

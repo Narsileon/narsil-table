@@ -40,7 +40,7 @@ const DataTableCell = ({ cell, groupingCounts }: DataTableCellProps) => {
 	return (
 		<TableCell
 			ref={setNodeRef}
-			className={isMenu ? "bg-background rounded-md px-1" : isSelect ? "pl-2" : "truncate"}
+			className={isMenu ? "bg-background rounded-md px-1" : isSelect ? "px-1" : "truncate"}
 			style={style}
 		>
 			<TableCellRenderer
