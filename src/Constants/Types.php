@@ -58,6 +58,10 @@ abstract class Types
     /**
      * @var string
      */
+    final public const HASHED = 'hashed';
+    /**
+     * @var string
+     */
     final public const ICON = 'icon';
     /**
      * @var string

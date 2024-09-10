@@ -6,10 +6,9 @@ namespace Narsil\Tables\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Support\Collection;
 use JsonSerializable;
+use Narsil\Auth\Models\User;
 use Narsil\Tables\Models\ModelComment;
-use Narsil\Tables\Services\TableService;
 
 #endregion
 
@@ -31,34 +30,19 @@ class ModelCommentCollection extends ResourceCollection
     {
         return $this->collection->map(function ($item)
         {
+            $attributes = $item->toArray();
+
+            $attributes[ModelComment::RELATIONSHIP_AUTHOR] = [
+                User::AVATAR => $item->{ModelComment::RELATIONSHIP_AUTHOR}->{User::AVATAR},
+                User::FULL_NAME => $item->{ModelComment::RELATIONSHIP_AUTHOR}->{User::FULL_NAME},
+            ];
+
+            $attributes[ModelComment::AUTHOR_ID] = null;
+
+            return array_filter($attributes);
+
             return $item->toArray();
         });
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return array
-     */
-    public function with($request): array
-    {
-        $columns = $this->getColumns()->map->get()->values();
-
-        return compact(
-            'columns',
-        );
-    }
-
-    #endregion
-
-    #region PRIVATE METHODS
-
-    /**
-     * @return Collection<ModelColumn>
-     */
-    protected function getColumns(): Collection
-    {
-        return TableService::getModelColumns(ModelComment::TABLE);
     }
 
     #endregion

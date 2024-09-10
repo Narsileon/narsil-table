@@ -1,4 +1,3 @@
-import { DataTableCollection, ModelCommentModel } from "@narsil-tables/Types";
 import { useForm } from "react-hook-form";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import { z } from "zod";
@@ -17,9 +16,11 @@ import SectionContent from "@narsil-ui/Components/Section/SectionContent";
 import SectionHeader from "@narsil-ui/Components/Section/SectionHeader";
 import SectionTitle from "@narsil-ui/Components/Section/SectionTitle";
 import TextBox from "@narsil-forms/Components/TextBox/TextBox";
+import type { Collection } from "@narsil-ui/Types";
+import type { ModelCommentModel } from "@narsil-tables/Types";
 
 interface ResourceFormCommentsProps {
-	comments: DataTableCollection<ModelCommentModel>;
+	comments: Collection<ModelCommentModel>;
 	modelType: string;
 	modelId: number;
 }
@@ -78,6 +79,9 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 							/>
 						</Form>
 					</FormProvider>
+					{comments.data.map((comment) => (
+						<>*</>
+					))}
 				</SectionContent>
 			</Section>
 		</Fullscreen>
