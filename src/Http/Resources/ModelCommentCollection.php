@@ -6,6 +6,7 @@ namespace Narsil\Tables\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Str;
 use JsonSerializable;
 use Narsil\Auth\Models\User;
 use Narsil\Tables\Models\ModelComment;
@@ -43,6 +44,20 @@ class ModelCommentCollection extends ResourceCollection
 
             return array_filter($attributes);
         });
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function with($request): array
+    {
+        $slug = Str::slug(ModelComment::TABLE);
+
+        return compact(
+            'slug',
+        );
     }
 
     #endregion
