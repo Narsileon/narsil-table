@@ -1,12 +1,21 @@
 import { cn } from "@narsil-ui/Components";
 import { EllipsisVertical } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import { Link, usePage } from "@inertiajs/react";
 import { useDatetimeLocale } from "@narsil-ui/Components/Input/Datetime/datetimeUtils";
 import { useForm } from "react-hook-form";
-import { Link, usePage } from "@inertiajs/react";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import AlertDialog from "@narsil-ui/Components/AlertDialog/AlertDialog";
+import AlertDialogAction from "@narsil-ui/Components/AlertDialog/AlertDialogAction";
+import AlertDialogCancel from "@narsil-ui/Components/AlertDialog/AlertDialogCancel";
+import AlertDialogContent from "@narsil-ui/Components/AlertDialog/AlertDialogContent";
+import AlertDialogDescription from "@narsil-ui/Components/AlertDialog/AlertDialogDescription";
+import AlertDialogFooter from "@narsil-ui/Components/AlertDialog/AlertDialogFooter";
+import AlertDialogHeader from "@narsil-ui/Components/AlertDialog/AlertDialogHeader";
+import AlertDialogTitle from "@narsil-ui/Components/AlertDialog/AlertDialogTitle";
+import AlertDialogTrigger from "@narsil-ui/Components/AlertDialog/AlertDialogTrigger";
 import Avatar from "@narsil-ui/Components/Avatar/Avatar";
 import AvatarFallback from "@narsil-ui/Components/Avatar/AvatarFallback";
 import Button from "@narsil-ui/Components/Button/Button";
@@ -138,35 +147,55 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 									</div>
 									<div className='prose text-foreground max-w-none'>{parse(comment.content)}</div>
 								</div>
-								<DropdownMenu>
-									<DropdownMenuTrigger asChild={true}>
-										<Button
-											className={cn({ "!opacity-0": !isAuth })}
-											aria-label={trans("Menu")}
-											disabled={!isAuth}
-											size='icon'
-											variant='ghost'
-										>
-											<EllipsisVertical className='h-6 w-6' />
-										</Button>
-									</DropdownMenuTrigger>
-									<DropdownMenuContent>
-										<DropdownMenuItem asChild={true}>
-											<Link
-												method='delete'
-												data={{
-													_back: true,
-												}}
-												href={route("backend.resources.destroy", {
-													id: comment.id,
-													slug: comments.slug,
-												})}
+
+								<AlertDialog>
+									<DropdownMenu>
+										<DropdownMenuTrigger asChild={true}>
+											<Button
+												className={cn({ "!opacity-0": !isAuth })}
+												aria-label={trans("Menu")}
+												disabled={!isAuth}
+												size='icon'
+												variant='ghost'
 											>
-												{trans("Delete")}
-											</Link>
-										</DropdownMenuItem>
-									</DropdownMenuContent>
-								</DropdownMenu>
+												<EllipsisVertical className='h-6 w-6' />
+											</Button>
+										</DropdownMenuTrigger>
+										<DropdownMenuContent>
+											<AlertDialogTrigger asChild={true}>
+												<DropdownMenuItem>{trans("Delete")}</DropdownMenuItem>
+											</AlertDialogTrigger>
+										</DropdownMenuContent>
+									</DropdownMenu>
+									<AlertDialogContent>
+										<AlertDialogHeader>
+											<AlertDialogTitle>
+												{trans("Are you sure you want to perform this action?")}
+											</AlertDialogTitle>
+											<AlertDialogDescription>
+												{trans("This action cannot be undone.")}
+											</AlertDialogDescription>
+										</AlertDialogHeader>
+										<AlertDialogFooter>
+											<AlertDialogCancel>{trans("Cancel")}</AlertDialogCancel>
+											<AlertDialogAction asChild={true}>
+												<Link
+													as='button'
+													method='delete'
+													data={{
+														_back: true,
+													}}
+													href={route("backend.resources.destroy", {
+														id: comment.id,
+														slug: comments.slug,
+													})}
+												>
+													{trans("Continue")}
+												</Link>
+											</AlertDialogAction>
+										</AlertDialogFooter>
+									</AlertDialogContent>
+								</AlertDialog>
 							</div>
 						);
 					})}

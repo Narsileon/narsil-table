@@ -2,6 +2,15 @@ import { DataTableCollection } from "@narsil-tables/Types";
 import { Link } from "@inertiajs/react";
 import { Plus, Trash2 } from "lucide-react";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
+import AlertDialog from "@narsil-ui/Components/AlertDialog/AlertDialog";
+import AlertDialogAction from "@narsil-ui/Components/AlertDialog/AlertDialogAction";
+import AlertDialogCancel from "@narsil-ui/Components/AlertDialog/AlertDialogCancel";
+import AlertDialogContent from "@narsil-ui/Components/AlertDialog/AlertDialogContent";
+import AlertDialogDescription from "@narsil-ui/Components/AlertDialog/AlertDialogDescription";
+import AlertDialogFooter from "@narsil-ui/Components/AlertDialog/AlertDialogFooter";
+import AlertDialogHeader from "@narsil-ui/Components/AlertDialog/AlertDialogHeader";
+import AlertDialogTitle from "@narsil-ui/Components/AlertDialog/AlertDialogTitle";
+import AlertDialogTrigger from "@narsil-ui/Components/AlertDialog/AlertDialogTrigger";
 import AppHead from "@narsil-ui/Components/App/AppHead";
 import Button from "@narsil-ui/Components/Button/Button";
 import DataTable from "@narsil-tables/Components/DataTable/DataTable";
@@ -27,6 +36,9 @@ interface Props {
 
 const Index = ({ collection }: Props) => {
 	const { trans } = useTranslationsStore();
+
+	const createLabel = trans("Create");
+	const deleteLabel = trans("Delete");
 
 	function getActions(id: number) {
 		return [
@@ -107,41 +119,60 @@ const Index = ({ collection }: Props) => {
 							/>
 							<div className='order-2 flex items-center gap-2 place-self-end sm:order-3'>
 								<DataTableSelectedActions>
-									<TooltipWrapper tooltip={trans("Delete")}>
-										<Button
-											asChild={true}
-											size='icon'
-										>
-											<Link
-												as='button'
-												data={{
-													deleted: Object.keys(tableStore.rowSelection),
-												}}
-												href={route("backend.resources.delete", {
-													slug: collection.slug,
-												})}
-												method='delete'
-											>
-												<Trash2 className='h-6 w-6' />
-												<span className='sr-only'>{trans("Delete")}</span>
-											</Link>
-										</Button>
-									</TooltipWrapper>
+									<AlertDialog>
+										<TooltipWrapper tooltip={deleteLabel}>
+											<AlertDialogTrigger asChild={true}>
+												<Button
+													aria-label={deleteLabel}
+													size='icon'
+												>
+													<Trash2 className='h-6 w-6' />
+												</Button>
+											</AlertDialogTrigger>
+										</TooltipWrapper>
+										<AlertDialogContent>
+											<AlertDialogHeader>
+												<AlertDialogTitle>
+													{trans("Are you sure you want to perform this action?")}
+												</AlertDialogTitle>
+												<AlertDialogDescription>
+													{trans("This action cannot be undone.")}
+												</AlertDialogDescription>
+											</AlertDialogHeader>
+											<AlertDialogFooter>
+												<AlertDialogCancel>{trans("Cancel")}</AlertDialogCancel>
+												<AlertDialogAction asChild={true}>
+													<Link
+														as='button'
+														data={{
+															deleted: Object.keys(tableStore.rowSelection),
+														}}
+														href={route("backend.resources.delete", {
+															slug: collection.slug,
+														})}
+														method='delete'
+													>
+														{trans("Continue")}
+													</Link>
+												</AlertDialogAction>
+											</AlertDialogFooter>
+										</AlertDialogContent>
+									</AlertDialog>
 								</DataTableSelectedActions>
 								<DataTableUnselectedActions>
-									<TooltipWrapper tooltip={trans("Create")}>
+									<TooltipWrapper tooltip={createLabel}>
 										<Button
 											asChild={true}
 											size='icon'
 										>
 											<Link
+												aria-label={createLabel}
 												as='button'
 												href={route("backend.resources.create", {
 													slug: collection.slug,
 												})}
 											>
 												<Plus className='h-6 w-6' />
-												<span className='sr-only'>{trans("Create")}</span>
 											</Link>
 										</Button>
 									</TooltipWrapper>

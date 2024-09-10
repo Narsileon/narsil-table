@@ -19,6 +19,7 @@ import DropdownMenu from "@narsil-ui/Components/DropdownMenu/DropdownMenu";
 import DropdownMenuContent from "@narsil-ui/Components/DropdownMenu/DropdownMenuContent";
 import DropdownMenuSeparator from "@narsil-ui/Components/DropdownMenu/DropdownMenuSeparator";
 import DropdownMenuTrigger from "@narsil-ui/Components/DropdownMenu/DropdownMenuTrigger";
+import TooltipWrapper from "@narsil-ui/Components/Tooltip/TooltipWrapper";
 
 export type ActionOption = SelectOption & Pick<InertiaLinkProps, "method">;
 
@@ -41,6 +42,8 @@ export interface DataTableRowMenuProps {
 
 const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => {
 	const { trans } = useTranslationsStore();
+
+	const menuLabel = trans("Menu");
 
 	const [href, setHref] = React.useState<InertiaLinkProps["href"]>("");
 	const [method, setMethod] = React.useState<InertiaLinkProps["method"]>("get");
@@ -88,15 +91,17 @@ const DataTableRowMenu = ({ actions, children, row }: DataTableRowMenuProps) => 
 		>
 			<AlertDialog>
 				<DropdownMenu>
-					<DropdownMenuTrigger asChild={true}>
-						<Button
-							size='icon'
-							variant='ghost'
-						>
-							<Ellipsis className='h-6 w-6' />
-							<span className='sr-only'>{trans("Menu")}</span>
-						</Button>
-					</DropdownMenuTrigger>
+					<TooltipWrapper tooltip={menuLabel}>
+						<DropdownMenuTrigger asChild={true}>
+							<Button
+								aria-label={menuLabel}
+								size='icon'
+								variant='ghost'
+							>
+								<Ellipsis className='h-6 w-6' />
+							</Button>
+						</DropdownMenuTrigger>
+					</TooltipWrapper>
 					<DropdownMenuContent align='end'>
 						{actions?.map((action, index) =>
 							action.options ? (

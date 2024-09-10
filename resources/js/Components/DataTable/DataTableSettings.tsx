@@ -15,13 +15,17 @@ export interface DataTableSettingsProps extends PopoverProps {}
 const DataTableSettings = ({ ...props }: DataTableSettingsProps) => {
 	const { trans } = useTranslationsStore();
 
+	const settingsLabel = trans("Settings");
+
 	return (
 		<Popover {...props}>
-			<TooltipWrapper tooltip={trans("Settings")}>
+			<TooltipWrapper tooltip={settingsLabel}>
 				<PopoverTrigger asChild={true}>
-					<Button size='icon'>
+					<Button
+						aria-label={settingsLabel}
+						size='icon'
+					>
 						<Settings className='h-6 w-6' />
-						<span className='sr-only'>{trans("Settings")}</span>
 					</Button>
 				</PopoverTrigger>
 			</TooltipWrapper>

@@ -10,8 +10,11 @@ interface DataTableSelectActionsProps extends React.HTMLAttributes<HTMLDivElemen
 
 const DataTableSelectedActions = React.forwardRef<HTMLDivElement, DataTableSelectActionsProps>(
 	({ className, children, ...props }, ref) => {
-		const { table } = useDataTableContext();
 		const { trans } = useTranslationsStore();
+
+		const clearSelectionLabel = trans("Clear selection");
+
+		const { table } = useDataTableContext();
 
 		return table.getIsAllRowsSelected() || table.getIsSomeRowsSelected() ? (
 			<div
@@ -20,13 +23,13 @@ const DataTableSelectedActions = React.forwardRef<HTMLDivElement, DataTableSelec
 				{...props}
 			>
 				{children}
-				<TooltipWrapper tooltip={trans("Clear selection")}>
+				<TooltipWrapper tooltip={clearSelectionLabel}>
 					<Button
+						aria-label={clearSelectionLabel}
 						size='icon'
 						onClick={() => table.resetRowSelection()}
 					>
 						<X className='h-6 w-6' />
-						<span className='sr-only'>{trans("Clear selection")}</span>
 					</Button>
 				</TooltipWrapper>
 			</div>

@@ -19,6 +19,11 @@ const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePagination
 	({ collection, ...props }, ref) => {
 		const { trans } = useTranslationsStore();
 
+		const firstPageLabel = trans("First page");
+		const lastPageLabel = trans("Last page");
+		const nextPageLabel = trans("Next page");
+		const previousPageLabel = trans("Previous page");
+
 		const { table, tableStore } = useDataTableContext();
 
 		React.useEffect(() => {
@@ -45,52 +50,52 @@ const DataTablePagination = React.forwardRef<HTMLDivElement, DataTablePagination
 		) : (
 			<Pagination>
 				<PaginationList>
-					<TooltipWrapper tooltip={trans("First page")}>
+					<TooltipWrapper tooltip={firstPageLabel}>
 						<PaginationItem>
 							<PaginationButton
 								asChild={false}
-								onClick={() => table.firstPage()}
+								aria-label={firstPageLabel}
 								disabled={!table.getCanPreviousPage()}
+								onClick={() => table.firstPage()}
 							>
 								<ChevronsLeft className='h-5 w-5' />
-								<span className='sr-only'>{trans("First page")}</span>
 							</PaginationButton>
 						</PaginationItem>
 					</TooltipWrapper>
-					<TooltipWrapper tooltip={trans("Previous page")}>
+					<TooltipWrapper tooltip={previousPageLabel}>
 						<PaginationItem>
 							<PaginationButton
 								asChild={false}
-								onClick={() => table.previousPage()}
+								aria-label={previousPageLabel}
 								disabled={!table.getCanPreviousPage()}
+								onClick={() => table.previousPage()}
 							>
 								<ChevronLeft className='h-5 w-5' />
-								<span className='sr-only'>{trans("Previous page")}</span>
 							</PaginationButton>
 						</PaginationItem>
 					</TooltipWrapper>
 
-					<TooltipWrapper tooltip={trans("Next page")}>
+					<TooltipWrapper tooltip={nextPageLabel}>
 						<PaginationItem>
 							<PaginationButton
 								asChild={false}
-								onClick={() => table.nextPage()}
+								aria-label={nextPageLabel}
 								disabled={!table.getCanNextPage()}
+								onClick={() => table.nextPage()}
 							>
 								<ChevronRight className='h-5 w-5' />
-								<span className='sr-only'>{trans("Next page")}</span>
 							</PaginationButton>
 						</PaginationItem>
 					</TooltipWrapper>
-					<TooltipWrapper tooltip={trans("Last page")}>
+					<TooltipWrapper tooltip={lastPageLabel}>
 						<PaginationItem>
 							<PaginationButton
 								asChild={false}
-								onClick={() => table.lastPage()}
+								aria-label={lastPageLabel}
 								disabled={!table.getCanNextPage()}
+								onClick={() => table.lastPage()}
 							>
 								<ChevronsRight className='h-5 w-5' />
-								<span className='sr-only'>{trans("Last page")}</span>
 							</PaginationButton>
 						</PaginationItem>
 					</TooltipWrapper>
