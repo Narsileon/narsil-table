@@ -32,16 +32,18 @@ class ModelCommentCollection extends ResourceCollection
         {
             $attributes = $item->toArray();
 
+            $author = $item->{ModelComment::RELATIONSHIP_AUTHOR};
+
             $attributes[ModelComment::RELATIONSHIP_AUTHOR] = [
-                User::AVATAR => $item->{ModelComment::RELATIONSHIP_AUTHOR}->{User::AVATAR},
-                User::FULL_NAME => $item->{ModelComment::RELATIONSHIP_AUTHOR}->{User::FULL_NAME},
+                User::AVATAR => $author?->{User::AVATAR},
+                User::FIRST_NAME => $author?->{User::FIRST_NAME},
+                User::FULL_NAME => $author?->{User::FULL_NAME},
+                User::LAST_NAME => $author?->{User::LAST_NAME},
             ];
 
             $attributes[ModelComment::AUTHOR_ID] = null;
 
             return array_filter($attributes);
-
-            return $item->toArray();
         });
     }
 

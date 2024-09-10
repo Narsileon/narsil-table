@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Avatar from "@narsil-ui/Components/Avatar/Avatar";
+import AvatarFallback from "@narsil-ui/Components/Avatar/AvatarFallback";
 import Form from "@narsil-forms/Components/Form/Form";
 import FormControl from "@narsil-forms/Components/Form/FormControl";
 import FormDescription from "@narsil-forms/Components/Form/FormDescription";
@@ -80,7 +82,14 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 						</Form>
 					</FormProvider>
 					{comments.data.map((comment) => (
-						<>*</>
+						<div>
+							<Avatar>
+								<AvatarFallback className='text-primary bg-white'>
+									{comment.author.first_name.charAt(0)}
+									{comment.author.last_name.charAt(0)}
+								</AvatarFallback>
+							</Avatar>
+						</div>
 					))}
 				</SectionContent>
 			</Section>

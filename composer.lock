@@ -2167,12 +2167,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-auth.git",
-                "reference": "18c8079fdad98ee0b9ee693e0c6d2f0bb13cc57b"
+                "reference": "a47cd720300879c7667a2bcd6f35d30a7c96e7a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-auth/zipball/18c8079fdad98ee0b9ee693e0c6d2f0bb13cc57b",
-                "reference": "18c8079fdad98ee0b9ee693e0c6d2f0bb13cc57b",
+                "url": "https://api.github.com/repos/Narsileon/narsil-auth/zipball/a47cd720300879c7667a2bcd6f35d30a7c96e7a7",
+                "reference": "a47cd720300879c7667a2bcd6f35d30a7c96e7a7",
                 "shasum": ""
             },
             "require": {
@@ -2226,7 +2226,7 @@
                 "source": "https://github.com/Narsileon/narsil-auth/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-auth/issues"
             },
-            "time": "2024-09-09T08:20:18+00:00"
+            "time": "2024-09-10T05:34:14+00:00"
         },
         {
             "name": "narsil/forms",
@@ -2234,12 +2234,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Narsileon/narsil-forms.git",
-                "reference": "4f3983a973e56e737082cb856cb021adb8333280"
+                "reference": "3560a2c41d4ac727590724b9b190760e1a8b0745"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Narsileon/narsil-forms/zipball/4f3983a973e56e737082cb856cb021adb8333280",
-                "reference": "4f3983a973e56e737082cb856cb021adb8333280",
+                "url": "https://api.github.com/repos/Narsileon/narsil-forms/zipball/3560a2c41d4ac727590724b9b190760e1a8b0745",
+                "reference": "3560a2c41d4ac727590724b9b190760e1a8b0745",
                 "shasum": ""
             },
             "require": {
@@ -2289,7 +2289,7 @@
                 "source": "https://github.com/Narsileon/narsil-forms/tree/main",
                 "issues": "https://github.com/Narsileon/narsil-forms/issues"
             },
-            "time": "2024-09-10T04:41:06+00:00"
+            "time": "2024-09-10T05:22:38+00:00"
         },
         {
             "name": "narsil/localization",
