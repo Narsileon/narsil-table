@@ -28,6 +28,7 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 	const { trans } = useTranslationsStore();
 
 	const formSchema = z.object({
+		_back: z.boolean(),
 		content: z.string().min(1),
 		model_id: z.number(),
 		model_type: z.string(),
@@ -36,6 +37,7 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
+			_back: true,
 			content: "",
 			model_id: modelId,
 			model_type: modelType,

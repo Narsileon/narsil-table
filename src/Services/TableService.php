@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Narsil\Localization\Services\LocalizationService;
 use Narsil\Tables\Structures\ModelColumn;
-use Narsil\Tables\Structures\ModelColumnMeta;
 use Narsil\Tables\Structures\TableColumn;
 
 #endregion
@@ -93,7 +92,7 @@ final class TableService
      */
     private static function getAccessorKey(TableColumn $tableColumn): string
     {
-        return str_replace('_id', '.id', $tableColumn->name);
+        return $tableColumn->foreignTable ? str_replace('_id', '.id', $tableColumn->name) : $tableColumn->name;
     }
 
     /**
@@ -103,7 +102,7 @@ final class TableService
      */
     private static function getHeader(TableColumn $tableColumn): string
     {
-        $attribute = str_replace('_id', '', $tableColumn->name);
+        $attribute = $tableColumn->foreignTable ? str_replace('_id', '', $tableColumn->name) : $tableColumn->name;
 
         return LocalizationService::trans("validation.attributes.$attribute");
     }
