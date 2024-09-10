@@ -1,3 +1,5 @@
+import { formatDistanceToNow } from "date-fns";
+import { useDatetimeLocale } from "@narsil-ui/Components/Input/Datetime/datetimeUtils";
 import { useForm } from "react-hook-form";
 import { usePage } from "@inertiajs/react";
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
@@ -33,6 +35,8 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 	const { trans } = useTranslationsStore();
 
 	const shared = usePage<GlobalProps>().props.shared;
+
+	const datetimeLocale = useDatetimeLocale(shared.localization.locale);
 
 	const formSchema = z.object({
 		_back: z.boolean(),
@@ -103,7 +107,15 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 								</AvatarFallback>
 							</Avatar>
 							<div>
-								<small>{comment.author.full_name}</small>
+								<div className='flex items-center gap-x-1'>
+									<small>{comment.author.full_name}</small>
+									<small className='text-muted-foreground'>
+										{formatDistanceToNow(comment.updated_at, {
+											addSuffix: true,
+											locale: datetimeLocale,
+										})}
+									</small>
+								</div>
 								<div className='prose text-foreground max-w-none'>{parse(comment.content)}</div>
 							</div>
 						</div>
