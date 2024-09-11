@@ -75,7 +75,7 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 
 	return (
 		<Fullscreen>
-			<Section className='flex min-h-full w-full flex-col overflow-hidden p-0'>
+			<Section className='flex min-h-full w-full flex-col overflow-hidden p-2'>
 				<SectionHeader>
 					<SectionTitle>{trans("Comments") + trans(":")}</SectionTitle>
 					<FullscreenToggle />
@@ -105,10 +105,10 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 									control={form.control}
 									name={"content"}
 									render={({ field }) => (
-										<FormItem>
+										<FormItem className='broder-b'>
 											<FormControl>
 												<TextBox
-													className='rounded-none border-b border-l-0 border-r-0 border-t-0 p-0 pb-4'
+													className='border-none p-0 pb-4'
 													{...field}
 													placeholder={trans("Enter a comment...")}
 												/>
@@ -145,7 +145,9 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 											})}
 										</small>
 									</div>
-									<div className='prose text-foreground max-w-none'>{parse(comment.content)}</div>
+									<div className='prose text-foreground max-w-none text-sm'>
+										{parse(comment.content)}
+									</div>
 								</div>
 
 								<AlertDialog>

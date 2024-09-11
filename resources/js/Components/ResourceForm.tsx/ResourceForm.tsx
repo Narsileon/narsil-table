@@ -99,7 +99,7 @@ const ResourceForm = ({ comments = null, footer, form, method, resource, route }
 					className='flex-row gap-x-4'
 					value='comments'
 				>
-					<Card className='w-full'>
+					<Card className='w-full p-2'>
 						<CardContent className='w-full'>
 							<ResourceFormComments
 								comments={comments}
