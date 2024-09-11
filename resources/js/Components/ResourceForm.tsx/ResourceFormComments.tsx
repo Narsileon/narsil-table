@@ -105,10 +105,10 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 									control={form.control}
 									name={"content"}
 									render={({ field }) => (
-										<FormItem className='broder-b'>
+										<FormItem className='border-b pb-2'>
 											<FormControl>
 												<TextBox
-													className='border-none p-0 pb-4'
+													className='border-none p-0'
 													{...field}
 													placeholder={trans("Enter a comment...")}
 												/>
