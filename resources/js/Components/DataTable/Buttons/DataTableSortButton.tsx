@@ -31,9 +31,9 @@ const DataTableSortButton = React.forwardRef<HTMLButtonElement, DataTableSortBut
 					{...props}
 				>
 					{isSorted === "asc" ? (
-						<ChevronUp className={cn("text-primary-highlight h-6 w-6", iconClassName)} />
+						<ChevronUp className={cn("text-primary h-6 w-6", iconClassName)} />
 					) : isSorted === "desc" ? (
-						<ChevronDown className={cn("text-primary-highlight h-6 w-6", iconClassName)} />
+						<ChevronDown className={cn("text-primary h-6 w-6", iconClassName)} />
 					) : (
 						<ChevronsUpDown className={cn("h-6 w-6", iconClassName)} />
 					)}
