@@ -14,7 +14,6 @@
 	"Comments": "Kommentare",
 	"Contains": "Enthält",
 	"Create": "Erstellen",
-	"Created at": "Erstellt am",
 	"Delete": "Löschen",
 	"Disable grouping": "Gruppierung deaktivieren",
 	"Does not contain": "Enthält nicht",
@@ -46,7 +45,6 @@
 	"This action cannot be undone.": "Diese Aktion kann nicht rückgängig gemacht werden.",
 	"True": "Wahr",
 	"Update": "Aktualisieren",
-	"Updated at": "Aktualisiert am",
 	"Value": "Wert",
 	"View": "Anzeigen"
 }

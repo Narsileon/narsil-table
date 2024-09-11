@@ -14,7 +14,6 @@
 	"Comments": "Commentaires",
 	"Contains": "Contient",
 	"Create": "Créer",
-	"Created at": "Créé le",
 	"Delete": "Supprimer",
 	"Disable grouping": "Dégrouper",
 	"Does not contain": "Ne contient pas",
@@ -46,7 +45,6 @@
 	"This action cannot be undone.": "Cette action ne peut pas être annulée.",
 	"True": "Vrai",
 	"Update": "Mettre à jour",
-	"Updated at": "Mis à jour le",
 	"Value": "Valeur",
 	"View": "Voir"
 }
