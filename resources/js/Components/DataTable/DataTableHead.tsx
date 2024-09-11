@@ -79,7 +79,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 									{!header.isPlaceholder && header.column.id !== "_menu" ? (
 										<Button
 											className={cn("block grow truncate px-2 text-left", {
-												"text-primary":
+												"text-primary dark:text-primary-highlight":
 													(header.column.getFilterValue() as any)?.firstFilter ||
 													(header.column.getFilterValue() as any)?.secondFilter ||
 													header.column.getIsGrouped(),
