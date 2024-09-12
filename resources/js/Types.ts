@@ -2,9 +2,13 @@ import type { Collection, CollectionMeta, Resource } from "@narsil-ui/Types";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { UserModel } from "@narsil-auth/Types";
 
+export type Column = ColumnDef<any, any> & {
+	accessorKey: string;
+};
+
 export type DataTableCollection<T = { [key: string]: any }> = Collection<T> & {
 	comments: ModelCommentModel[];
-	columns: ColumnDef<any, any>[];
+	columns: Column[];
 	meta: DataTableCollectionMeta;
 	slug: string;
 	title: string;
@@ -27,7 +31,7 @@ export type ModelCommentModel = {
 };
 
 export type ShowTableResource<T = { [key: string]: any }> = Resource<T> & {
-	columns: ColumnDef<any, any>[];
+	columns: Column[];
 	slug: string;
 	title: string;
 };

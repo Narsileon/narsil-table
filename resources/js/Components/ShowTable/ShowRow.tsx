@@ -2,8 +2,10 @@ import { isArray, isBoolean, isEmpty, isNil, isNumber, isObject, upperFirst } fr
 import { useTranslationsStore } from "@narsil-localization/Stores/translationStore";
 import * as React from "react";
 import TableCell from "@narsil-ui/Components/Table/TableCell";
-import TableCellRenderer, { TableCellRendererProps } from "@narsil-tables/Components/Table/TableCellRenderer";
-import TableRow, { TableRowProps } from "@narsil-ui/Components/Table/TableRow";
+import TableCellRenderer from "@narsil-tables/Components/Table/TableCellRenderer";
+import TableRow from "@narsil-ui/Components/Table/TableRow";
+import type { TableCellRendererProps } from "@narsil-tables/Components/Table/TableCellRenderer";
+import type { TableRowProps } from "@narsil-ui/Components/Table/TableRow";
 
 export interface ShowRowProps extends TableRowProps, Omit<TableCellRendererProps, "defaultValue"> {
 	attribute: string;
