@@ -43,7 +43,7 @@ const ShowTable = React.forwardRef<HTMLTableElement, ShowTableProps>(
 						columns.map((column, index) => {
 							const value = get(data, column.accessorKey);
 
-							return !(nullable && isNil(value)) ? (
+							return !(!nullable && isNil(value)) ? (
 								<ShowRow
 									attribute={column.header as string}
 									formatString={column?.meta?.formatString}
