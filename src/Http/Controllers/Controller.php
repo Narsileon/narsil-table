@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Log;
 use Narsil\Policies\Policies\AbstractPolicy;
 use Narsil\Tables\Constants\TablesConfig;
 
-use function PHPUnit\Framework\isInstanceOf;
-
 #endregion
 
 /**

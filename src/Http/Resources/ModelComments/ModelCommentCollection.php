@@ -1,6 +1,6 @@
 <?php
 
-namespace Narsil\Tables\Http\Resources;
+namespace Narsil\Tables\Http\Resources\ModelComments;
 
 #region USE
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Narsil\Tables\Http\Resources;
+namespace Narsil\Tables\Http\Resources\ModelComments;
 
 #region USE
 
@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Narsil\Auth\Models\User;
 use Narsil\Tables\Constants\Types;
+use Narsil\Tables\Http\Resources\ShowTableResource;
 use Narsil\Tables\Models\ModelComment;
 
 #endregion
