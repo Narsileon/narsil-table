@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Config;
 use Inertia\Inertia;
 use Inertia\Response;
 use Narsil\Forms\Constants\FormsConfig;
-use Narsil\Forms\Http\Resources\FormResource;
+use Narsil\Forms\Http\Resources\Forms\FormResource;
 use Narsil\Policies\Policies\AbstractPolicy;
-use Narsil\Tables\Http\Resources\ModelCommentCollection;
+use Narsil\Tables\Http\Resources\ModelComments\ModelCommentCollection;
 use Narsil\Tables\Models\ModelComment;
 
 #endregion

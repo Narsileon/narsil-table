@@ -39,6 +39,8 @@ const ResourceForm = ({ comments = null, footer, form, method, resource, route }
 		}
 	}, [isTablet]);
 
+	const tabs = resource.form.nodes.filter((x) => x.node_type === "tab");
+
 	return (
 		<Tabs
 			value={tab}
@@ -51,6 +53,15 @@ const ResourceForm = ({ comments = null, footer, form, method, resource, route }
 				>
 					{trans("Main")}
 				</TabsTrigger>
+				{tabs?.slice(1).map((tab) => (
+					<TabsTrigger
+						className='w-full'
+						value={tab.identifier}
+						key={tab.identifier}
+					>
+						{tab.label}
+					</TabsTrigger>
+				))}
 				{comments !== null ? (
 					<TabsTrigger
 						className='w-full gap-x-2'
@@ -83,6 +94,7 @@ const ResourceForm = ({ comments = null, footer, form, method, resource, route }
 								footer={footer}
 								nodes={resource.form.nodes}
 								options={resource.form.options}
+								parentNode={tabs ? tabs[0] : undefined}
 							/>
 						</div>
 						{!isTablet ? (
@@ -92,6 +104,20 @@ const ResourceForm = ({ comments = null, footer, form, method, resource, route }
 							/>
 						) : null}
 					</TabsContent>
+					{tabs?.slice(1).map((tab) => (
+						<TabsContent
+							className='flex-row gap-x-4'
+							value={tab.identifier}
+							key={tab.identifier}
+						>
+							<FormRenderer
+								footer={footer}
+								nodes={resource.form.nodes}
+								options={resource.form.options}
+								parentNode={tab}
+							/>
+						</TabsContent>
+					))}
 				</Form>
 			</FormProvider>
 			{comments ? (
