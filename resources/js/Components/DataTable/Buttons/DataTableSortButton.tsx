@@ -20,8 +20,6 @@ const DataTableSortButton = React.forwardRef<HTMLButtonElement, DataTableSortBut
 
 		const isSorted = header.column.getIsSorted();
 
-		const activeClassName = "text-primary-hightlight dark:text-primary";
-
 		return (
 			<TooltipWrapper tooltip={sortLabel}>
 				<Button
@@ -33,9 +31,9 @@ const DataTableSortButton = React.forwardRef<HTMLButtonElement, DataTableSortBut
 					{...props}
 				>
 					{isSorted === "asc" ? (
-						<ChevronUp className={cn(activeClassName, "h-6 w-6", iconClassName)} />
+						<ChevronUp className={cn("text-primary h-6 w-6", iconClassName)} />
 					) : isSorted === "desc" ? (
-						<ChevronDown className={cn(activeClassName, "h-6 w-6", iconClassName)} />
+						<ChevronDown className={cn("text-primary h-6 w-6", iconClassName)} />
 					) : (
 						<ChevronsUpDown className={cn("h-6 w-6", iconClassName)} />
 					)}

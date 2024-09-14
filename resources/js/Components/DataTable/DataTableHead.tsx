@@ -79,7 +79,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 									{!header.isPlaceholder && header.column.id !== "_menu" ? (
 										<Button
 											className={cn("block grow truncate px-2 text-left", {
-												"text-primary-highlight dark:text-primary":
+												"text-primary":
 													(header.column.getFilterValue() as any)?.firstFilter ||
 													(header.column.getFilterValue() as any)?.secondFilter ||
 													header.column.getIsGrouped(),
@@ -114,8 +114,7 @@ const DataTableHead = ({ header, ...props }: DataTableHeadProps) => {
 								className={cn(
 									"bg-border absolute bottom-0 right-0 top-0 z-10 hidden w-1 cursor-col-resize group-hover:block",
 									{
-										"bg-primary-highlight dark:bg-primary pointer-events-none block":
-											header.column.getIsResizing(),
+										"bg-primary pointer-events-none block": header.column.getIsResizing(),
 									}
 								)}
 								onMouseDown={header.getResizeHandler()}

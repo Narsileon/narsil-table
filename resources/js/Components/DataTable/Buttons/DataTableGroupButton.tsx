@@ -37,11 +37,7 @@ const DataTableGroupButton = React.forwardRef<HTMLButtonElement, DataTableGroupB
 					}}
 					{...props}
 				>
-					{isGrouped ? (
-						<Ungroup className='text-primary-hightlight dark:text-primary h-6 w-6' />
-					) : (
-						<Group className='h-6 w-6' />
-					)}
+					{isGrouped ? <Ungroup className='text-primary h-6 w-6' /> : <Group className='h-6 w-6' />}
 				</Button>
 			</TooltipWrapper>
 		);
