@@ -23,10 +23,14 @@ const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(({ ...props }
 	return (
 		<ScrollArea
 			ref={ref}
+			className='rounded-md border'
 			orientation='horizontal'
 			{...props}
 		>
-			<Table aria-colcount={columns.length}>
+			<Table
+				aria-colcount={columns.length}
+				className='w-fit'
+			>
 				<TableHeader>
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow key={headerGroup.id}>
