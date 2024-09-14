@@ -84,7 +84,7 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 				<SectionContent>
 					<div className='group flex items-start gap-x-4'>
 						<Avatar>
-							<AvatarFallback className='text-primary bg-white'>
+							<AvatarFallback>
 								{shared.auth.first_name.charAt(0)}
 								{shared.auth.last_name.charAt(0)}
 							</AvatarFallback>
@@ -130,7 +130,7 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 								key={comment.id}
 							>
 								<Avatar>
-									<AvatarFallback className='text-primary bg-white'>
+									<AvatarFallback>
 										{comment.author.first_name.charAt(0)}
 										{comment.author.last_name.charAt(0)}
 									</AvatarFallback>
