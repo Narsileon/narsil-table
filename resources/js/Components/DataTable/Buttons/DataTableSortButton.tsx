@@ -20,7 +20,7 @@ const DataTableSortButton = React.forwardRef<HTMLButtonElement, DataTableSortBut
 
 		const isSorted = header.column.getIsSorted();
 
-		const activeClassName = "text-primary dark:text-primary-highlight";
+		const activeClassName = "text-primary-hightlight dark:text-primary";
 
 		return (
 			<TooltipWrapper tooltip={sortLabel}>
