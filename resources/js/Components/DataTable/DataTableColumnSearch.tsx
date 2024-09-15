@@ -62,6 +62,7 @@ const DataTableColumnSearch = ({ header }: DataTableColumnSearchProps) => {
 			case "icon":
 			case "string":
 			case "text":
+			case "trans":
 				options = [
 					{
 						label: trans("Contains"),

@@ -22,7 +22,8 @@ export type TableCellType =
 	| "object"
 	| "string"
 	| "text"
-	| "time";
+	| "time"
+	| "trans";
 
 export interface TableCellRendererProps {
 	className?: string;
