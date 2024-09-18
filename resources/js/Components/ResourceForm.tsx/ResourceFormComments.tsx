@@ -75,7 +75,7 @@ const ResourceFormComments = ({ comments, modelId, modelType }: ResourceFormComm
 
 	return (
 		<Fullscreen>
-			<Section className='flex min-h-full w-full flex-col overflow-hidden p-2 bg-card text-card-foreground'>
+			<Section className='bg-card text-card-foreground flex min-h-full w-full flex-col overflow-hidden p-2'>
 				<SectionHeader>
 					<SectionTitle>{trans("Comments") + trans(":")}</SectionTitle>
 					<FullscreenToggle />
