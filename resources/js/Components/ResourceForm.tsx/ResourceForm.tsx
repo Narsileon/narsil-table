@@ -89,7 +89,7 @@ const ResourceForm = ({ comments = null, footer, form, method, resource, route }
 						className='flex-row gap-x-4'
 						value='main'
 					>
-						<div className='grow'>
+						<div className='grow space-y-4'>
 							<FormRenderer
 								footer={footer}
 								nodes={resource.form.nodes}
